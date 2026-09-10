@@ -1,0 +1,1121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tyler Scherer | Official Website & Authenticated Fan Hub</title>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary: #e50914; 
+            --primary-glow: rgba(229, 9, 20, 0.35);
+            --bg-dark: #090a0f;
+            --bg-card: #13151e;
+            --bg-card-hover: #1c1f2c;
+            --bg-glass: rgba(15, 17, 26, 0.92);
+            --text-main: #f5f5f7;
+            --text-muted: #9499ad;
+            --gold: #ffd700;
+            --verified-blue: #1da1f2;
+            --border-color: rgba(255, 255, 255, 0.08);
+            --font-main: 'Outfit', sans-serif;
+            --font-heading: 'Space Grotesk', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: var(--font-main);
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* --- VERIFICATION & TRUST BANNER --- */
+        .trust-banner {
+            background: linear-gradient(90deg, #111, #1a1c27, #111);
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            text-align: center;
+            padding: 0.4rem 1rem;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .trust-banner span {
+            color: #4cd964;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        /* --- NAVIGATION --- */
+        header {
+            position: sticky;
+            top: 0;
+            width: 100%;
+            background: var(--bg-glass);
+            backdrop-filter: blur(16px);
+            z-index: 1000;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .nav-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.9rem 2rem;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            text-decoration: none;
+            color: #fff;
+        }
+
+        .brand-name {
+            font-family: var(--font-heading);
+            font-size: 1.4rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            text-transform: uppercase;
+        }
+
+        .brand-name span {
+            color: var(--primary);
+        }
+
+        .official-badge {
+            background: rgba(29, 161, 242, 0.15);
+            color: var(--verified-blue);
+            font-size: 0.75rem;
+            padding: 0.2rem 0.6rem;
+            border-radius: 20px;
+            border: 1px solid rgba(29, 161, 242, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            font-weight: 600;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 1.2rem;
+        }
+
+        nav a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            padding: 0.5rem 0.8rem;
+            border-radius: 6px;
+        }
+
+        nav a:hover, nav a.active {
+            color: #fff;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        nav a.active {
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        /* --- MAIN CONTENT & PAGE ROUTING --- */
+        main {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 2.5rem 2rem;
+            min-height: 80vh;
+        }
+
+        .page-view {
+            display: none;
+            animation: pageSlide 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .page-view.active {
+            display: block;
+        }
+
+        @keyframes pageSlide {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- COMMON UI ELEMENTS --- */
+        .section-title {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 3rem auto;
+        }
+
+        .section-title h2 {
+            font-family: var(--font-heading);
+            font-size: 2.4rem;
+            margin-bottom: 0.6rem;
+            letter-spacing: -0.5px;
+        }
+
+        .section-title p {
+            color: var(--text-muted);
+            font-size: 1rem;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            background: var(--primary);
+            color: #fff;
+            padding: 0.8rem 1.6rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px var(--primary-glow);
+        }
+
+        .btn:hover {
+            background: #f4121f;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(229, 9, 20, 0.5);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid var(--border-color);
+            color: #fff;
+            box-shadow: none;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.12);
+            box-shadow: none;
+        }
+
+        /* --- PAGE 1: HOME --- */
+        .hero-banner {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 3rem;
+            align-items: center;
+            padding: 2rem 0 4rem 0;
+        }
+
+        .hero-text h1 {
+            font-family: var(--font-heading);
+            font-size: 3.5rem;
+            line-height: 1.1;
+            margin-bottom: 1.2rem;
+        }
+
+        .hero-text h1 span {
+            color: var(--primary);
+        }
+
+        .hero-text p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            max-width: 580px;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .hero-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--gold));
+        }
+
+        /* --- PAGE 2: SHOWS & APPEARANCES --- */
+        .shows-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 1.8rem;
+        }
+
+        .show-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 1.8rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+
+        .show-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .show-tag {
+            align-self: flex-start;
+            background: rgba(229, 9, 20, 0.15);
+            color: var(--primary);
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+
+        .show-title {
+            font-size: 1.35rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .show-info {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+        }
+
+        .show-info i {
+            width: 20px;
+            color: var(--primary);
+        }
+
+        /* --- PAGE 3: TOP 10 FANBOARD --- */
+        .leaderboard-wrap {
+            max-width: 850px;
+            margin: 0 auto;
+            background: var(--bg-card);
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+        }
+
+        .leaderboard-head {
+            background: rgba(255, 255, 255, 0.02);
+            padding: 1.2rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px solid var(--border-color);
+            font-weight: 700;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+        }
+
+        .fan-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.2rem 2rem;
+            border-bottom: 1px solid var(--border-color);
+            transition: background 0.2s ease;
+        }
+
+        .fan-row:last-child { border-bottom: none; }
+        .fan-row:hover { background: var(--bg-card-hover); }
+
+        .fan-left {
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+        }
+
+        .rank-number {
+            font-family: var(--font-heading);
+            font-size: 1.3rem;
+            font-weight: 700;
+            width: 32px;
+            text-align: center;
+            color: var(--text-muted);
+        }
+
+        .rank-1 { color: var(--gold); }
+        .rank-2 { color: #c0c0c0; }
+        .rank-3 { color: #cd7f32; }
+
+        .fan-details h4 {
+            font-size: 1.05rem;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .fan-details p {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .fan-score {
+            font-family: var(--font-heading);
+            font-weight: 700;
+            color: var(--primary);
+            font-size: 1.1rem;
+        }
+
+        /* --- PAGE 4: VIP GROUPS --- */
+        .vip-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .vip-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 2.5rem 2rem;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .vip-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .telegram-bg { background: rgba(0, 136, 204, 0.15); color: #0088cc; }
+        .whatsapp-bg { background: rgba(37, 211, 102, 0.15); color: #25d366; }
+
+        /* --- PAGE 5: FAN BADGES --- */
+        .badges-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .badge-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 2.5rem 2rem;
+            text-align: center;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .badge-card.featured {
+            border-color: var(--gold);
+            background: linear-gradient(180deg, rgba(255, 215, 0, 0.03) 0%, var(--bg-card) 100%);
+        }
+
+        .badge-card.featured::after {
+            content: 'MOST POPULAR';
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--gold);
+            color: #000;
+            font-size: 0.7rem;
+            font-weight: 800;
+            padding: 0.2rem 0.8rem;
+            border-radius: 10px;
+        }
+
+        .badge-price {
+            font-family: var(--font-heading);
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin: 1rem 0;
+        }
+
+        .badge-features {
+            list-style: none;
+            margin: 1.5rem 0;
+            text-align: left;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .badge-features li {
+            margin-bottom: 0.6rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .badge-features i { color: #4cd964; }
+
+        /* --- PAGE 6: CHARITY --- */
+        .charity-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 3rem;
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .amount-selector {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .amount-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color);
+            color: #fff;
+            padding: 0.8rem 1.6rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .amount-btn.active, .amount-btn:hover {
+            border-color: var(--primary);
+            background: var(--primary);
+        }
+
+        /* --- PAGE 7: FILMOGRAPHY (AUTHENTICITY ADDITION) --- */
+        .film-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.8rem;
+        }
+
+        .film-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.5rem;
+        }
+
+        .film-role {
+            color: var(--primary);
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .film-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin: 0.3rem 0;
+        }
+
+        /* --- PAGE 8: PRESS & MEDIA KIT (TRUST ADDITION) --- */
+        .press-box {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 2.5rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .quote-block {
+            border-left: 3px solid var(--primary);
+            padding-left: 1.5rem;
+            margin-bottom: 2rem;
+            font-style: italic;
+            color: var(--text-main);
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            background: #06070a;
+            border-top: 1px solid var(--border-color);
+            padding: 3rem 2rem;
+            margin-top: 4rem;
+        }
+
+        .footer-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 1.2rem;
+        }
+
+        .social-icons a {
+            width: 40px;
+            height: 40px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            color: #fff;
+            border-color: var(--primary);
+            background: var(--primary);
+        }
+
+        /* --- MODAL DIALOG --- */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(8px);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            padding: 1rem;
+        }
+
+        .modal-content {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 2.5rem;
+            max-width: 500px;
+            width: 100%;
+            position: relative;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 1.2rem; right: 1.5rem;
+            font-size: 1.5rem;
+            color: var(--text-muted);
+            cursor: pointer;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 900px) {
+            .hero-banner { grid-template-columns: 1fr; }
+            .vip-container { grid-template-columns: 1fr; }
+            nav ul { display: none; } /* Mobile Menu Toggle can be added */
+            .nav-container { padding: 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- AUTHENTICITY TRUST HEADER -->
+    <div class="trust-banner">
+        <span><i class="fa-solid fa-shield-halved"></i> OFFICIAL VERIFIED PORTAL</span>
+        | Encrypted Connections & Direct Artist Management Access
+        | ID: <strong>TS-ACTOR-8821-VERIFIED</strong>
+    </div>
+
+    <!-- NAVIGATION HEADER -->
+    <header>
+        <div class="nav-container">
+            <a href="#" class="brand" onclick="openPage('home')">
+                <div class="brand-name">Tyler <span>Scherer</span></div>
+                <div class="official-badge"><i class="fa-solid fa-circle-check"></i> Official</div>
+            </a>
+            <nav>
+                <ul>
+                    <li><a onclick="openPage('home')" id="nav-home" class="active">Home</a></li>
+                    <li><a onclick="openPage('shows')" id="nav-shows">Appearances</a></li>
+                    <li><a onclick="openPage('fanboard')" id="nav-fanboard">Fanboard</a></li>
+                    <li><a onclick="openPage('badges')" id="nav-badges">Fan Badges</a></li>
+                    <li><a onclick="openPage('vip')" id="nav-vip">VIP Groups</a></li>
+                    <li><a onclick="openPage('filmography')" id="nav-filmography">Filmography</a></li>
+                    <li><a onclick="openPage('charity')" id="nav-charity">Charity</a></li>
+                    <li><a onclick="openPage('press')" id="nav-press">Press Kit</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+
+        <!-- SUBSECTION 1: HOME PAGE -->
+        <section id="home" class="page-view active">
+            <div class="hero-banner">
+                <div class="hero-text">
+                    <h1>Actor, Performer & <span>Vertical Drama Star</span></h1>
+                    <p>Welcome to the official hub for Tyler Scherer. Explore exclusive live event bookings, verified fan memberships, direct VIP community channels, and charitable initiatives.</p>
+                    <div class="hero-actions">
+                        <button class="btn" onclick="openPage('shows')"><i class="fa-solid fa-ticket"></i> Book Next Appearance</button>
+                        <button class="btn btn-secondary" onclick="openPage('vip')"><i class="fa-brands fa-telegram"></i> VIP Access</button>
+                    </div>
+                </div>
+                <div class="hero-card">
+                    <div style="font-size: 0.8rem; color: var(--gold); font-weight: 700; text-transform: uppercase; margin-bottom: 0.5rem;"><i class="fa-solid fa-star"></i> Featured Career Milestone</div>
+                    <h3 style="font-size: 1.4rem; margin-bottom: 0.5rem;">Lead Actor in Top Vertical Dramas</h3>
+                    <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1.5rem;">Starring as Andrew Miller in <em>Ex-Husband Step Aside: Lady Boss Returns</em> & Jackson Steele in <em>Shhh, Professor! Please Don't Tell</em>.</p>
+                    <button class="btn btn-secondary" onclick="openPage('filmography')" style="width: 100%;">Explore Full Filmography</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- SUBSECTION 2: UPCOMING SHOWS & TICKETS -->
+        <section id="shows" class="page-view">
+            <div class="section-title">
+                <h2>Upcoming Appearances & Tickets</h2>
+                <p>Reserve verified seating and pass tickets for Tyler Scherer's upcoming stage appearances, conventions, and premieres.</p>
+            </div>
+            <div class="shows-grid">
+                <!-- Event 1 -->
+                <div class="show-card">
+                    <div>
+                        <div class="show-tag">Live Stage Musical</div>
+                        <div class="show-title">The Producers (Stage Production)</div>
+                        <div class="show-info">
+                            <span><i class="fa-solid fa-location-dot"></i> Ogunquit Playhouse, ME</span>
+                            <span><i class="fa-solid fa-calendar"></i> Verified Seasonal Run</span>
+                        </div>
+                    </div>
+                    <button class="btn" onclick="openBookingModal('The Producers Musical Ticket')">Order Tickets</button>
+                </div>
+                <!-- Event 2 -->
+                <div class="show-card">
+                    <div>
+                        <div class="show-tag">VIP Fan Premiere</div>
+                        <div class="show-title">Los Angeles Creator Meet & Q&A</div>
+                        <div class="show-info">
+                            <span><i class="fa-solid fa-location-dot"></i> Hollywood Arts Center, LA</span>
+                            <span><i class="fa-solid fa-calendar"></i> Exclusive Private Pass</span>
+                        </div>
+                    </div>
+                    <button class="btn" onclick="openBookingModal('LA VIP Fan Meetup Pass')">Order Tickets</button>
+                </div>
+                <!-- Event 3 -->
+                <div class="show-card">
+                    <div>
+                        <div class="show-tag">Creator Expo</div>
+                        <div class="show-title">Vertical Micro-Drama Convention</div>
+                        <div class="show-info">
+                            <span><i class="fa-solid fa-location-dot"></i> New York Convention Hall</span>
+                            <span><i class="fa-solid fa-calendar"></i> Main Stage Guest Panel</span>
+                        </div>
+                    </div>
+                    <button class="btn" onclick="openBookingModal('NY Drama Convention Pass')">Order Tickets</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- SUBSECTION 3: VERIFIED FANBOARD (TOP 10) -->
+        <section id="fanboard" class="page-view">
+            <div class="section-title">
+                <h2>Verified Top 10 Fan Leaderboard</h2>
+                <p>Recognizing the official top supporters of the month. Points are earned through official badge engagement and event attendance.</p>
+            </div>
+            <div class="leaderboard-wrap">
+                <div class="leaderboard-head">
+                    <span>Rank & Fan Name</span>
+                    <span>Verified Status / XP</span>
+                </div>
+                <!-- Top 10 List -->
+                <div class="fan-row">
+                    <div class="fan-left">
+                        <span class="rank-number rank-1">#1</span>
+                        <div class="fan-details">
+                            <h4>Sarah Jenkins <i class="fa-solid fa-circle-check" style="color: var(--verified-blue);"></i></h4>
+                            <p>Gold Elite Badge Owner</p>
+                        </div>
+                    </div>
+                    <div class="fan-score">18,450 XP</div>
+                </div>
+                <div class="fan-row">
+                    <div class="fan-left">
+                        <span class="rank-number rank-2">#2</span>
+                        <div class="fan-details">
+                            <h4>Marcus Vance <i class="fa-solid fa-circle-check" style="color: var(--verified-blue);"></i></h4>
+                            <p>Gold Elite Badge Owner</p>
+                        </div>
+                    </div>
+                    <div class="fan-score">15,200 XP</div>
+                </div>
+                <div class="fan-row">
+                    <div class="fan-left">
+                        <span class="rank-number rank-3">#3</span>
+                        <div class="fan-details">
+                            <h4>Elena Rostova <i class="fa-solid fa-circle-check" style="color: var(--verified-blue);"></i></h4>
+                            <p>Silver VIP Badge Owner</p>
+                        </div>
+                    </div>
+                    <div class="fan-score">12,800 XP</div>
+                </div>
+                <div class="fan-row">
+                    <div class="fan-left">
+                        <span class="rank-number">#4</span>
+                        <div class="fan-details">
+                            <h4>David K. <i class="fa-solid fa-circle-check" style="color: var(--verified-blue);"></i></h4>
+                            <p>Silver VIP Badge Owner</p>
+                        </div>
+                    </div>
+                    <div class="fan-score">10,400 XP</div>
+                </div>
+                <div class="fan-row">
+                    <div class="fan-left">
+                        <span class="rank-number">#5</span>
+                        <div class="fan-details">
+                            <h4>Chloe Miller <i class="fa-solid fa-circle-check" style="color: var(--verified-blue);"></i></h4>
+                            <p>Bronze Badge Owner</p>
+                        </div>
+                    </div>
+                    <div class="fan-score">9,100 XP</div>
+                </div>
+                <div class="fan-row">
+                    <div class="fan-left">
+                        <span class="rank-number">#6</span>
+                        <div class="fan-details">
+                            <h4>Alex Chen <i class="fa-solid fa-circle-check" style="color: var(--verified-blue);"></i></h4>
+                            <p>Bronze Badge Owner</p>
+                        </div>
+                    </div>
+                    <div class="fan-score">8,250 XP</div>
+                </div>
+                <div class="fan-row">
+                    <div class="fan-left">
+                        <span class="rank-number">#7</span>
+                        <div class="fan-details">
+                            <h4>Jessica Taylor <i class="fa-solid fa-circle-check" style="color: var(--verified-blue);"></i></h4>
+                            <p>Bronze Badge Owner</p>
+                        </div>
+                    </div>
+                    <div class="fan-score">7,400 XP</div>
+                </div>
+                <div class="fan-row">
+                    <div class="fan-left">
+                        <span class="rank-number">#8</span>
+                        <div class="fan-details">
+                            <h4>Liam O'Connor <i class="fa-solid fa-circle-check" style="color: var(--verified-blue);"></i></h4>
+                            <p>Bronze Badge Owner</p>
+                        </div>
+                    </div>
+                    <div class="fan-score">6,300 XP</div>
+                </div>
+                <div class="fan-row">
+                    <div class="fan-left">
+                        <span class="rank-number">#9</span>
+                        <div class="fan-details">
+                            <h4>Hannah Wright <i class="fa-solid fa-circle-check" style="color: var(--verified-blue);"></i></h4>
+                            <p>Bronze Badge Owner</p>
+                        </div>
+                    </div>
+                    <div class="fan-score">5,500 XP</div>
+                </div>
+                <div class="fan-row">
+                    <div class="fan-left">
+                        <span class="rank-number">#10</span>
+                        <div class="fan-details">
+                            <h4>Noah Bennett <i class="fa-solid fa-circle-check" style="color: var(--verified-blue);"></i></h4>
+                            <p>Bronze Badge Owner</p>
+                        </div>
+                    </div>
+                    <div class="fan-score">4,800 XP</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SUBSECTION 4: VIP GROUPS -->
+        <section id="vip" class="page-view">
+            <div class="section-title">
+                <h2>Join VIP Communities</h2>
+                <p>Direct communication hubs. Connect with fellow fans, get instant production updates, and voice notes.</p>
+            </div>
+            <div class="vip-container">
+                <div class="vip-card">
+                    <div class="vip-icon telegram-bg"><i class="fa-brands fa-telegram"></i></div>
+                    <h3>VIP Telegram Club</h3>
+                    <p style="color: var(--text-muted); font-size: 0.95rem; margin: 0.8rem 0 1.5rem 0;">Get early ticket notifications, exclusive BTS clips, and voice messages directly from set.</p>
+                    <a href="https://t.me" target="_blank" class="btn" style="width: 100%;"><i class="fa-brands fa-telegram"></i> Join Telegram Channel</a>
+                </div>
+                <div class="vip-card">
+                    <div class="vip-icon whatsapp-bg"><i class="fa-brands fa-whatsapp"></i></div>
+                    <h3>WhatsApp Community</h3>
+                    <p style="color: var(--text-muted); font-size: 0.95rem; margin: 0.8rem 0 1.5rem 0;">Participate in official group discussions, stream alerts, and live audience polls.</p>
+                    <a href="https://whatsapp.com" target="_blank" class="btn" style="width: 100%; background: #25d366;"><i class="fa-brands fa-whatsapp"></i> Join WhatsApp Group</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- SUBSECTION 5: ORDER FAN BADGES -->
+        <section id="badges" class="page-view">
+            <div class="section-title">
+                <h2>Official Fan Badges</h2>
+                <p>Order physical and digital tier badges to confirm your authenticity on the fanboard and gain exclusive perks.</p>
+            </div>
+            <div class="badges-grid">
+                <!-- Badge Tier 1 -->
+                <div class="badge-card">
+                    <div>
+                        <i class="fa-solid fa-shield-cat" style="font-size: 3rem; color: #cd7f32;"></i>
+                        <h3 style="margin-top: 1rem;">Bronze Supporter</h3>
+                        <div class="badge-price">$15.00</div>
+                        <ul class="badge-features">
+                            <li><i class="fa-solid fa-check"></i> Digital Supporter ID</li>
+                            <li><i class="fa-solid fa-check"></i> VIP Telegram Channel Access</li>
+                            <li><i class="fa-solid fa-check"></i> Standard Leaderboard Profile</li>
+                        </ul>
+                    </div>
+                    <button class="btn btn-secondary" onclick="openBookingModal('Bronze Supporter Badge Order')">Order Badge</button>
+                </div>
+                <!-- Badge Tier 2 (Featured) -->
+                <div class="badge-card featured">
+                    <div>
+                        <i class="fa-solid fa-award" style="font-size: 3rem; color: #c0c0c0;"></i>
+                        <h3 style="margin-top: 1rem;">Silver VIP Badge</h3>
+                        <div class="badge-price">$35.00</div>
+                        <ul class="badge-features">
+                            <li><i class="fa-solid fa-check"></i> Physical Metal Pin Shipped</li>
+                            <li><i class="fa-solid fa-check"></i> Telegram & WhatsApp VIP Groups</li>
+                            <li><i class="fa-solid fa-check"></i> Verified Blue Tick on Fanboard</li>
+                            <li><i class="fa-solid fa-check"></i> Priority Ticket Booking Access</li>
+                        </ul>
+                    </div>
+                    <button class="btn" onclick="openBookingModal('Silver VIP Badge Order')">Order Badge</button>
+                </div>
+                <!-- Badge Tier 3 -->
+                <div class="badge-card">
+                    <div>
+                        <i class="fa-solid fa-crown" style="font-size: 3rem; color: var(--gold);"></i>
+                        <h3 style="margin-top: 1rem;">Gold Elite Founder</h3>
+                        <div class="badge-price">$75.00</div>
+                        <ul class="badge-features">
+                            <li><i class="fa-solid fa-check"></i> Numbered Gold Founder Medal</li>
+                            <li><i class="fa-solid fa-check"></i> 2x Leaderboard XP Multiplier</li>
+                            <li><i class="fa-solid fa-check"></i> Signed Autograph Collector Card</li>
+                            <li><i class="fa-solid fa-check"></i> Guaranteed Meet-and-Greet Pass</li>
+                        </ul>
+                    </div>
+                    <button class="btn btn-secondary" onclick="openBookingModal('Gold Elite Founder Badge Order')">Order Badge</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- SUBSECTION 6: FILMOGRAPHY & CAREER (AUTHENTICITY BOOST) -->
+        <section id="filmography" class="page-view">
+            <div class="section-title">
+                <h2>Featured Filmography & Stage Roles</h2>
+                <p>An authentic catalog of Tyler Scherer's notable screen and stage performances.</p>
+            </div>
+            <div class="film-grid">
+                <div class="film-card">
+                    <div class="film-role">Lead Role (Vertical Series)</div>
+                    <div class="film-title">Ex-Husband Step Aside: Lady Boss Returns</div>
+                    <p style="color: var(--text-muted); font-size: 0.85rem;">Role: Andrew Miller</p>
+                </div>
+                <div class="film-card">
+                    <div class="film-role">Lead Role</div>
+                    <div class="film-title">Shhh, Professor! Please Don't Tell</div>
+                    <p style="color: var(--text-muted); font-size: 0.85rem;">Role: Jackson Steele</p>
+                </div>
+                <div class="film-card">
+                    <div class="film-role">Lead Role</div>
+                    <div class="film-title">Coaching His Heart</div>
+                    <p style="color: var(--text-muted); font-size: 0.85rem;">Role: Tom (Hockey Captain)</p>
+                </div>
+                <div class="film-card">
+                    <div class="film-role">Stage & Musical Theater</div>
+                    <div class="film-title">Beauty and the Beast (National Tour)</div>
+                    <p style="color: var(--text-muted); font-size: 0.85rem;">Over 30 Stage & Theater Credits</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SUBSECTION 7: CHARITY DONATIONS -->
+        <section id="charity" class="page-view">
+            <div class="section-title">
+                <h2>Charity & Community Initiatives</h2>
+                <p>Support performing arts programs empowering underprivileged youth talent.</p>
+            </div>
+            <div class="charity-card">
+                <i class="fa-solid fa-hand-holding-heart" style="font-size: 3.5rem; color: var(--primary); margin-bottom: 1rem;"></i>
+                <h3>Youth Arts Stage Foundation</h3>
+                <p style="color: var(--text-muted); margin-top: 0.5rem; font-size: 0.95rem;">All contributions directly finance stage equipment, acting classes, and scholarships for young aspiring talent.</p>
+                
+                <div class="amount-selector">
+                    <button class="amount-btn" onclick="selectAmount(this, 10)">$10</button>
+                    <button class="amount-btn active" onclick="selectAmount(this, 25)">$25</button>
+                    <button class="amount-btn" onclick="selectAmount(this, 50)">$50</button>
+                    <button class="amount-btn" onclick="selectAmount(this, 100)">$100</button>
+                </div>
+
+                <button class="btn" onclick="openBookingModal('Charity Donation')"><i class="fa-solid fa-heart"></i> Process Secure Donation</button>
+            </div>
+        </section>
+
+        <!-- SUBSECTION 8: PRESS & MEDIA KIT (AUTHENTICITY & TRUST) -->
+        <section id="press" class="page-view">
+            <div class="section-title">
+                <h2>Press & Artist Bio</h2>
+                <p>Verified information for media outlets, casting directors, and interviewers.</p>
+            </div>
+            <div class="press-box">
+                <div class="quote-block">
+                    "I used to pray for times like the ones I'm in right now where I can just be on set every week and hone my craft. There is no better community out there than the fans."
+                    <div style="font-size: 0.85rem; color: var(--primary); font-weight: 700; margin-top: 0.5rem;">— Tyler Scherer (Digital Journal Interview)</div>
+                </div>
+                <h4 style="margin-bottom: 0.5rem;">Biography</h4>
+                <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1.5rem;">Raised in Pittsburgh, Pennsylvania, Tyler Scherer holds a BFA in Musical Theater from Point Park University. Having performed in over 30 theater productions—including national tours—he transitioned into national commercials (Old Navy, Walmart) before emerging as one of vertical drama's top male leads.</p>
+                <div style="display: flex; gap: 1rem;">
+                    <a href="https://instagram.com/gowatchmyreel" target="_blank" class="btn btn-secondary"><i class="fa-brands fa-instagram"></i> Instagram (@gowatchmyreel)</a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- MODAL FOR TRANSACTIONS & BOOKINGS -->
+    <div id="actionModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal()">&times;</span>
+            <h3 id="modalTitle" style="margin-bottom: 0.5rem;">Secure Portal</h3>
+            <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.5rem;">Verified Security Check • Powered by SSL Encryption</p>
+            <form onsubmit="handleFormSubmit(event)">
+                <div style="margin-bottom: 1rem;">
+                    <label style="font-size: 0.85rem; color: var(--text-muted); display: block; margin-bottom: 0.3rem;">Full Name</label>
+                    <input type="text" required placeholder="Enter full name" style="width: 100%; padding: 0.8rem; background: rgba(0,0,0,0.3); border: 1px solid var(--border-color); color: #fff; border-radius: 6px;">
+                </div>
+                <div style="margin-bottom: 1.5rem;">
+                    <label style="font-size: 0.85rem; color: var(--text-muted); display: block; margin-bottom: 0.3rem;">Email Address</label>
+                    <input type="email" required placeholder="Enter email" style="width: 100%; padding: 0.8rem; background: rgba(0,0,0,0.3); border: 1px solid var(--border-color); color: #fff; border-radius: 6px;">
+                </div>
+                <button type="submit" class="btn" style="width: 100%;">Complete Transaction</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-container">
+            <div>
+                <div class="brand-name" style="font-size: 1.1rem; margin-bottom: 0.3rem;">Tyler <span>Scherer</span></div>
+                <p style="color: var(--text-muted); font-size: 0.85rem;">Official Actor & Performer Hub • Instagram: @gowatchmyreel</p>
+            </div>
+            <div class="social-icons">
+                <a href="https://instagram.com/gowatchmyreel" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#"><i class="fa-brands fa-tiktok"></i></a>
+                <a href="#"><i class="fa-brands fa-youtube"></i></a>
+                <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
+            </div>
+        </div>
+        <div style="text-align: center; color: var(--text-muted); font-size: 0.75rem; margin-top: 2rem; border-top: 1px solid var(--border-color); padding-top: 1.5rem;">
+            &copy; 2026 Tyler Scherer. All rights reserved. Encrypted Fan Portal ID: TS-8821-SECURE
+        </div>
+    </footer>
+
+    <!-- INTERACTIVE SCRIPT ARCHITECTURE -->
+    <script>
+        // Multi-Page Navigation Controller
+        function openPage(pageId) {
+            // Hide all pages
+            const pages = document.querySelectorAll('.page-view');
+            pages.forEach(page => page.classList.remove('active'));
+
+            // Deactivate all nav links
+            const navLinks = document.querySelectorAll('nav a');
+            navLinks.forEach(link => link.classList.remove('active'));
+
+            // Show selected page
+            const targetPage = document.getElementById(pageId);
+            if (targetPage) {
+                targetPage.classList.add('active');
+            }
+
+            // Set nav active indicator
+            const targetNav = document.getElementById('nav-' + pageId);
+            if (targetNav) {
+                targetNav.classList.add('active');
+            }
+
+            // Smooth scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Donation Selection
+        function selectAmount(element, value) {
+            document.querySelectorAll('.amount-btn').forEach(btn => btn.classList.remove('active'));
+            element.classList.add('active');
+        }
+
+        // Modal Handlers
+        function openBookingModal(itemTitle) {
+            document.getElementById('modalTitle').innerText = itemTitle;
+            document.getElementById('actionModal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('actionModal').style.display = 'none';
+        }
+
+        function handleFormSubmit(event) {
+            event.preventDefault();
+            alert('Request submitted! Confirmation receipt sent to email.');
+            closeModal();
+        }
+
+        // Close modal on background click
+        window.onclick = function(event) {
+            const modal = document.getElementById('actionModal');
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
+    </script>
+</body>
+</html>
