@@ -525,7 +525,7 @@
             border: 1px solid var(--border);
             border-radius: 12px;
             padding: 2rem;
-            max-width: 440px;
+            max-width: 460px;
             width: 100%;
             position: relative;
         }
@@ -648,35 +648,38 @@
             </div>
         </section>
 
-        <!-- PAGE 3: FILMOGRAPHY & PROJECTS -->
+        <!-- PAGE 3: FILMOGRAPHY & PROJECTS (FREE TO VIEW) -->
         <section id="page-projects" class="page">
             <div class="page-header">
                 <h1>Filmography & Drama Lead Roles</h1>
-                <p>Recent micro-drama series, TV appearances, and theatrical productions starring Tyler Scherer.</p>
+                <p>Explore recent micro-drama series, TV appearances, and theatrical productions starring Tyler Scherer.</p>
             </div>
+            
             <div class="card film-card">
                 <div>
                     <div class="film-tag">ReelShort Series • Lead</div>
                     <h3>Ex-Husband Step Aside: Lady Boss Returns</h3>
                     <p style="color: var(--text-muted); font-size: 0.85rem;">Role: Andrew Miller • 29.2M+ Views</p>
                 </div>
-                <button class="btn btn-outline" onclick="openCheckout('Lady Boss Collector Pass', 115)">View Details ($115.00)</button>
+                <button class="btn btn-outline" onclick="showProjectDetails('Ex-Husband Step Aside: Lady Boss Returns', 'Andrew Miller (Lead)', 'ReelShort App', 'Romantic Drama', '2024–2025', 'Follows the intense story of Andrew Miller navigating high-stakes business betrayal and hidden identities in a multi-episode vertical hit.')">View Details</button>
             </div>
+
             <div class="card film-card">
                 <div>
                     <div class="film-tag">ReelShort Original • Lead</div>
                     <h3>Coaching His Heart</h3>
-                    <p style="color: var(--text-muted); font-size: 0.85rem;">Role: Tom (Ice Captain) • 25.2M+ Views</p>
+                    <p style="color: var(--text-muted); font-size: 0.85rem;">Role: Tom (Ice Hockey Captain) • 25.2M+ Views</p>
                 </div>
-                <button class="btn btn-outline" onclick="openCheckout('Coaching His Heart Pass', 115)">View Details ($115.00)</button>
+                <button class="btn btn-outline" onclick="showProjectDetails('Coaching His Heart', 'Tom (Ice Captain)', 'ReelShort App', 'Sports Romance / Drama', '2024', 'Tyler stars as Tom, an elite hockey team captain facing career crossroads while falling for his determined ice rink trainer.')">View Details</button>
             </div>
+
             <div class="card film-card">
                 <div>
                     <div class="film-tag">Disney+ Television</div>
                     <h3>The Mighty Ducks: Game Changers</h3>
-                    <p style="color: var(--text-muted); font-size: 0.85rem;">Role: Co-Star</p>
+                    <p style="color: var(--text-muted); font-size: 0.85rem;">Role: Co-Star Guest Appearance</p>
                 </div>
-                <button class="btn btn-outline" onclick="openCheckout('Mighty Ducks Press Pass', 115)">View Details ($115.00)</button>
+                <button class="btn btn-outline" onclick="showProjectDetails('The Mighty Ducks: Game Changers', 'Co-Star Guest', 'Disney+', 'Family / Sports Comedy', '2022', 'Featured guest appearance on the Disney+ original series following youth hockey development leagues in Minnesota.')">View Details</button>
             </div>
         </section>
 
@@ -868,7 +871,7 @@
             </div>
         </section>
 
-        <!-- PAGE 11: CHARITY (DYNAMIC CUSTOM AMOUNT, MIN $50) -->
+        <!-- PAGE 11: CHARITY -->
         <section id="page-charity" class="page">
             <div class="page-header">
                 <h1>Charity & Foundation Initiatives</h1>
@@ -912,6 +915,24 @@
 
     </main>
 
+    <!-- FREE PROJECT DETAILS MODAL -->
+    <div class="modal" id="projectModal">
+        <div class="modal-body">
+            <button class="modal-close" onclick="closeProjectDetails()"><i class="fa-solid fa-xmark"></i></button>
+            <h2 id="projTitle" style="margin-bottom: 0.4rem; font-family: var(--font-heading);">Project Title</h2>
+            <div style="margin-bottom: 1rem; font-size: 0.85rem; color: var(--primary); font-weight: 700;" id="projRole">Role</div>
+            
+            <div class="specs-grid" style="grid-template-columns: 1fr 1fr; margin-bottom: 1rem;">
+                <div class="spec-box"><label>Platform</label><span id="projPlatform">-</span></div>
+                <div class="spec-box"><label>Genre</label><span id="projGenre">-</span></div>
+            </div>
+            
+            <p id="projDesc" style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.5; margin-bottom: 1.5rem;"></p>
+            
+            <button class="btn" style="width: 100%;" onclick="closeProjectDetails()">Close Details</button>
+        </div>
+    </div>
+
     <!-- CHECKOUT MODAL -->
     <div class="modal" id="checkoutModal">
         <div class="modal-body">
@@ -949,6 +970,7 @@
         const openMenuBtn = document.getElementById('openMenuBtn');
         const closeMenuBtn = document.getElementById('closeMenuBtn');
         const checkoutModal = document.getElementById('checkoutModal');
+        const projectModal = document.getElementById('projectModal');
 
         // Drawer Controls
         function openMenu() {
@@ -978,6 +1000,20 @@
         function navigate(pageId) {
             switchPage(pageId);
             closeMenu();
+        }
+
+        // Free Project Info Modal
+        function showProjectDetails(title, role, platform, genre, year, desc) {
+            document.getElementById('projTitle').innerText = title;
+            document.getElementById('projRole').innerText = "ROLE: " + role;
+            document.getElementById('projPlatform').innerText = platform;
+            document.getElementById('projGenre').innerText = genre;
+            document.getElementById('projDesc').innerText = desc;
+            projectModal.style.display = 'flex';
+        }
+
+        function closeProjectDetails() {
+            projectModal.style.display = 'none';
         }
 
         // Checkout Modal
@@ -1033,5 +1069,3 @@
     </script>
 </body>
 </html>
-
-
