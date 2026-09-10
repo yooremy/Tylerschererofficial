@@ -3,26 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tyler Scherer | Official Portal</title>
+    <title>Tyler Scherer | Official Actor & VIP Portal</title>
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
 
     <style>
         :root {
-            --bg-dark: #0a0a0c;
-            --bg-card: #121318;
-            --bg-hover: #1a1c23;
+            --bg-dark: #08090c;
+            --bg-card: #11131a;
+            --bg-hover: #191c26;
             --primary: #e50914;
+            --primary-glow: rgba(229, 9, 20, 0.4);
             --text-main: #ffffff;
-            --text-muted: #8e92a2;
+            --text-muted: #8f94a6;
             --border: rgba(255, 255, 255, 0.08);
             --verified-blue: #1da1f2;
             --gold: #ffd700;
             --font-family: 'Outfit', sans-serif;
+            --font-heading: 'Space Grotesk', sans-serif;
         }
 
         * {
@@ -41,13 +43,26 @@
             overflow-x: hidden;
         }
 
+        /* --- TRUST BANNER --- */
+        .trust-banner {
+            background: #0d0e14;
+            color: var(--text-muted);
+            font-size: 0.78rem;
+            text-align: center;
+            padding: 0.4rem 1rem;
+            border-bottom: 1px solid var(--border);
+            letter-spacing: 0.5px;
+        }
+
+        .trust-banner strong { color: #4cd964; }
+
         /* --- HEADER & NAVIGATION --- */
         header {
             position: sticky;
             top: 0;
             width: 100%;
-            background: rgba(10, 10, 12, 0.95);
-            backdrop-filter: blur(12px);
+            background: rgba(8, 9, 12, 0.95);
+            backdrop-filter: blur(14px);
             border-bottom: 1px solid var(--border);
             z-index: 100;
         }
@@ -55,16 +70,17 @@
         .navbar {
             max-width: 1100px;
             margin: 0 auto;
-            padding: 1.2rem 1.5rem;
+            padding: 1rem 1.5rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
         .brand-logo {
-            font-size: 1.25rem;
+            font-family: var(--font-heading);
+            font-size: 1.3rem;
             font-weight: 700;
-            letter-spacing: 0.5px;
+            text-transform: uppercase;
             color: var(--text-main);
             text-decoration: none;
             display: flex;
@@ -73,59 +89,53 @@
             cursor: pointer;
         }
 
-        .brand-logo span {
-            color: var(--primary);
-        }
+        .brand-logo span { color: var(--primary); }
 
         .verified-badge {
             font-size: 0.85rem;
             color: var(--verified-blue);
         }
 
-        /* Hamburger Toggle Button (3 lines) */
+        /* Hamburger Button */
         .hamburger-btn {
             background: transparent;
-            border: none;
+            border: 1px solid var(--border);
             color: var(--text-main);
-            font-size: 1.6rem;
+            font-size: 1.3rem;
             cursor: pointer;
-            padding: 0.4rem;
+            width: 42px;
+            height: 42px;
+            border-radius: 8px;
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: color 0.2s;
+            transition: all 0.2s;
         }
 
         .hamburger-btn:hover {
+            border-color: var(--primary);
             color: var(--primary);
+            box-shadow: 0 0 10px var(--primary-glow);
         }
 
-        /* --- SLIDE-OUT MENU PANEL --- */
+        /* --- SLIDE-OUT DRAWER MENU --- */
         .menu-overlay {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100vh;
-            background: rgba(0, 0, 0, 0.7);
-            backdrop-filter: blur(4px);
-            opacity: 0;
-            visibility: hidden;
+            top: 0; left: 0;
+            width: 100%; height: 100vh;
+            background: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(5px);
+            opacity: 0; visibility: hidden;
             transition: all 0.3s ease;
             z-index: 200;
         }
 
-        .menu-overlay.active {
-            opacity: 1;
-            visibility: visible;
-        }
+        .menu-overlay.active { opacity: 1; visibility: visible; }
 
         .side-menu {
             position: fixed;
-            top: 0;
-            right: -320px;
-            width: 320px;
-            height: 100vh;
+            top: 0; right: -340px;
+            width: 340px; height: 100vh;
             background: var(--bg-card);
             border-left: 1px solid var(--border);
             padding: 2rem 1.5rem;
@@ -134,190 +144,224 @@
             justify-content: space-between;
             transition: right 0.3s cubic-bezier(0.16, 1, 0.3, 1);
             z-index: 201;
+            overflow-y: auto;
         }
 
-        .side-menu.active {
-            right: 0;
-        }
+        .side-menu.active { right: 0; }
 
         .menu-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding-bottom: 1.5rem;
+            padding-bottom: 1.2rem;
             border-bottom: 1px solid var(--border);
         }
 
         .menu-title {
-            font-size: 0.9rem;
-            font-weight: 600;
+            font-family: var(--font-heading);
+            font-size: 0.85rem;
+            font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 1px;
             color: var(--text-muted);
         }
 
         .close-btn {
-            background: none;
-            border: none;
+            background: none; border: none;
             color: var(--text-muted);
-            font-size: 1.5rem;
-            cursor: pointer;
+            font-size: 1.5rem; cursor: pointer;
             transition: color 0.2s;
         }
 
-        .close-btn:hover {
-            color: var(--text-main);
-        }
+        .close-btn:hover { color: var(--text-main); }
 
         .menu-links {
             list-style: none;
-            margin-top: 1.5rem;
+            margin-top: 1.2rem;
             display: flex;
             flex-direction: column;
-            gap: 0.5rem;
+            gap: 0.4rem;
         }
 
         .menu-links a {
             display: flex;
             align-items: center;
             gap: 1rem;
-            padding: 0.9rem 1rem;
+            padding: 0.8rem 1rem;
             color: var(--text-main);
             text-decoration: none;
-            font-size: 1rem;
+            font-size: 0.95rem;
             font-weight: 500;
             border-radius: 8px;
             transition: all 0.2s;
         }
 
         .menu-links a i {
-            width: 20px;
+            width: 22px;
             color: var(--text-muted);
             transition: color 0.2s;
         }
 
-        .menu-links a:hover, .menu-links a.active {
+        .menu-links a:hover {
             background: var(--bg-hover);
-            color: var(--text-main);
-        }
-
-        .menu-links a:hover i, .menu-links a.active i {
             color: var(--primary);
         }
 
+        .menu-links a:hover i { color: var(--primary); }
+
         .menu-footer {
+            color: var(--text-muted);
+            font-size: 0.75rem;
             padding-top: 1.5rem;
             border-top: 1px solid var(--border);
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            text-align: center;
         }
 
-        /* --- MAIN CONTENT & PAGE VIEWS --- */
+        /* --- MAIN LAYOUT & PAGES --- */
         main {
             flex: 1;
-            max-width: 900px;
+            max-width: 1000px;
             width: 100%;
             margin: 0 auto;
             padding: 2.5rem 1.5rem;
         }
 
-        .page {
-            display: none;
-        }
+        .page { display: none; }
 
         .page.active {
             display: block;
-            animation: fadeIn 0.25s ease-in-out;
+            animation: fadeIn 0.3s ease-in-out;
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(6px); }
+            from { opacity: 0; transform: translateY(8px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
         .page-header {
-            margin-bottom: 2rem;
+            margin-bottom: 2.2rem;
+            text-align: center;
         }
 
         .page-header h1 {
-            font-size: 2rem;
-            font-weight: 700;
-            margin-bottom: 0.4rem;
+            font-family: var(--font-heading);
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
         }
 
         .page-header p {
             color: var(--text-muted);
             font-size: 0.95rem;
+            max-width: 600px;
+            margin: 0 auto;
         }
 
-        /* --- BUTTONS & CARDS --- */
+        /* --- CARDS & BUTTONS --- */
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.6rem;
+            margin-bottom: 1.2rem;
+        }
+
         .btn {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            gap: 0.5rem;
+            gap: 0.6rem;
             background: var(--primary);
             color: #fff;
             border: none;
-            padding: 0.75rem 1.4rem;
-            border-radius: 6px;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
             font-weight: 600;
             font-size: 0.9rem;
             cursor: pointer;
             text-decoration: none;
-            transition: opacity 0.2s;
+            transition: all 0.2s;
+            box-shadow: 0 4px 12px var(--primary-glow);
         }
 
         .btn:hover {
-            opacity: 0.9;
+            background: #f4121f;
+            transform: translateY(-1px);
         }
 
         .btn-outline {
             background: transparent;
             border: 1px solid var(--border);
             color: var(--text-main);
+            box-shadow: none;
         }
 
         .btn-outline:hover {
             background: var(--bg-hover);
+            border-color: var(--primary);
         }
 
-        .card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 1.5rem;
-            margin-bottom: 1.2rem;
-        }
-
-        /* --- HOME PAGE HERO --- */
+        /* --- HOME HERO --- */
         .hero {
             text-align: center;
             padding: 3rem 1rem;
         }
 
+        .hero-tag {
+            background: rgba(229, 9, 20, 0.15);
+            color: var(--primary);
+            font-size: 0.8rem;
+            font-weight: 700;
+            padding: 0.3rem 0.9rem;
+            border-radius: 20px;
+            text-transform: uppercase;
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+
         .hero h1 {
-            font-size: 2.5rem;
+            font-family: var(--font-heading);
+            font-size: 2.8rem;
             margin-bottom: 0.8rem;
         }
 
         .hero p {
             color: var(--text-muted);
-            max-width: 550px;
+            max-width: 580px;
             margin: 0 auto 2rem auto;
             font-size: 1.05rem;
         }
 
-        .hero-cta {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            flex-wrap: wrap;
+        /* --- GRID LAYOUTS --- */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.2rem;
         }
 
-        /* --- SHOWS & TICKETS --- */
-        .show-item {
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.2rem;
+        }
+
+        /* --- SUBSECTIONS STYLING --- */
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            margin-bottom: 1.5rem;
+            background: #000;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            border: 0;
+        }
+
+        .film-card {
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -325,109 +369,142 @@
             flex-wrap: wrap;
         }
 
-        .show-info h3 {
-            font-size: 1.1rem;
-            margin-bottom: 0.3rem;
-        }
-
-        .show-info p {
-            color: var(--text-muted);
-            font-size: 0.85rem;
-        }
-
-        /* --- TOP 10 LEADERBOARD --- */
-        .leaderboard-list {
-            list-style: none;
-        }
-
-        .leaderboard-item {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 1rem;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .leaderboard-item:last-child {
-            border-bottom: none;
-        }
-
-        .rank-info {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .rank-num {
-            font-weight: 700;
-            width: 24px;
-            color: var(--text-muted);
-        }
-
-        .rank-num.top-1 { color: var(--gold); }
-        .rank-num.top-2 { color: #c0c0c0; }
-        .rank-num.top-3 { color: #cd7f32; }
-
-        .score {
-            font-weight: 600;
+        .film-tag {
             color: var(--primary);
-            font-size: 0.9rem;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
         }
 
-        /* --- VIP GROUPS --- */
-        .vip-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.2rem;
-        }
-
-        /* --- BADGES MARKETPLACE --- */
-        .badge-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 1.2rem;
-        }
-
-        .badge-card {
+        .cameo-card, .merch-item {
             text-align: center;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
         }
 
-        .badge-price {
-            font-size: 1.5rem;
+        .price-tag {
+            font-family: var(--font-heading);
+            font-size: 1.8rem;
             font-weight: 700;
+            color: var(--text-main);
             margin: 0.8rem 0;
         }
 
-        /* --- CHARITY --- */
-        .charity-box {
-            text-align: center;
-            max-width: 600px;
-            margin: 0 auto;
+        .merch-img-placeholder {
+            height: 160px;
+            background: var(--bg-hover);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
         }
 
-        .amount-buttons {
+        .specs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .spec-box {
+            background: var(--bg-hover);
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .spec-box label {
+            display: block;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+        }
+
+        .spec-box span {
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .gallery-item {
+            height: 180px;
+            background: var(--bg-hover);
+            border-radius: 8px;
+            border: 1px solid var(--border);
             display: flex;
+            flex-direction: column;
+            align-items: center;
             justify-content: center;
-            gap: 0.8rem;
+            color: var(--text-muted);
+            text-align: center;
+            padding: 1rem;
+        }
+
+        /* --- CUSTOM DONATION STYLING --- */
+        .donation-box {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
             margin: 1.5rem 0;
         }
 
-        .amount-btn {
+        .currency-symbol {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .donation-input {
+            width: 160px;
+            padding: 0.8rem;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #fff;
+            background: var(--bg-dark);
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            text-align: center;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .donation-input:focus {
+            border-color: var(--primary);
+        }
+
+        .donation-quick-btns {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .quick-btn {
             background: var(--bg-hover);
             border: 1px solid var(--border);
             color: var(--text-main);
-            padding: 0.6rem 1.2rem;
+            padding: 0.4rem 0.9rem;
             border-radius: 6px;
             cursor: pointer;
+            font-size: 0.85rem;
             font-weight: 600;
+            transition: all 0.2s;
         }
 
-        .amount-btn.active {
-            background: var(--primary);
+        .quick-btn:hover {
             border-color: var(--primary);
+            color: var(--primary);
         }
 
         /* --- MODAL --- */
@@ -435,7 +512,8 @@
             display: none;
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.8);
+            background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(6px);
             z-index: 300;
             justify-content: center;
             align-items: center;
@@ -447,7 +525,7 @@
             border: 1px solid var(--border);
             border-radius: 12px;
             padding: 2rem;
-            max-width: 400px;
+            max-width: 440px;
             width: 100%;
             position: relative;
         }
@@ -457,12 +535,10 @@
             top: 1rem; right: 1rem;
             background: none; border: none;
             color: var(--text-muted);
-            font-size: 1.2rem; cursor: pointer;
+            font-size: 1.3rem; cursor: pointer;
         }
 
-        .input-group {
-            margin-bottom: 1rem;
-        }
+        .input-group { margin-bottom: 1rem; }
 
         .input-group label {
             display: block;
@@ -471,9 +547,9 @@
             margin-bottom: 0.3rem;
         }
 
-        .input-group input {
+        .input-group input, .input-group textarea {
             width: 100%;
-            padding: 0.7rem;
+            padding: 0.75rem;
             background: var(--bg-dark);
             border: 1px solid var(--border);
             color: #fff;
@@ -487,10 +563,16 @@
             text-align: center;
             color: var(--text-muted);
             font-size: 0.85rem;
+            margin-top: 3rem;
         }
     </style>
 </head>
 <body>
+
+    <!-- AUTHENTICATED TRUST BANNER -->
+    <div class="trust-banner">
+        <i class="fa-solid fa-shield-halved"></i> OFFICIAL ARTIST PORTAL | <strong>AUTHENTICATED SAG-AFTRA MEMBER</strong> | @gowatchmyreel
+    </div>
 
     <!-- NAVBAR HEADER -->
     <header>
@@ -499,236 +581,332 @@
                 Tyler <span>Scherer</span>
                 <i class="fa-solid fa-circle-check verified-badge"></i>
             </div>
-            <!-- 3-LINE HAMBURGER MENU BUTTON -->
-            <button class="hamburger-btn" id="openMenuBtn" aria-label="Open Navigation Menu">
+            <!-- Hamburger Drawer Switcher -->
+            <button class="hamburger-btn" id="openMenuBtn" aria-label="Open Navigation">
                 <i class="fa-solid fa-bars"></i>
             </button>
         </div>
     </header>
 
-    <!-- SLIDE-OUT NAVIGATION MENU -->
+    <!-- SLIDE-OUT DRAWER MENU -->
     <div class="menu-overlay" id="menuOverlay"></div>
     <div class="side-menu" id="sideMenu">
         <div>
             <div class="menu-header">
-                <span class="menu-title">Navigation</span>
+                <span class="menu-title">Official Navigation</span>
                 <button class="close-btn" id="closeMenuBtn"><i class="fa-solid fa-xmark"></i></button>
             </div>
             <ul class="menu-links">
-                <li><a href="#" onclick="navigate('home')"><i class="fa-solid fa-house"></i> Home</a></li>
-                <li><a href="#" onclick="navigate('shows')"><i class="fa-solid fa-ticket"></i> Appearances & Tickets</a></li>
-                <li><a href="#" onclick="navigate('leaderboard')"><i class="fa-solid fa-trophy"></i> Top 10 Fan Leaderboard</a></li>
-                <li><a href="#" onclick="navigate('vip')"><i class="fa-solid fa-comments"></i> VIP Groups (Telegram/WA)</a></li>
-                <li><a href="#" onclick="navigate('badges')"><i class="fa-solid fa-certificate"></i> Order Fan Badges</a></li>
-                <li><a href="#" onclick="navigate('charity')"><i class="fa-solid fa-hand-holding-heart"></i> Support Charity</a></li>
+                <li><a href="#" onclick="navigate('home')"><i class="fa-solid fa-house"></i> Home Overview</a></li>
+                <li><a href="#" onclick="navigate('reel')"><i class="fa-solid fa-film"></i> Showreel & Demos</a></li>
+                <li><a href="#" onclick="navigate('projects')"><i class="fa-solid fa-clapperboard"></i> Filmography & Projects</a></li>
+                <li><a href="#" onclick="navigate('shows')"><i class="fa-solid fa-ticket"></i> Appearances & Passes</a></li>
+                <li><a href="#" onclick="navigate('leaderboard')"><i class="fa-solid fa-trophy"></i> Top 10 Fanboard</a></li>
+                <li><a href="#" onclick="navigate('cameo')"><i class="fa-solid fa-video"></i> Personalized Shoutouts</a></li>
+                <li><a href="#" onclick="navigate('merch')"><i class="fa-solid fa-shirt"></i> Official Merch Store</a></li>
+                <li><a href="#" onclick="navigate('badges')"><i class="fa-solid fa-award"></i> Order Fan Badges</a></li>
+                <li><a href="#" onclick="navigate('vip')"><i class="fa-solid fa-comments"></i> VIP Telegram & WhatsApp</a></li>
+                <li><a href="#" onclick="navigate('press')"><i class="fa-solid fa-address-card"></i> Press Kit & Contact</a></li>
+                <li><a href="#" onclick="navigate('charity')"><i class="fa-solid fa-hand-holding-heart"></i> Charity Foundation</a></li>
+                <li><a href="#" onclick="navigate('gallery')"><i class="fa-solid fa-images"></i> Fan Mail & Gallery</a></li>
             </ul>
         </div>
         <div class="menu-footer">
-            Official Authenticated Portal
+            Managed Direct • TS-VERIFIED-2026
         </div>
     </div>
 
-    <!-- MAIN PAGE CONTENT -->
+    <!-- MAIN PAGE CONTAINER -->
     <main>
 
         <!-- PAGE 1: HOME -->
         <section id="page-home" class="page active">
             <div class="hero">
+                <div class="hero-tag">Vertical Drama Lead & Actor</div>
                 <h1>Tyler Scherer</h1>
-                <p>Official Actor & Vertical Drama Lead Portal. Use the menu in the top right to access upcoming appearances, fan leaderboards, VIP groups, badges, and charity initiatives.</p>
-                <div class="hero-cta">
-                    <button class="btn" onclick="switchPage('shows')"><i class="fa-solid fa-ticket"></i> View Shows</button>
-                    <button class="btn btn-outline" onclick="openMenu()"><i class="fa-solid fa-bars"></i> Open Full Menu</button>
+                <p>Welcome to the official verified hub. Access showreels, order VIP entrance passes, request personalized videos, or view the top supporters list.</p>
+                <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                    <button class="btn" onclick="openMenu()"><i class="fa-solid fa-bars"></i> Explore All Sections</button>
+                    <button class="btn btn-outline" onclick="switchPage('reel')"><i class="fa-solid fa-circle-play"></i> Watch Showreel</button>
                 </div>
             </div>
         </section>
 
-        <!-- PAGE 2: APPEARANCES & TICKETS -->
+        <!-- PAGE 2: SHOWREEL & DEMOS -->
+        <section id="page-reel" class="page">
+            <div class="page-header">
+                <h1>Showreel & Performance Demos</h1>
+                <p>Watch Tyler Scherer's latest theatrical showreel, comedic clips, and drama performance reels.</p>
+            </div>
+            <div class="video-container">
+                <iframe src="https://www.youtube.com/embed/LJakh5uh_tQ" title="Tyler Scherer Showreel" allowfullscreen></iframe>
+            </div>
+            <div class="card" style="text-align: center;">
+                <h3>Need Tyler's Complete High-Res Media File?</h3>
+                <p style="color: var(--text-muted); font-size: 0.9rem; margin: 0.5rem 0 1rem 0;">Casting agents and studio directors can download the official 2026 Theatrical Press Reel package.</p>
+                <button class="btn" onclick="openCheckout('Showreel Media Package Pass', 115)"><i class="fa-solid fa-download"></i> Request HD Reel Pass ($115.00)</button>
+            </div>
+        </section>
+
+        <!-- PAGE 3: FILMOGRAPHY & PROJECTS -->
+        <section id="page-projects" class="page">
+            <div class="page-header">
+                <h1>Filmography & Drama Lead Roles</h1>
+                <p>Recent micro-drama series, TV appearances, and theatrical productions starring Tyler Scherer.</p>
+            </div>
+            <div class="card film-card">
+                <div>
+                    <div class="film-tag">ReelShort Series • Lead</div>
+                    <h3>Ex-Husband Step Aside: Lady Boss Returns</h3>
+                    <p style="color: var(--text-muted); font-size: 0.85rem;">Role: Andrew Miller • 29.2M+ Views</p>
+                </div>
+                <button class="btn btn-outline" onclick="openCheckout('Lady Boss Collector Pass', 115)">View Details ($115.00)</button>
+            </div>
+            <div class="card film-card">
+                <div>
+                    <div class="film-tag">ReelShort Original • Lead</div>
+                    <h3>Coaching His Heart</h3>
+                    <p style="color: var(--text-muted); font-size: 0.85rem;">Role: Tom (Ice Captain) • 25.2M+ Views</p>
+                </div>
+                <button class="btn btn-outline" onclick="openCheckout('Coaching His Heart Pass', 115)">View Details ($115.00)</button>
+            </div>
+            <div class="card film-card">
+                <div>
+                    <div class="film-tag">Disney+ Television</div>
+                    <h3>The Mighty Ducks: Game Changers</h3>
+                    <p style="color: var(--text-muted); font-size: 0.85rem;">Role: Co-Star</p>
+                </div>
+                <button class="btn btn-outline" onclick="openCheckout('Mighty Ducks Press Pass', 115)">View Details ($115.00)</button>
+            </div>
+        </section>
+
+        <!-- PAGE 4: APPEARANCES & TICKETS -->
         <section id="page-shows" class="page">
             <div class="page-header">
-                <h1>Upcoming Appearances</h1>
-                <p>Reserve tickets for live stage performances, meet-and-greets, and convention panels.</p>
+                <h1>Upcoming Appearances & Tickets</h1>
+                <p>Order direct entrance tickets for live theater performances and fan conventions.</p>
             </div>
-            <div class="card show-item">
-                <div class="show-info">
-                    <h3>The Producers (Live Musical)</h3>
-                    <p><i class="fa-solid fa-location-dot"></i> Ogunquit Playhouse, ME</p>
+            <div class="card film-card">
+                <div>
+                    <div class="film-tag">Live Musical Stage</div>
+                    <h3>The Producers (Stage Production)</h3>
+                    <p style="color: var(--text-muted); font-size: 0.85rem;">Ogunquit Playhouse, ME • Reserved Front Rows</p>
                 </div>
-                <button class="btn" onclick="openCheckout('The Producers Ticket')">Order Tickets</button>
+                <button class="btn" onclick="openCheckout('The Producers VIP Pass', 115)">Order Ticket ($115.00)</button>
             </div>
-            <div class="card show-item">
-                <div class="show-info">
-                    <h3>Los Angeles Premiere & Meetup</h3>
-                    <p><i class="fa-solid fa-location-dot"></i> Hollywood Arts Theater, CA</p>
+            <div class="card film-card">
+                <div>
+                    <div class="film-tag">Fan Convention</div>
+                    <h3>Vertical Micro-Drama Expo 2026</h3>
+                    <p style="color: var(--text-muted); font-size: 0.85rem;">Metro Convention Center, NY • Keynote Panel</p>
                 </div>
-                <button class="btn" onclick="openCheckout('LA Premiere Ticket')">Order Tickets</button>
-            </div>
-            <div class="card show-item">
-                <div class="show-info">
-                    <h3>Vertical Micro-Drama Expo</h3>
-                    <p><i class="fa-solid fa-location-dot"></i> Metro Convention Center, NY</p>
-                </div>
-                <button class="btn" onclick="openCheckout('NY Drama Expo Pass')">Order Tickets</button>
+                <button class="btn" onclick="openCheckout('Drama Expo VIP Ticket', 150)">Order Ticket ($150.00)</button>
             </div>
         </section>
 
-        <!-- PAGE 3: TOP 10 FAN LEADERBOARD -->
+        <!-- PAGE 5: TOP 10 FAN LEADERBOARD -->
         <section id="page-leaderboard" class="page">
             <div class="page-header">
                 <h1>Top 10 Verified Fan Board</h1>
-                <p>Recognizing top verified supporters in the Tyler Scherer community this month.</p>
+                <p>Acknowledging top verified supporters across the Tyler Scherer ecosystem.</p>
             </div>
             <div class="card" style="padding: 0.5rem 1rem;">
-                <ul class="leaderboard-list">
-                    <li class="leaderboard-item">
-                        <div class="rank-info">
-                            <span class="rank-num top-1">#1</span>
-                            <span>Sarah Jenkins <i class="fa-solid fa-circle-check verified-badge"></i></span>
-                        </div>
-                        <span class="score">18,450 XP</span>
+                <ul style="list-style: none;">
+                    <li style="display: flex; justify-content: space-between; padding: 1rem 0; border-bottom: 1px solid var(--border);">
+                        <span><strong style="color: var(--gold);">#1</strong> Sarah Jenkins <i class="fa-solid fa-circle-check verified-badge"></i></span>
+                        <span style="font-weight: 700; color: var(--primary);">18,450 XP</span>
                     </li>
-                    <li class="leaderboard-item">
-                        <div class="rank-info">
-                            <span class="rank-num top-2">#2</span>
-                            <span>Marcus Vance <i class="fa-solid fa-circle-check verified-badge"></i></span>
-                        </div>
-                        <span class="score">15,200 XP</span>
+                    <li style="display: flex; justify-content: space-between; padding: 1rem 0; border-bottom: 1px solid var(--border);">
+                        <span><strong style="color: #c0c0c0;">#2</strong> Marcus Vance <i class="fa-solid fa-circle-check verified-badge"></i></span>
+                        <span style="font-weight: 700; color: var(--primary);">15,200 XP</span>
                     </li>
-                    <li class="leaderboard-item">
-                        <div class="rank-info">
-                            <span class="rank-num top-3">#3</span>
-                            <span>Elena Rostova <i class="fa-solid fa-circle-check verified-badge"></i></span>
-                        </div>
-                        <span class="score">12,800 XP</span>
+                    <li style="display: flex; justify-content: space-between; padding: 1rem 0; border-bottom: 1px solid var(--border);">
+                        <span><strong style="color: #cd7f32;">#3</strong> Elena Rostova <i class="fa-solid fa-circle-check verified-badge"></i></span>
+                        <span style="font-weight: 700; color: var(--primary);">12,800 XP</span>
                     </li>
-                    <li class="leaderboard-item">
-                        <div class="rank-info">
-                            <span class="rank-num">#4</span>
-                            <span>David K. <i class="fa-solid fa-circle-check verified-badge"></i></span>
-                        </div>
-                        <span class="score">10,400 XP</span>
-                    </li>
-                    <li class="leaderboard-item">
-                        <div class="rank-info">
-                            <span class="rank-num">#5</span>
-                            <span>Chloe Miller <i class="fa-solid fa-circle-check verified-badge"></i></span>
-                        </div>
-                        <span class="score">9,100 XP</span>
-                    </li>
-                    <li class="leaderboard-item">
-                        <div class="rank-info">
-                            <span class="rank-num">#6</span>
-                            <span>Alex Chen <i class="fa-solid fa-circle-check verified-badge"></i></span>
-                        </div>
-                        <span class="score">8,250 XP</span>
-                    </li>
-                    <li class="leaderboard-item">
-                        <div class="rank-info">
-                            <span class="rank-num">#7</span>
-                            <span>Jessica Taylor <i class="fa-solid fa-circle-check verified-badge"></i></span>
-                        </div>
-                        <span class="score">7,400 XP</span>
-                    </li>
-                    <li class="leaderboard-item">
-                        <div class="rank-info">
-                            <span class="rank-num">#8</span>
-                            <span>Liam O'Connor <i class="fa-solid fa-circle-check verified-badge"></i></span>
-                        </div>
-                        <span class="score">6,300 XP</span>
-                    </li>
-                    <li class="leaderboard-item">
-                        <div class="rank-info">
-                            <span class="rank-num">#9</span>
-                            <span>Hannah Wright <i class="fa-solid fa-circle-check verified-badge"></i></span>
-                        </div>
-                        <span class="score">5,500 XP</span>
-                    </li>
-                    <li class="leaderboard-item">
-                        <div class="rank-info">
-                            <span class="rank-num">#10</span>
-                            <span>Noah Bennett <i class="fa-solid fa-circle-check verified-badge"></i></span>
-                        </div>
-                        <span class="score">4,800 XP</span>
+                    <li style="display: flex; justify-content: space-between; padding: 1rem 0;">
+                        <span><strong>#4</strong> David K. <i class="fa-solid fa-circle-check verified-badge"></i></span>
+                        <span style="font-weight: 700; color: var(--primary);">10,400 XP</span>
                     </li>
                 </ul>
             </div>
+            <div style="text-align: center; margin-top: 1rem;">
+                <button class="btn" onclick="switchPage('badges')">Climb Leaderboard With Badges</button>
+            </div>
         </section>
 
-        <!-- PAGE 4: VIP GROUPS -->
+        <!-- PAGE 6: PERSONALIZED SHOUTOUTS -->
+        <section id="page-cameo" class="page">
+            <div class="page-header">
+                <h1>Personalized Video Requests</h1>
+                <p>Order customized HD video messages directly from Tyler Scherer for birthdays, motivational shoutouts, or special occasions.</p>
+            </div>
+            <div class="grid-2">
+                <div class="card cameo-card">
+                    <div>
+                        <i class="fa-solid fa-cake-candles" style="font-size: 2.5rem; color: var(--primary); margin-bottom: 0.8rem;"></i>
+                        <h3>Birthday & Event Shoutout</h3>
+                        <p style="color: var(--text-muted); font-size: 0.85rem; margin-top: 0.5rem;">Custom 60-second video message addressing your recipient by name.</p>
+                        <div class="price-tag">$115.00</div>
+                    </div>
+                    <button class="btn" onclick="openCheckout('Birthday Shoutout Video', 115)">Request Shoutout</button>
+                </div>
+                <div class="card cameo-card">
+                    <div>
+                        <i class="fa-solid fa-clapperboard" style="font-size: 2.5rem; color: var(--gold); margin-bottom: 0.8rem;"></i>
+                        <h3>Acting Advice & Q&A Video</h3>
+                        <p style="color: var(--text-muted); font-size: 0.85rem; margin-top: 0.5rem;">Detailed 2-minute personalized video answering your drama and audition questions.</p>
+                        <div class="price-tag">$175.00</div>
+                    </div>
+                    <button class="btn" onclick="openCheckout('Acting Advice Video', 175)">Request Video</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- PAGE 7: MERCH STORE -->
+        <section id="page-merch" class="page">
+            <div class="page-header">
+                <h1>Official Merchandise</h1>
+                <p>Exclusive limited-run apparel and signed memorabilia shipped directly to fans.</p>
+            </div>
+            <div class="grid-3">
+                <div class="card merch-item">
+                    <div>
+                        <div class="merch-img-placeholder"><i class="fa-solid fa-shirt"></i></div>
+                        <h3>"Go Watch My Reel" Hoodie</h3>
+                        <p style="color: var(--text-muted); font-size: 0.85rem;">Heavyweight embroidered black hoodie.</p>
+                        <div class="price-tag">$115.00</div>
+                    </div>
+                    <button class="btn" onclick="openCheckout('GoWatchMyReel Hoodie', 115)">Order Hoodie</button>
+                </div>
+                <div class="card merch-item">
+                    <div>
+                        <div class="merch-img-placeholder"><i class="fa-solid fa-image"></i></div>
+                        <h3>Signed Collector Poster</h3>
+                        <p style="color: var(--text-muted); font-size: 0.85rem;">Hand-signed drama poster + Certificate of Authenticity.</p>
+                        <div class="price-tag">$125.00</div>
+                    </div>
+                    <button class="btn" onclick="openCheckout('Signed Collector Poster', 125)">Order Poster</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- PAGE 8: FAN BADGES -->
+        <section id="page-badges" class="page">
+            <div class="page-header">
+                <h1>Order Official Fan Badges</h1>
+                <p>Order physical and digital tier badges to gain verified status on the Top 10 leaderboard.</p>
+            </div>
+            <div class="grid-3">
+                <div class="card merch-item">
+                    <div>
+                        <i class="fa-solid fa-award" style="font-size: 2.5rem; color: #cd7f32; margin-bottom: 0.8rem;"></i>
+                        <h3>Bronze Verified Tier</h3>
+                        <p style="color: var(--text-muted); font-size: 0.85rem;">Digital Profile Icon & Leaderboard Listing.</p>
+                        <div class="price-tag">$115.00</div>
+                    </div>
+                    <button class="btn btn-outline" onclick="openCheckout('Bronze Fan Badge Order', 115)">Order Badge</button>
+                </div>
+                <div class="card merch-item" style="border-color: var(--primary);">
+                    <div>
+                        <i class="fa-solid fa-shield-halved" style="font-size: 2.5rem; color: #c0c0c0; margin-bottom: 0.8rem;"></i>
+                        <h3>Silver VIP Badge</h3>
+                        <p style="color: var(--text-muted); font-size: 0.85rem;">Physical Metal Pin & Blue Tick Rank.</p>
+                        <div class="price-tag">$185.00</div>
+                    </div>
+                    <button class="btn" onclick="openCheckout('Silver VIP Fan Badge', 185)">Order Badge</button>
+                </div>
+                <div class="card merch-item">
+                    <div>
+                        <i class="fa-solid fa-crown" style="font-size: 2.5rem; color: var(--gold); margin-bottom: 0.8rem;"></i>
+                        <h3>Gold Elite Founder</h3>
+                        <p style="color: var(--text-muted); font-size: 0.85rem;">Numbered Gold Medal & 2x XP Multiplier.</p>
+                        <div class="price-tag">$250.00</div>
+                    </div>
+                    <button class="btn btn-outline" onclick="openCheckout('Gold Founder Badge', 250)">Order Badge</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- PAGE 9: VIP GROUPS -->
         <section id="page-vip" class="page">
             <div class="page-header">
-                <h1>VIP Messaging Channels</h1>
-                <p>Direct communication links to Tyler's official messaging communities.</p>
+                <h1>VIP Messaging Groups</h1>
+                <p>Direct communication channels to Tyler's official communities.</p>
             </div>
-            <div class="vip-grid">
+            <div class="grid-2">
                 <div class="card">
                     <i class="fa-brands fa-telegram" style="font-size: 2.5rem; color: #0088cc; margin-bottom: 1rem;"></i>
-                    <h3>Telegram VIP Group</h3>
-                    <p style="color: var(--text-muted); font-size: 0.85rem; margin: 0.5rem 0 1.2rem 0;">Get set video updates, behind-the-scenes content, and audio notes.</p>
+                    <h3>Telegram VIP Channel</h3>
+                    <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 1.2rem;">Behind-the-scenes set footage and voice audio updates.</p>
                     <a href="https://t.me" target="_blank" class="btn" style="width: 100%;">Join Telegram</a>
                 </div>
                 <div class="card">
                     <i class="fa-brands fa-whatsapp" style="font-size: 2.5rem; color: #25d366; margin-bottom: 1rem;"></i>
                     <h3>WhatsApp Community</h3>
-                    <p style="color: var(--text-muted); font-size: 0.85rem; margin: 0.5rem 0 1.2rem 0;">Join community discussions and show release announcements.</p>
+                    <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 1.2rem;">Official announcements and live show Q&A rooms.</p>
                     <a href="https://whatsapp.com" target="_blank" class="btn" style="width: 100%; background: #25d366;">Join WhatsApp</a>
                 </div>
             </div>
         </section>
 
-        <!-- PAGE 5: FAN BADGES -->
-        <section id="page-badges" class="page">
+        <!-- PAGE 10: PRESS KIT & CONTACT -->
+        <section id="page-press" class="page">
             <div class="page-header">
-                <h1>Order Official Fan Badges</h1>
-                <p>Select a verified badge tier to get profile icons and leaderboard verification.</p>
+                <h1>Press Kit & Talent Contact</h1>
+                <p>Official specifications for casting directors, agents, and brand management.</p>
             </div>
-            <div class="badge-grid">
-                <div class="card badge-card">
-                    <div>
-                        <i class="fa-solid fa-award" style="font-size: 2.5rem; color: #cd7f32;"></i>
-                        <h3 style="margin-top: 0.8rem;">Bronze Badge</h3>
-                        <div class="badge-price">$15.00</div>
-                        <p style="color: var(--text-muted); font-size: 0.85rem;">Digital Badge Icon & Fanboard Listing.</p>
-                    </div>
-                    <button class="btn btn-outline" style="margin-top: 1.2rem;" onclick="openCheckout('Bronze Badge Order')">Order Badge</button>
+            <div class="card">
+                <h3>Actor Specifications & Details</h3>
+                <div class="specs-grid" style="margin-top: 1rem;">
+                    <div class="spec-box"><label>Height</label><span>6' 1"</span></div>
+                    <div class="spec-box"><label>Union</label><span>SAG-AFTRA</span></div>
+                    <div class="spec-box"><label>Education</label><span>BFA Musical Theater</span></div>
+                    <div class="spec-box"><label>Location</label><span>Los Angeles / PA</span></div>
                 </div>
-                <div class="card badge-card" style="border-color: var(--primary);">
-                    <div>
-                        <i class="fa-solid fa-shield-halved" style="font-size: 2.5rem; color: #c0c0c0;"></i>
-                        <h3 style="margin-top: 0.8rem;">Silver VIP Badge</h3>
-                        <div class="badge-price">$35.00</div>
-                        <p style="color: var(--text-muted); font-size: 0.85rem;">Physical Metal Pin & Verified Tick.</p>
-                    </div>
-                    <button class="btn" style="margin-top: 1.2rem;" onclick="openCheckout('Silver VIP Badge Order')">Order Badge</button>
-                </div>
-                <div class="card badge-card">
-                    <div>
-                        <i class="fa-solid fa-crown" style="font-size: 2.5rem; color: var(--gold);"></i>
-                        <h3 style="margin-top: 0.8rem;">Gold Elite Badge</h3>
-                        <div class="badge-price">$75.00</div>
-                        <p style="color: var(--text-muted); font-size: 0.85rem;">Numbered Gold Founder Medal & Autograph Card.</p>
-                    </div>
-                    <button class="btn btn-outline" style="margin-top: 1.2rem;" onclick="openCheckout('Gold Elite Badge Order')">Order Badge</button>
-                </div>
+                <button class="btn" style="width: 100%;" onclick="openCheckout('Press Kit PDF Download Pass', 115)"><i class="fa-solid fa-file-pdf"></i> Download Official EPK Pass ($115.00)</button>
             </div>
         </section>
 
-        <!-- PAGE 6: CHARITY -->
+        <!-- PAGE 11: CHARITY (DYNAMIC CUSTOM AMOUNT, MIN $50) -->
         <section id="page-charity" class="page">
-            <div class="page-header" style="text-align: center;">
-                <h1>Charity Support</h1>
-                <p>Support youth arts education and community performance funding.</p>
+            <div class="page-header">
+                <h1>Charity & Foundation Initiatives</h1>
+                <p>Supporting youth arts education and community theater funding.</p>
             </div>
-            <div class="card charity-box">
-                <i class="fa-solid fa-hand-holding-heart" style="font-size: 3rem; color: var(--primary); margin-bottom: 1rem;"></i>
+            <div class="card" style="text-align: center; max-width: 600px; margin: 0 auto;">
+                <i class="fa-solid fa-hand-holding-heart" style="font-size: 3.5rem; color: var(--primary); margin-bottom: 1rem;"></i>
                 <h3>Youth Arts Stage Foundation</h3>
-                <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 0.5rem;">Directly funding theater equipment, acting classes, and grants for young artists.</p>
-                <div class="amount-buttons">
-                    <button class="amount-btn" onclick="selectAmount(this)">$10</button>
-                    <button class="amount-btn active" onclick="selectAmount(this)">$25</button>
-                    <button class="amount-btn" onclick="selectAmount(this)">$50</button>
+                <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 0.5rem;">Funding stage equipment, production workshops, and scholarships for young aspiring performers.</p>
+                
+                <div class="donation-box">
+                    <span class="currency-symbol">$</span>
+                    <input type="number" id="customDonationInput" class="donation-input" value="50" min="50" step="5" oninput="validateDonationInput()">
                 </div>
-                <button class="btn" style="width: 100%;" onclick="openCheckout('Charity Donation')">Process Donation</button>
+                
+                <div class="donation-quick-btns">
+                    <button class="quick-btn" onclick="setCustomAmount(50)">$50</button>
+                    <button class="quick-btn" onclick="setCustomAmount(100)">$100</button>
+                    <button class="quick-btn" onclick="setCustomAmount(250)">$250</button>
+                    <button class="quick-btn" onclick="setCustomAmount(500)">$500</button>
+                </div>
+
+                <p id="donationError" style="color: #ff4d4d; font-size: 0.8rem; display: none; margin-bottom: 1rem;">Minimum donation amount is $50.00</p>
+
+                <button class="btn" style="width: 100%;" id="charitySubmitBtn" onclick="processCustomDonation()">Process Secure Donation ($50.00)</button>
+            </div>
+        </section>
+
+        <!-- PAGE 12: FAN MAIL & GALLERY -->
+        <section id="page-gallery" class="page">
+            <div class="page-header">
+                <h1>Fan Mail & Photo Gallery</h1>
+                <p>Community highlights and fan submissions from across the globe.</p>
+            </div>
+            <div class="gallery-grid">
+                <div class="gallery-item"><i class="fa-solid fa-star" style="font-size: 2rem; margin-bottom: 0.5rem;"></i><span>LA Meetup Fans</span></div>
+                <div class="gallery-item"><i class="fa-solid fa-heart" style="font-size: 2rem; margin-bottom: 0.5rem;"></i><span>Show Backstage Pass</span></div>
+                <div class="gallery-item"><i class="fa-solid fa-award" style="font-size: 2rem; margin-bottom: 0.5rem;"></i><span>Gold Badge Unboxing</span></div>
             </div>
         </section>
 
@@ -739,27 +917,31 @@
         <div class="modal-body">
             <button class="modal-close" onclick="closeCheckout()"><i class="fa-solid fa-xmark"></i></button>
             <h3 id="modalTitle" style="margin-bottom: 0.3rem;">Order Checkout</h3>
-            <p style="color: var(--text-muted); font-size: 0.8rem; margin-bottom: 1.2rem;">Complete your request below.</p>
+            <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 1.2rem;">Verified Encrypted Transaction Portal</p>
             <form onsubmit="handleOrder(event)">
                 <div class="input-group">
                     <label>Full Name</label>
-                    <input type="text" required placeholder="Enter name">
+                    <input type="text" required placeholder="Enter full name">
                 </div>
                 <div class="input-group">
                     <label>Email Address</label>
-                    <input type="email" required placeholder="Enter email">
+                    <input type="email" required placeholder="Enter email address">
                 </div>
-                <button type="submit" class="btn" style="width: 100%;">Submit Request</button>
+                <div class="input-group">
+                    <label>Special Instructions / Fan Notes</label>
+                    <textarea rows="3" placeholder="Enter special requests or shipping notes..."></textarea>
+                </div>
+                <button type="submit" class="btn" style="width: 100%;" id="submitOrderBtn">Complete Order</button>
             </form>
         </div>
     </div>
 
     <!-- FOOTER -->
     <footer>
-        &copy; 2026 Tyler Scherer. Official Verified Portal.
+        &copy; 2026 Tyler Scherer. Official Verified Actor Portal. All Rights Reserved.
     </footer>
 
-    <!-- JAVASCRIPT -->
+    <!-- JAVASCRIPT ENGINE -->
     <script>
         // DOM Elements
         const sideMenu = document.getElementById('sideMenu');
@@ -768,7 +950,7 @@
         const closeMenuBtn = document.getElementById('closeMenuBtn');
         const checkoutModal = document.getElementById('checkoutModal');
 
-        // Menu Controls
+        // Drawer Controls
         function openMenu() {
             sideMenu.classList.add('active');
             menuOverlay.classList.add('active');
@@ -783,9 +965,9 @@
         closeMenuBtn.addEventListener('click', closeMenu);
         menuOverlay.addEventListener('click', closeMenu);
 
-        // Navigation Controller
+        // Page Switcher
         function switchPage(pageId) {
-            document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
             const target = document.getElementById('page-' + pageId);
             if (target) {
                 target.classList.add('active');
@@ -798,9 +980,10 @@
             closeMenu();
         }
 
-        // Checkout Modal Controller
-        function openCheckout(title) {
-            document.getElementById('modalTitle').innerText = title;
+        // Checkout Modal
+        function openCheckout(title, amount) {
+            document.getElementById('modalTitle').innerText = title + " - $" + amount + ".00";
+            document.getElementById('submitOrderBtn').innerText = "Process Order ($" + amount + ".00)";
             checkoutModal.style.display = 'flex';
         }
 
@@ -810,16 +993,45 @@
 
         function handleOrder(e) {
             e.preventDefault();
-            alert('Request submitted successfully!');
+            alert('Transaction completed successfully! Order details sent to email.');
             closeCheckout();
         }
 
-        // Amount selection
-        function selectAmount(btn) {
-            document.querySelectorAll('.amount-btn').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
+        // Custom Donation Handlers
+        function validateDonationInput() {
+            const input = document.getElementById('customDonationInput');
+            const submitBtn = document.getElementById('charitySubmitBtn');
+            const errorMsg = document.getElementById('donationError');
+            let val = parseFloat(input.value);
+
+            if (isNaN(val) || val < 50) {
+                errorMsg.style.display = 'block';
+                submitBtn.disabled = true;
+                submitBtn.style.opacity = '0.5';
+                submitBtn.innerText = "Minimum Donation $50.00";
+            } else {
+                errorMsg.style.display = 'none';
+                submitBtn.disabled = false;
+                submitBtn.style.opacity = '1';
+                submitBtn.innerText = "Process Secure Donation ($" + val.toFixed(2) + ")";
+            }
+        }
+
+        function setCustomAmount(amount) {
+            const input = document.getElementById('customDonationInput');
+            input.value = amount;
+            validateDonationInput();
+        }
+
+        function processCustomDonation() {
+            const input = document.getElementById('customDonationInput');
+            let val = parseFloat(input.value);
+            if (!isNaN(val) && val >= 50) {
+                openCheckout('Charity Donation', val);
+            }
         }
     </script>
 </body>
 </html>
+
 
