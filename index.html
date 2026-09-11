@@ -10,11 +10,13 @@
         :root {
             --bg-color: #0b0b0d;
             --card-bg: #16161a;
+            --card-border: #2b2b36;
             --accent-red: #d90429;
             --accent-red-hover: #ef233c;
             --text-main: #f8f9fa;
             --text-muted: #a0a0a0;
-            --border-color: #2b2b36;
+            --verified-blue: #38bdf8;
+            --input-bg: #101014;
         }
 
         * {
@@ -22,6 +24,7 @@
             margin: 0;
             padding: 0;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            -webkit-tap-highlight-color: transparent;
         }
 
         body {
@@ -30,16 +33,18 @@
             display: flex;
             flex-direction: column;
             min-height: 100vh;
+            overflow-x: hidden;
         }
 
-        /* Header Navigation */
+        /* Top Navigation Header */
         header {
             position: sticky;
             top: 0;
             z-index: 100;
             background-color: rgba(11, 11, 13, 0.95);
-            backdrop-filter: blur(8px);
-            border-bottom: 1px solid var(--border-color);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--card-border);
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -48,16 +53,18 @@
 
         .brand {
             font-weight: 800;
-            font-size: 1.2rem;
-            letter-spacing: 1px;
+            font-size: 1.25rem;
+            letter-spacing: 1.5px;
             color: var(--text-main);
             display: flex;
             align-items: center;
             gap: 0.5rem;
+            text-transform: uppercase;
         }
 
         .brand i {
-            color: #38bdf8;
+            color: var(--verified-blue);
+            font-size: 1.1rem;
         }
 
         .nav-actions {
@@ -67,16 +74,24 @@
         }
 
         .auth-btn {
-            background: transparent;
-            border: 1px solid var(--border-color);
+            background: linear-gradient(135deg, rgba(217, 4, 41, 0.15), rgba(239, 35, 60, 0.05));
+            border: 1px solid var(--accent-red);
             color: var(--text-main);
-            padding: 0.5rem 1rem;
-            border-radius: 6px;
+            padding: 0.55rem 1.1rem;
+            border-radius: 8px;
             cursor: pointer;
             font-weight: 600;
+            font-size: 0.9rem;
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 0.6rem;
+            transition: all 0.2s ease;
+        }
+
+        .auth-btn:hover {
+            background: var(--accent-red);
+            color: #fff;
+            box-shadow: 0 0 15px rgba(217, 4, 41, 0.4);
         }
 
         .menu-btn {
@@ -85,182 +100,311 @@
             color: var(--text-main);
             font-size: 1.5rem;
             cursor: pointer;
+            padding: 0.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        /* Navigation Drawer */
+        /* Navigation Mobile Drawer */
         .drawer {
             position: fixed;
             top: 0;
             right: -100%;
-            width: 280px;
+            width: 300px;
             height: 100%;
             background-color: var(--card-bg);
-            border-left: 1px solid var(--border-color);
-            z-index: 200;
-            transition: right 0.3s ease;
+            border-left: 1px solid var(--card-border);
+            z-index: 250;
+            transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             padding: 2rem 1.5rem;
             display: flex;
             flex-direction: column;
-            gap: 1.5rem;
+            gap: 2rem;
+            box-shadow: -10px 0 30px rgba(0,0,0,0.8);
         }
 
         .drawer.active {
             right: 0;
         }
 
+        .drawer-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--card-border);
+            padding-bottom: 1rem;
+        }
+
+        .drawer-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
         .drawer-close {
-            align-self: flex-end;
             background: none;
             border: none;
             color: var(--text-muted);
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .drawer-close:hover {
+            color: var(--text-main);
         }
 
         .drawer-nav {
             display: flex;
             flex-direction: column;
-            gap: 1rem;
+            gap: 0.5rem;
         }
 
         .drawer-nav a {
             color: var(--text-main);
             text-decoration: none;
-            font-size: 1.1rem;
+            font-size: 1.05rem;
             font-weight: 600;
-            padding: 0.5rem 0;
-            border-bottom: 1px solid var(--border-color);
+            padding: 0.8rem 1rem;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            transition: background 0.2s;
         }
 
-        /* Overlay */
+        .drawer-nav a:hover {
+            background-color: rgba(255, 255, 255, 0.05);
+            color: var(--accent-red);
+        }
+
+        .drawer-nav a i {
+            width: 20px;
+            color: var(--text-muted);
+        }
+
+        /* Dark Overlay Background */
         .overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.7);
-            z-index: 150;
+            background: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            z-index: 200;
             display: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
 
         .overlay.active {
             display: block;
+            opacity: 1;
         }
 
-        /* Main Content Container */
+        /* Main Portal Layout */
         main {
             flex: 1;
-            padding: 1.5rem;
-            max-width: 800px;
+            padding: 2rem 1.5rem;
+            max-width: 900px;
             margin: 0 auto;
             width: 100%;
         }
 
         .page {
             display: none;
+            animation: fadeIn 0.3s ease forwards;
         }
 
         .page.active {
             display: block;
         }
 
-        /* Hero Section */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Hero Banner */
         .hero {
             text-align: center;
-            padding: 2rem 0;
+            padding: 2.5rem 1rem;
+            background: linear-gradient(180deg, rgba(217, 4, 41, 0.1) 0%, rgba(11, 11, 13, 0) 100%);
+            border-radius: 20px;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(217, 4, 41, 0.15);
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            background: rgba(217, 4, 41, 0.15);
+            border: 1px solid var(--accent-red);
+            color: var(--accent-red);
+            font-size: 0.8rem;
+            font-weight: 700;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 1rem;
         }
 
         .hero h1 {
-            font-size: 2rem;
-            margin-bottom: 0.5rem;
+            font-size: 2.2rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            margin-bottom: 0.8rem;
+            line-height: 1.2;
         }
 
         .hero p {
             color: var(--text-muted);
-            font-size: 1rem;
-            margin-bottom: 1.5rem;
+            font-size: 1.05rem;
+            max-width: 600px;
+            margin: 0 auto 1.8rem auto;
+            line-height: 1.5;
         }
 
-        /* Cards Grid */
+        /* Section Headings */
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.2rem;
+        }
+
+        .section-title {
+            font-size: 1.4rem;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .section-title i {
+            color: var(--accent-red);
+        }
+
+        /* Content Cards Grid */
         .card-grid {
             display: grid;
-            grid-template-columns: 1fr;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 1.5rem;
-            margin-top: 1.5rem;
+            margin-bottom: 2rem;
         }
 
         .card {
             background-color: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 1.5rem;
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 1.8rem;
             display: flex;
             flex-direction: column;
-            gap: 1rem;
+            justify-content: space-between;
+            gap: 1.2rem;
+            transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(217, 4, 41, 0.4);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+        }
+
+        .card-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--card-border);
+            padding: 0.25rem 0.6rem;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase;
         }
 
         .card-header {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
+            flex-direction: column;
+            gap: 0.4rem;
         }
 
         .card-title {
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             font-weight: 700;
+            line-height: 1.3;
         }
 
         .price-tag {
             color: var(--accent-red);
             font-weight: 800;
-            font-size: 1.2rem;
+            font-size: 1.4rem;
         }
 
         .card-desc {
             color: var(--text-muted);
             font-size: 0.95rem;
-            line-height: 1.4;
+            line-height: 1.5;
         }
 
+        /* Action Buttons */
         .btn-action {
             background-color: var(--accent-red);
             color: #fff;
             border: none;
-            padding: 0.8rem;
-            border-radius: 6px;
+            padding: 0.9rem 1.2rem;
+            border-radius: 10px;
+            font-size: 0.95rem;
             font-weight: 700;
             cursor: pointer;
             width: 100%;
             text-align: center;
-            transition: background 0.2s, transform 0.1s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.6rem;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 15px rgba(217, 4, 41, 0.3);
         }
 
         .btn-action:hover {
             background-color: var(--accent-red-hover);
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(239, 35, 60, 0.4);
         }
 
         .btn-action:active {
-            transform: scale(0.98);
+            transform: translateY(0);
         }
 
-        /* Modal Styles */
+        /* Pop-up Modals */
         .modal {
             position: fixed;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -45%) scale(0.95);
             background-color: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 16px;
-            width: 90%;
-            max-width: 420px;
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            width: 92%;
+            max-width: 440px;
             padding: 2rem;
             z-index: 300;
             display: none;
             opacity: 0;
             transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.25s ease;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.8);
         }
 
         .modal.active {
@@ -276,69 +420,83 @@
             margin-bottom: 1.5rem;
         }
 
+        .modal-header h3 {
+            font-size: 1.3rem;
+            font-weight: 800;
+            letter-spacing: -0.3px;
+        }
+
         .modal-close {
             background: none;
             border: none;
             color: var(--text-muted);
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .modal-close:hover {
+            color: var(--text-main);
         }
 
         .form-group {
             display: flex;
             flex-direction: column;
             gap: 0.5rem;
-            margin-bottom: 1rem;
+            margin-bottom: 1.2rem;
         }
 
         .form-group label {
-            font-size: 0.9rem;
+            font-size: 0.88rem;
+            font-weight: 600;
             color: var(--text-muted);
         }
 
-        .form-group input {
-            background-color: var(--bg-color);
-            border: 1px solid var(--border-color);
+        .form-group input, .form-group textarea {
+            background-color: var(--input-bg);
+            border: 1px solid var(--card-border);
             color: var(--text-main);
-            padding: 0.8rem;
-            border-radius: 8px;
+            padding: 0.9rem 1rem;
+            border-radius: 10px;
             font-size: 1rem;
             outline: none;
-            transition: border-color 0.2s;
+            transition: border-color 0.2s, box-shadow 0.2s;
         }
 
-        .form-group input:focus {
+        .form-group input:focus, .form-group textarea:focus {
             border-color: var(--accent-red);
+            box-shadow: 0 0 0 3px rgba(217, 4, 41, 0.15);
         }
 
-        /* Custom Animated Toast Notification */
+        /* Animated Toast Notifications */
         .toast-container {
             position: fixed;
             top: 20px;
             left: 50%;
             transform: translateX(-50%);
             z-index: 1000;
-            width: 90%;
-            max-width: 400px;
+            width: 92%;
+            max-width: 420px;
             pointer-events: none;
         }
 
         .toast {
             background: rgba(22, 22, 26, 0.95);
-            border: 1px solid var(--border-color);
+            border: 1px solid var(--card-border);
             border-left: 4px solid var(--accent-red);
             backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             color: var(--text-main);
-            padding: 1rem 1.2rem;
-            border-radius: 10px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            padding: 1.1rem 1.3rem;
+            border-radius: 12px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.6);
             display: flex;
             align-items: flex-start;
-            gap: 0.8rem;
+            gap: 1rem;
             margin-bottom: 10px;
             opacity: 0;
             transform: translateY(-20px) scale(0.95);
-            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            transition: all 0.35s cubic-bezier(0.68, -0.55, 0.265, 1.55);
             pointer-events: auto;
         }
 
@@ -356,7 +514,7 @@
         }
 
         .toast-icon {
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             margin-top: 2px;
         }
 
@@ -374,24 +532,46 @@
 
         .toast-title {
             font-weight: 700;
-            font-size: 0.95rem;
-            margin-bottom: 2px;
+            font-size: 0.98rem;
+            margin-bottom: 3px;
         }
 
         .toast-message {
-            font-size: 0.85rem;
+            font-size: 0.88rem;
             color: var(--text-muted);
-            line-height: 1.3;
+            line-height: 1.4;
         }
 
         /* Footer */
         footer {
-            border-top: 1px solid var(--border-color);
-            padding: 2rem 1.5rem;
+            border-top: 1px solid var(--card-border);
+            padding: 2.5rem 1.5rem;
             text-align: center;
             color: var(--text-muted);
-            font-size: 0.85rem;
+            font-size: 0.88rem;
             margin-top: auto;
+            background-color: var(--card-bg);
+        }
+
+        footer p {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .footer-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-red);
         }
     </style>
 </head>
@@ -409,122 +589,161 @@
             <button class="auth-btn" id="openAuthBtn" onclick="toggleModal('authModal')">
                 <i class="fa-solid fa-user"></i> Sign Up / Login
             </button>
-            <button class="menu-btn" onclick="toggleDrawer()">
+            <button class="menu-btn" onclick="toggleDrawer()" aria-label="Open navigation menu">
                 <i class="fa-solid fa-bars"></i>
             </button>
         </div>
     </header>
 
-    <!-- Drawer Overlay -->
+    <!-- Overlay Background -->
     <div class="overlay" id="overlay" onclick="closeAll()"></div>
 
-    <!-- Navigation Drawer -->
+    <!-- Mobile Navigation Drawer -->
     <div class="drawer" id="drawer">
-        <button class="drawer-close" onclick="toggleDrawer()"><i class="fa-solid fa-xmark"></i></button>
+        <div class="drawer-header">
+            <span class="drawer-title">Navigation</span>
+            <button class="drawer-close" onclick="toggleDrawer()"><i class="fa-solid fa-xmark"></i></button>
+        </div>
         <nav class="drawer-nav">
-            <a href="#" onclick="navigate('home')">Home</a>
-            <a href="#" onclick="navigate('showreels')">Showreels & Clips</a>
-            <a href="#" onclick="navigate('filmography')">Filmography</a>
-            <a href="#" onclick="navigate('merch')">Official Merch</a>
-            <a href="#" onclick="navigate('vip')">VIP Fan Groups</a>
-            <a href="#" onclick="navigate('charity')">Charity Support</a>
+            <a href="#" onclick="navigate('home')"><i class="fa-solid fa-house"></i> Home</a>
+            <a href="#" onclick="navigate('showreels')"><i class="fa-solid fa-film"></i> Showreels & Clips</a>
+            <a href="#" onclick="navigate('filmography')"><i class="fa-solid fa-clapperboard"></i> Filmography</a>
+            <a href="#" onclick="navigate('merch')"><i class="fa-solid fa-shirt"></i> Official Merch</a>
+            <a href="#" onclick="navigate('vip')"><i class="fa-solid fa-crown"></i> VIP Fan Groups</a>
+            <a href="#" onclick="navigate('charity')"><i class="fa-solid fa-hand-holding-heart"></i> Charity Support</a>
         </nav>
     </div>
 
-    <!-- Main Content Area -->
+    <!-- Main Portal Content -->
     <main>
         <!-- Home Page -->
         <section id="home" class="page active">
             <div class="hero">
-                <h1>Official Fan Portal</h1>
-                <p>Book personalized shoutouts, join exclusive fan communities, and support charitable initiatives.</p>
+                <div class="hero-badge"><i class="fa-solid fa-star"></i> Verified Official Portal</div>
+                <h1>Welcome to Tyler's Fan Hub</h1>
+                <p>Book personalized video messages, explore upcoming project reels, join the official VIP fan club, and support community initiatives.</p>
             </div>
+
+            <div class="section-header">
+                <h2 class="section-title"><i class="fa-solid fa-video"></i> Personal Shoutouts</h2>
+            </div>
+
             <div class="card-grid">
                 <div class="card">
+                    <span class="card-badge">Popular</span>
                     <div class="card-header">
-                        <span class="card-title">Video Shoutout</span>
-                        <span class="price-tag">$150.00</span>
+                        <div class="card-title">Personalized Video Shoutout</div>
+                        <div class="price-tag">$150.00</div>
                     </div>
-                    <div class="card-desc">Request a custom 1-minute personalized video message for birthdays, milestones, or encouragement.</div>
-                    <button class="btn-action" onclick="toggleModal('orderModal')">Request Video</button>
+                    <p class="card-desc">Request a custom 1-minute personalized HD video message for birthdays, encouragement, or special announcements.</p>
+                    <button class="btn-action" onclick="toggleModal('orderModal')"><i class="fa-solid fa-paper-plane"></i> Request Video</button>
                 </div>
+
                 <div class="card">
+                    <span class="card-badge">Event</span>
                     <div class="card-header">
-                        <span class="card-title">Birthday & Event Shoutout</span>
-                        <span class="price-tag">$175.00</span>
+                        <div class="card-title">Birthday & Event Greetings</div>
+                        <div class="price-tag">$175.00</div>
                     </div>
-                    <div class="card-desc">Specialized event greetings with custom script inclusion.</div>
-                    <button class="btn-action" onclick="toggleModal('orderModal')">Book Event Greetings</button>
+                    <p class="card-desc">Customized event greetings tailored for parties or milestones with personal script inclusions.</p>
+                    <button class="btn-action" onclick="toggleModal('orderModal')"><i class="fa-solid fa-cake-candles"></i> Book Event Greeting</button>
                 </div>
             </div>
         </section>
 
         <!-- Showreels Page -->
         <section id="showreels" class="page">
-            <h2>Showreels & Acting Clips</h2>
-            <p style="color: var(--text-muted); margin-top: 0.5rem;">Explore high-definition action and dramatic showreels.</p>
+            <div class="section-header">
+                <h2 class="section-title"><i class="fa-solid fa-film"></i> Showreels & Acting Clips</h2>
+            </div>
+            <p style="color: var(--text-muted); margin-bottom: 1.5rem;">Watch official action sequences, dramatic auditions, and stunt performances.</p>
+
             <div class="card-grid">
                 <div class="card">
-                    <div class="card-title">Action & Stunt Reel</div>
-                    <div class="card-desc">Compilation of physical stunts, martial arts sequences, and tactical performance reels.</div>
+                    <div class="card-header">
+                        <div class="card-title">Action & Tactical Stunt Reel</div>
+                    </div>
+                    <p class="card-desc">High-energy combat sequence compilations, hand-to-hand choreography, and tactical firearms stage work.</p>
+                    <button class="btn-action" onclick="showToast('Video Reel', 'Streaming reel player initializing...', 'success')"><i class="fa-solid fa-play"></i> Watch Reel</button>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Dramatic Performances</div>
+                    </div>
+                    <p class="card-desc">Key performance cuts featuring dramatic roles across film and television productions.</p>
+                    <button class="btn-action" onclick="showToast('Video Reel', 'Streaming reel player initializing...', 'success')"><i class="fa-solid fa-play"></i> Watch Reel</button>
                 </div>
             </div>
         </section>
 
         <!-- Filmography Page -->
         <section id="filmography" class="page">
-            <h2>Filmography & Career Updates</h2>
+            <div class="section-header">
+                <h2 class="section-title"><i class="fa-solid fa-clapperboard"></i> Filmography & Projects</h2>
+            </div>
             <div class="card-grid">
                 <div class="card">
-                    <div class="card-title">Latest Film & TV Projects</div>
-                    <div class="card-desc">Check release dates, streaming availability, and behind-the-scenes production updates.</div>
+                    <span class="card-badge">In Production</span>
+                    <div class="card-header">
+                        <div class="card-title">Upcoming Feature Film</div>
+                    </div>
+                    <p class="card-desc">Check out scheduled release windows, official production updates, and behind-the-scenes content.</p>
                 </div>
             </div>
         </section>
 
         <!-- Merch Page -->
         <section id="merch" class="page">
-            <h2>Official Apparel & Accessories</h2>
+            <div class="section-header">
+                <h2 class="section-title"><i class="fa-solid fa-shirt"></i> Official Merchandise</h2>
+            </div>
             <div class="card-grid">
                 <div class="card">
                     <div class="card-header">
-                        <span class="card-title">Official Fan Cap</span>
-                        <span class="price-tag">$35.00</span>
+                        <div class="card-title">Official Fan Club Cap</div>
+                        <div class="price-tag">$35.00</div>
                     </div>
-                    <div class="card-desc">Embroidered custom logo cap. Limited supply available for fan club members.</div>
+                    <p class="card-desc">Premium embroidered custom logo cap. Exclusive limited batch release for fan portal members.</p>
+                    <button class="btn-action" onclick="toggleModal('orderModal')"><i class="fa-solid fa-cart-shopping"></i> Order Now</button>
                 </div>
             </div>
         </section>
 
         <!-- VIP Page -->
         <section id="vip" class="page">
-            <h2>VIP Fan Groups</h2>
+            <div class="section-header">
+                <h2 class="section-title"><i class="fa-solid fa-crown"></i> VIP Fan Pass</h2>
+            </div>
             <div class="card-grid">
                 <div class="card">
                     <div class="card-header">
-                        <span class="card-title">Inner Circle Membership</span>
-                        <span class="price-tag">$25/mo</span>
+                        <div class="card-title">Inner Circle Membership</div>
+                        <div class="price-tag">$25 / mo</div>
                     </div>
-                    <div class="card-desc">Get access to private Q&As, early merch releases, and private fan chatrooms.</div>
-                    <button class="btn-action" onclick="toggleModal('authModal')">Join VIP Club</button>
+                    <p class="card-desc">Get access to private Q&A streams, priority video requests, direct chatroom access, and exclusive updates.</p>
+                    <button class="btn-action" onclick="toggleModal('authModal')"><i class="fa-solid fa-gem"></i> Join VIP Club</button>
                 </div>
             </div>
         </section>
 
         <!-- Charity Page -->
         <section id="charity" class="page">
-            <h2>Charity & Foundation Support</h2>
+            <div class="section-header">
+                <h2 class="section-title"><i class="fa-solid fa-hand-holding-heart"></i> Charity Support</h2>
+            </div>
             <div class="card-grid">
                 <div class="card">
-                    <div class="card-title">Community Support Initiatives</div>
-                    <div class="card-desc">Direct support for local youth arts programs and physical fitness foundations.</div>
-                    <button class="btn-action" onclick="toggleModal('orderModal')">Make a Donation</button>
+                    <div class="card-header">
+                        <div class="card-title">Community Arts & Youth Programs</div>
+                    </div>
+                    <p class="card-desc">Direct support initiative contributing to local performing arts programs and physical fitness foundations.</p>
+                    <button class="btn-action" onclick="toggleModal('orderModal')"><i class="fa-solid fa-heart"></i> Support Campaign</button>
                 </div>
             </div>
         </section>
     </main>
 
-    <!-- Auth Modal (Sign Up / Login) -->
+    <!-- Account Auth Modal (Sign Up / Log In) -->
     <div class="modal" id="authModal">
         <div class="modal-header">
             <h3 id="authModalTitle">Create Fan Account</h3>
@@ -532,46 +751,54 @@
         </div>
         <form id="authForm" onsubmit="handleAuthSubmit(event)">
             <div class="form-group">
-                <label>Email Address</label>
-                <input type="email" id="authEmail" required placeholder="fan@example.com">
+                <label for="authEmail">Email Address</label>
+                <input type="email" id="authEmail" required placeholder="fan@example.com" autocomplete="email">
             </div>
             <div class="form-group">
-                <label>Password</label>
-                <input type="password" id="authPassword" required placeholder="••••••••••••">
+                <label for="authPassword">Password</label>
+                <input type="password" id="authPassword" required placeholder="••••••••••••" autocomplete="current-password">
             </div>
-            <button type="submit" class="btn-action" id="authSubmitBtn">Create Account</button>
-            <p style="text-align: center; margin-top: 1rem; font-size: 0.9rem; color: var(--text-muted);">
+            <button type="submit" class="btn-action" id="authSubmitBtn" style="margin-top: 0.5rem;">
+                <i class="fa-solid fa-user-plus"></i> Create Account
+            </button>
+            <p style="text-align: center; margin-top: 1.2rem; font-size: 0.9rem; color: var(--text-muted);">
                 <span id="authToggleText">Already have an account?</span> 
-                <a href="#" style="color: var(--accent-red);" id="authToggleLink" onclick="toggleAuthMode(event)">Log In</a>
+                <a href="#" style="color: var(--accent-red); font-weight: 700; text-decoration: none;" id="authToggleLink" onclick="toggleAuthMode(event)">Log In</a>
             </p>
         </form>
     </div>
 
-    <!-- Order / Booking Modal -->
+    <!-- Booking / Request Modal -->
     <div class="modal" id="orderModal">
         <div class="modal-header">
-            <h3>Complete Request</h3>
+            <h3>Complete Your Request</h3>
             <button class="modal-close" onclick="toggleModal('orderModal')"><i class="fa-solid fa-xmark"></i></button>
         </div>
         <form onsubmit="handleOrderSubmit(event)">
             <div class="form-group">
-                <label>Full Name</label>
-                <input type="text" required placeholder="Your Name">
+                <label>Your Full Name</label>
+                <input type="text" required placeholder="John Doe">
             </div>
             <div class="form-group">
-                <label>Special Instructions / Message Details</label>
-                <input type="text" required placeholder="What should Tyler say?">
+                <label>Special Instructions / Script Details</label>
+                <textarea rows="3" required placeholder="Mention specific details or names for Tyler to include..."></textarea>
             </div>
-            <button type="submit" class="btn-action">Proceed to Payment</button>
+            <button type="submit" class="btn-action"><i class="fa-solid fa-lock"></i> Proceed to Checkout</button>
         </form>
     </div>
 
     <!-- Footer -->
     <footer>
-        &copy; 2026 Tyler Scherer. All rights reserved. Powered by Official Fan Management Portal.
+        <p>&copy; 2026 Tyler Scherer. All rights reserved.</p>
+        <p style="font-size: 0.8rem; color: #666;">Official Fan Portal & Direct Messaging System</p>
+        <div class="footer-links">
+            <a href="#" onclick="navigate('home')">Home</a>
+            <a href="#" onclick="navigate('vip')">VIP Pass</a>
+            <a href="#" onclick="toggleModal('authModal')">Account</a>
+        </div>
     </footer>
 
-    <!-- Firebase Modular SDK -->
+    <!-- Firebase Modular SDK Script -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { 
@@ -593,13 +820,13 @@
             appId: "1:361515975510:web:e29bfd7b9440"
         };
 
-        // Initialize Firebase
+        // Initialize Firebase App & Auth Services
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
 
         let isSignUpMode = true;
 
-        // Custom Toast Function
+        // Custom Toast Notification Handler
         window.showToast = function(title, message, type = 'success') {
             const container = document.getElementById('toastContainer');
             const toast = document.createElement('div');
@@ -621,21 +848,23 @@
 
             setTimeout(() => {
                 toast.classList.remove('show');
-                setTimeout(() => toast.remove(), 300);
+                setTimeout(() => toast.remove(), 350);
             }, 4500);
         };
 
-        // UI State Handlers
+        // Switch between Sign Up and Log In states
         window.toggleAuthMode = function(e) {
             if(e) e.preventDefault();
             isSignUpMode = !isSignUpMode;
             document.getElementById('authModalTitle').innerText = isSignUpMode ? "Create Fan Account" : "Welcome Back";
-            document.getElementById('authSubmitBtn').innerText = isSignUpMode ? "Create Account" : "Log In";
+            document.getElementById('authSubmitBtn').innerHTML = isSignUpMode ? 
+                '<i class="fa-solid fa-user-plus"></i> Create Account' : 
+                '<i class="fa-solid fa-right-to-bracket"></i> Log In';
             document.getElementById('authToggleText').innerText = isSignUpMode ? "Already have an account?" : "Don't have an account?";
             document.getElementById('authToggleLink').innerText = isSignUpMode ? "Log In" : "Sign Up";
         };
 
-        // Handle Authentication Form Submit
+        // Firebase Auth Form Submission Handler
         window.handleAuthSubmit = async function(e) {
             e.preventDefault();
             const email = document.getElementById('authEmail').value;
@@ -645,35 +874,35 @@
                 try {
                     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
                     await sendEmailVerification(userCredential.user);
-                    showToast("Account Created", "Verification email sent. Please check your inbox and spam folder.", "success");
+                    showToast("Account Created!", "A confirmation link has been sent to your email. Please check your Inbox and Spam folder.", "success");
                     toggleModal('authModal');
                 } catch (error) {
-                    showToast("Sign Up Failed", error.message.replace("Firebase: ", ""), "error");
+                    showToast("Sign Up Error", error.message.replace("Firebase: ", ""), "error");
                 }
             } else {
                 try {
                     const userCredential = await signInWithEmailAndPassword(auth, email, password);
                     if (!userCredential.user.emailVerified) {
-                        showToast("Verification Required", "Please verify your email before logging in.", "error");
+                        showToast("Verification Required", "Please verify your email address before logging in. Check your spam folder if needed.", "error");
                         return;
                     }
-                    showToast("Welcome Back!", "Logged in successfully.", "success");
+                    showToast("Welcome Back!", "Logged in successfully to your fan account.", "success");
                     toggleModal('authModal');
                 } catch (error) {
-                    showToast("Login Failed", error.message.replace("Firebase: ", ""), "error");
+                    showToast("Login Error", error.message.replace("Firebase: ", ""), "error");
                 }
             }
         };
 
-        // Track Auth State Changes
+        // Listen for Auth State Updates
         onAuthStateChanged(auth, (user) => {
             const authBtn = document.getElementById('openAuthBtn');
             if (user && user.emailVerified) {
                 authBtn.innerHTML = `<i class="fa-solid fa-user-check"></i> Account`;
                 authBtn.onclick = () => {
-                    if(confirm("Log out of your account?")) {
+                    if(confirm("Do you want to log out of your account?")) {
                         signOut(auth);
-                        showToast("Signed Out", "You have logged out.", "success");
+                        showToast("Logged Out", "You have successfully signed out.", "success");
                     }
                 };
             } else {
@@ -683,7 +912,7 @@
         });
     </script>
 
-    <!-- General Navigation & UI Scripts -->
+    <!-- Interface Interactions & Page Navigation Script -->
     <script>
         function toggleDrawer() {
             const drawer = document.getElementById('drawer');
@@ -713,17 +942,21 @@
 
         function navigate(pageId) {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-            document.getElementById(pageId).classList.add('active');
+            const targetPage = document.getElementById(pageId);
+            if (targetPage) {
+                targetPage.classList.add('active');
+            }
             closeAll();
-            window.scrollTo(0, 0);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
         function handleOrderSubmit(e) {
             e.preventDefault();
-            showToast("Order Submitted", "Redirecting to checkout payment interface...", "success");
+            showToast("Request Received", "Redirecting to secure payment checkout gateway...", "success");
             closeAll();
         }
     </script>
 </body>
 </html>
+
 
