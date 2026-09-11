@@ -4,9 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tyler Scherer | Official Fan Portal</title>
+    
     <!-- Font Awesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link 
+        rel="stylesheet" 
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" 
+    />
+    
     <style>
+        /* ==========================================================================
+           1. CSS VARIABLES & THEME SETUP
+           ========================================================================== */
         :root {
             --bg-color: #0b0b0d;
             --card-bg: #16161a;
@@ -17,14 +25,30 @@
             --text-muted: #a0a0a0;
             --verified-blue: #38bdf8;
             --input-bg: #101014;
+            --success-color: #10b981;
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --radius-xl: 20px;
+            --shadow-md: 0 10px 25px rgba(0, 0, 0, 0.5);
+            --shadow-lg: 0 25px 50px rgba(0, 0, 0, 0.8);
+            --transition-fast: 0.2s ease;
+            --transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
+        /* ==========================================================================
+           2. GLOBAL RESET & BASE STYLES
+           ========================================================================== */
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             -webkit-tap-highlight-color: transparent;
+        }
+
+        html {
+            scroll-behavior: smooth;
         }
 
         body {
@@ -34,9 +58,28 @@
             flex-direction: column;
             min-height: 100vh;
             overflow-x: hidden;
+            line-height: 1.5;
         }
 
-        /* Top Navigation Header */
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        button {
+            font-family: inherit;
+            border: none;
+            outline: none;
+            cursor: pointer;
+        }
+
+        input, textarea {
+            font-family: inherit;
+        }
+
+        /* ==========================================================================
+           3. HEADER & NAVIGATION
+           ========================================================================== */
         header {
             position: sticky;
             top: 0;
@@ -49,6 +92,7 @@
             justify-content: space-between;
             align-items: center;
             padding: 1rem 1.5rem;
+            width: 100%;
         }
 
         .brand {
@@ -60,6 +104,7 @@
             align-items: center;
             gap: 0.5rem;
             text-transform: uppercase;
+            user-select: none;
         }
 
         .brand i {
@@ -78,35 +123,39 @@
             border: 1px solid var(--accent-red);
             color: var(--text-main);
             padding: 0.55rem 1.1rem;
-            border-radius: 8px;
-            cursor: pointer;
+            border-radius: var(--radius-sm);
             font-weight: 600;
             font-size: 0.9rem;
             display: flex;
             align-items: center;
             gap: 0.6rem;
-            transition: all 0.2s ease;
+            transition: all var(--transition-fast);
         }
 
         .auth-btn:hover {
             background: var(--accent-red);
-            color: #fff;
+            color: #ffffff;
             box-shadow: 0 0 15px rgba(217, 4, 41, 0.4);
         }
 
         .menu-btn {
             background: none;
-            border: none;
             color: var(--text-main);
             font-size: 1.5rem;
-            cursor: pointer;
             padding: 0.2rem;
             display: flex;
             align-items: center;
             justify-content: center;
+            transition: color var(--transition-fast);
         }
 
-        /* Navigation Mobile Drawer */
+        .menu-btn:hover {
+            color: var(--accent-red);
+        }
+
+        /* ==========================================================================
+           4. MOBILE NAVIGATION DRAWER
+           ========================================================================== */
         .drawer {
             position: fixed;
             top: 0;
@@ -116,12 +165,12 @@
             background-color: var(--card-bg);
             border-left: 1px solid var(--card-border);
             z-index: 250;
-            transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: right var(--transition-smooth);
             padding: 2rem 1.5rem;
             display: flex;
             flex-direction: column;
             gap: 2rem;
-            box-shadow: -10px 0 30px rgba(0,0,0,0.8);
+            box-shadow: -10px 0 30px rgba(0, 0, 0, 0.8);
         }
 
         .drawer.active {
@@ -146,11 +195,9 @@
 
         .drawer-close {
             background: none;
-            border: none;
             color: var(--text-muted);
             font-size: 1.4rem;
-            cursor: pointer;
-            transition: color 0.2s;
+            transition: color var(--transition-fast);
         }
 
         .drawer-close:hover {
@@ -164,16 +211,14 @@
         }
 
         .drawer-nav a {
-            color: var(--text-main);
-            text-decoration: none;
             font-size: 1.05rem;
             font-weight: 600;
             padding: 0.8rem 1rem;
-            border-radius: 8px;
+            border-radius: var(--radius-sm);
             display: flex;
             align-items: center;
             gap: 0.8rem;
-            transition: background 0.2s;
+            transition: background var(--transition-fast), color var(--transition-fast);
         }
 
         .drawer-nav a:hover {
@@ -184,9 +229,12 @@
         .drawer-nav a i {
             width: 20px;
             color: var(--text-muted);
+            text-align: center;
         }
 
-        /* Dark Overlay Background */
+        /* ==========================================================================
+           5. OVERLAY BACKDROP
+           ========================================================================== */
         .overlay {
             position: fixed;
             top: 0;
@@ -199,7 +247,7 @@
             z-index: 200;
             display: none;
             opacity: 0;
-            transition: opacity 0.3s ease;
+            transition: opacity var(--transition-smooth);
         }
 
         .overlay.active {
@@ -207,7 +255,9 @@
             opacity: 1;
         }
 
-        /* Main Portal Layout */
+        /* ==========================================================================
+           6. MAIN LAYOUT & SECTIONS
+           ========================================================================== */
         main {
             flex: 1;
             padding: 2rem 1.5rem;
@@ -226,16 +276,24 @@
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(8px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(8px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
-        /* Hero Banner */
+        /* ==========================================================================
+           7. HERO BANNER
+           ========================================================================== */
         .hero {
             text-align: center;
             padding: 2.5rem 1rem;
             background: linear-gradient(180deg, rgba(217, 4, 41, 0.1) 0%, rgba(11, 11, 13, 0) 100%);
-            border-radius: 20px;
+            border-radius: var(--radius-xl);
             margin-bottom: 2rem;
             border: 1px solid rgba(217, 4, 41, 0.15);
         }
@@ -272,7 +330,9 @@
             line-height: 1.5;
         }
 
-        /* Section Headings */
+        /* ==========================================================================
+           8. SECTION HEADINGS & CARDS GRID
+           ========================================================================== */
         .section-header {
             display: flex;
             justify-content: space-between;
@@ -292,7 +352,6 @@
             color: var(--accent-red);
         }
 
-        /* Content Cards Grid */
         .card-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -303,13 +362,13 @@
         .card {
             background-color: var(--card-bg);
             border: 1px solid var(--card-border);
-            border-radius: 16px;
+            border-radius: var(--radius-lg);
             padding: 1.8rem;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
             gap: 1.2rem;
-            transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+            transition: transform var(--transition-fast), border-color var(--transition-fast), box-shadow var(--transition-fast);
             position: relative;
             overflow: hidden;
         }
@@ -317,7 +376,7 @@
         .card:hover {
             transform: translateY(-4px);
             border-color: rgba(217, 4, 41, 0.4);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+            box-shadow: var(--shadow-md);
         }
 
         .card-badge {
@@ -358,23 +417,23 @@
             line-height: 1.5;
         }
 
-        /* Action Buttons */
+        /* ==========================================================================
+           9. BUTTON STYLES
+           ========================================================================== */
         .btn-action {
             background-color: var(--accent-red);
-            color: #fff;
-            border: none;
+            color: #ffffff;
             padding: 0.9rem 1.2rem;
-            border-radius: 10px;
+            border-radius: var(--radius-md);
             font-size: 0.95rem;
             font-weight: 700;
-            cursor: pointer;
             width: 100%;
             text-align: center;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 0.6rem;
-            transition: all 0.2s ease;
+            transition: all var(--transition-fast);
             box-shadow: 0 4px 15px rgba(217, 4, 41, 0.3);
         }
 
@@ -388,7 +447,9 @@
             transform: translateY(0);
         }
 
-        /* Pop-up Modals */
+        /* ==========================================================================
+           10. MODAL DIALOGS
+           ========================================================================== */
         .modal {
             position: fixed;
             top: 50%;
@@ -396,7 +457,7 @@
             transform: translate(-50%, -45%) scale(0.95);
             background-color: var(--card-bg);
             border: 1px solid var(--card-border);
-            border-radius: 20px;
+            border-radius: var(--radius-xl);
             width: 92%;
             max-width: 440px;
             padding: 2rem;
@@ -404,7 +465,7 @@
             display: none;
             opacity: 0;
             transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.25s ease;
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.8);
+            box-shadow: var(--shadow-lg);
         }
 
         .modal.active {
@@ -428,11 +489,9 @@
 
         .modal-close {
             background: none;
-            border: none;
             color: var(--text-muted);
             font-size: 1.4rem;
-            cursor: pointer;
-            transition: color 0.2s;
+            transition: color var(--transition-fast);
         }
 
         .modal-close:hover {
@@ -452,7 +511,8 @@
             color: var(--text-muted);
         }
 
-        .form-group input, .form-group textarea {
+        .form-group input, 
+        .form-group textarea {
             background-color: var(--input-bg);
             border: 1px solid var(--card-border);
             color: var(--text-main);
@@ -460,15 +520,18 @@
             border-radius: 10px;
             font-size: 1rem;
             outline: none;
-            transition: border-color 0.2s, box-shadow 0.2s;
+            transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
         }
 
-        .form-group input:focus, .form-group textarea:focus {
+        .form-group input:focus, 
+        .form-group textarea:focus {
             border-color: var(--accent-red);
             box-shadow: 0 0 0 3px rgba(217, 4, 41, 0.15);
         }
 
-        /* Animated Toast Notifications */
+        /* ==========================================================================
+           11. ANIMATED TOAST NOTIFICATIONS
+           ========================================================================== */
         .toast-container {
             position: fixed;
             top: 20px;
@@ -488,8 +551,8 @@
             -webkit-backdrop-filter: blur(12px);
             color: var(--text-main);
             padding: 1.1rem 1.3rem;
-            border-radius: 12px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.6);
+            border-radius: var(--radius-md);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
             display: flex;
             align-items: flex-start;
             gap: 1rem;
@@ -506,7 +569,7 @@
         }
 
         .toast.success {
-            border-left-color: #10b981;
+            border-left-color: var(--success-color);
         }
 
         .toast.error {
@@ -519,7 +582,7 @@
         }
 
         .toast.success .toast-icon {
-            color: #10b981;
+            color: var(--success-color);
         }
 
         .toast.error .toast-icon {
@@ -542,7 +605,9 @@
             line-height: 1.4;
         }
 
-        /* Footer */
+        /* ==========================================================================
+           12. FOOTER STYLES
+           ========================================================================== */
         footer {
             border-top: 1px solid var(--card-border);
             padding: 2.5rem 1.5rem;
@@ -566,8 +631,7 @@
 
         .footer-links a {
             color: var(--text-muted);
-            text-decoration: none;
-            transition: color 0.2s;
+            transition: color var(--transition-fast);
         }
 
         .footer-links a:hover {
@@ -577,10 +641,10 @@
 </head>
 <body>
 
-    <!-- Toast Notification Container -->
+    <!-- Notification Toast Container -->
     <div class="toast-container" id="toastContainer"></div>
 
-    <!-- Header Navigation -->
+    <!-- Header Bar -->
     <header>
         <div class="brand">
             TYLER SCHERER <i class="fa-solid fa-circle-check"></i>
@@ -589,43 +653,61 @@
             <button class="auth-btn" id="openAuthBtn" onclick="toggleModal('authModal')">
                 <i class="fa-solid fa-user"></i> Sign Up / Login
             </button>
-            <button class="menu-btn" onclick="toggleDrawer()" aria-label="Open navigation menu">
+            <button class="menu-btn" onclick="toggleDrawer()" aria-label="Open menu">
                 <i class="fa-solid fa-bars"></i>
             </button>
         </div>
     </header>
 
-    <!-- Overlay Background -->
+    <!-- Overlay Screen Backdrop -->
     <div class="overlay" id="overlay" onclick="closeAll()"></div>
 
     <!-- Mobile Navigation Drawer -->
     <div class="drawer" id="drawer">
         <div class="drawer-header">
             <span class="drawer-title">Navigation</span>
-            <button class="drawer-close" onclick="toggleDrawer()"><i class="fa-solid fa-xmark"></i></button>
+            <button class="drawer-close" onclick="toggleDrawer()">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
         </div>
         <nav class="drawer-nav">
-            <a href="#" onclick="navigate('home')"><i class="fa-solid fa-house"></i> Home</a>
-            <a href="#" onclick="navigate('showreels')"><i class="fa-solid fa-film"></i> Showreels & Clips</a>
-            <a href="#" onclick="navigate('filmography')"><i class="fa-solid fa-clapperboard"></i> Filmography</a>
-            <a href="#" onclick="navigate('merch')"><i class="fa-solid fa-shirt"></i> Official Merch</a>
-            <a href="#" onclick="navigate('vip')"><i class="fa-solid fa-crown"></i> VIP Fan Groups</a>
-            <a href="#" onclick="navigate('charity')"><i class="fa-solid fa-hand-holding-heart"></i> Charity Support</a>
+            <a href="#" onclick="navigate('home')">
+                <i class="fa-solid fa-house"></i> Home
+            </a>
+            <a href="#" onclick="navigate('showreels')">
+                <i class="fa-solid fa-film"></i> Showreels & Clips
+            </a>
+            <a href="#" onclick="navigate('filmography')">
+                <i class="fa-solid fa-clapperboard"></i> Filmography
+            </a>
+            <a href="#" onclick="navigate('merch')">
+                <i class="fa-solid fa-shirt"></i> Official Merch
+            </a>
+            <a href="#" onclick="navigate('vip')">
+                <i class="fa-solid fa-crown"></i> VIP Fan Groups
+            </a>
+            <a href="#" onclick="navigate('charity')">
+                <i class="fa-solid fa-hand-holding-heart"></i> Charity Support
+            </a>
         </nav>
     </div>
 
-    <!-- Main Portal Content -->
+    <!-- Main Content Area -->
     <main>
-        <!-- Home Page -->
+        <!-- Home Section -->
         <section id="home" class="page active">
             <div class="hero">
-                <div class="hero-badge"><i class="fa-solid fa-star"></i> Verified Official Portal</div>
+                <div class="hero-badge">
+                    <i class="fa-solid fa-star"></i> Verified Official Portal
+                </div>
                 <h1>Welcome to Tyler's Fan Hub</h1>
                 <p>Book personalized video messages, explore upcoming project reels, join the official VIP fan club, and support community initiatives.</p>
             </div>
 
             <div class="section-header">
-                <h2 class="section-title"><i class="fa-solid fa-video"></i> Personal Shoutouts</h2>
+                <h2 class="section-title">
+                    <i class="fa-solid fa-video"></i> Personal Shoutouts
+                </h2>
             </div>
 
             <div class="card-grid">
@@ -636,7 +718,9 @@
                         <div class="price-tag">$150.00</div>
                     </div>
                     <p class="card-desc">Request a custom 1-minute personalized HD video message for birthdays, encouragement, or special announcements.</p>
-                    <button class="btn-action" onclick="toggleModal('orderModal')"><i class="fa-solid fa-paper-plane"></i> Request Video</button>
+                    <button class="btn-action" onclick="toggleModal('orderModal')">
+                        <i class="fa-solid fa-paper-plane"></i> Request Video
+                    </button>
                 </div>
 
                 <div class="card">
@@ -646,15 +730,19 @@
                         <div class="price-tag">$175.00</div>
                     </div>
                     <p class="card-desc">Customized event greetings tailored for parties or milestones with personal script inclusions.</p>
-                    <button class="btn-action" onclick="toggleModal('orderModal')"><i class="fa-solid fa-cake-candles"></i> Book Event Greeting</button>
+                    <button class="btn-action" onclick="toggleModal('orderModal')">
+                        <i class="fa-solid fa-cake-candles"></i> Book Event Greeting
+                    </button>
                 </div>
             </div>
         </section>
 
-        <!-- Showreels Page -->
+        <!-- Showreels Section -->
         <section id="showreels" class="page">
             <div class="section-header">
-                <h2 class="section-title"><i class="fa-solid fa-film"></i> Showreels & Acting Clips</h2>
+                <h2 class="section-title">
+                    <i class="fa-solid fa-film"></i> Showreels & Acting Clips
+                </h2>
             </div>
             <p style="color: var(--text-muted); margin-bottom: 1.5rem;">Watch official action sequences, dramatic auditions, and stunt performances.</p>
 
@@ -664,22 +752,28 @@
                         <div class="card-title">Action & Tactical Stunt Reel</div>
                     </div>
                     <p class="card-desc">High-energy combat sequence compilations, hand-to-hand choreography, and tactical firearms stage work.</p>
-                    <button class="btn-action" onclick="showToast('Video Reel', 'Streaming reel player initializing...', 'success')"><i class="fa-solid fa-play"></i> Watch Reel</button>
+                    <button class="btn-action" onclick="showToast('Video Reel', 'Streaming reel player initializing...', 'success')">
+                        <i class="fa-solid fa-play"></i> Watch Reel
+                    </button>
                 </div>
                 <div class="card">
                     <div class="card-header">
                         <div class="card-title">Dramatic Performances</div>
                     </div>
                     <p class="card-desc">Key performance cuts featuring dramatic roles across film and television productions.</p>
-                    <button class="btn-action" onclick="showToast('Video Reel', 'Streaming reel player initializing...', 'success')"><i class="fa-solid fa-play"></i> Watch Reel</button>
+                    <button class="btn-action" onclick="showToast('Video Reel', 'Streaming reel player initializing...', 'success')">
+                        <i class="fa-solid fa-play"></i> Watch Reel
+                    </button>
                 </div>
             </div>
         </section>
 
-        <!-- Filmography Page -->
+        <!-- Filmography Section -->
         <section id="filmography" class="page">
             <div class="section-header">
-                <h2 class="section-title"><i class="fa-solid fa-clapperboard"></i> Filmography & Projects</h2>
+                <h2 class="section-title">
+                    <i class="fa-solid fa-clapperboard"></i> Filmography & Projects
+                </h2>
             </div>
             <div class="card-grid">
                 <div class="card">
@@ -692,10 +786,12 @@
             </div>
         </section>
 
-        <!-- Merch Page -->
+        <!-- Merch Section -->
         <section id="merch" class="page">
             <div class="section-header">
-                <h2 class="section-title"><i class="fa-solid fa-shirt"></i> Official Merchandise</h2>
+                <h2 class="section-title">
+                    <i class="fa-solid fa-shirt"></i> Official Merchandise
+                </h2>
             </div>
             <div class="card-grid">
                 <div class="card">
@@ -704,15 +800,19 @@
                         <div class="price-tag">$35.00</div>
                     </div>
                     <p class="card-desc">Premium embroidered custom logo cap. Exclusive limited batch release for fan portal members.</p>
-                    <button class="btn-action" onclick="toggleModal('orderModal')"><i class="fa-solid fa-cart-shopping"></i> Order Now</button>
+                    <button class="btn-action" onclick="toggleModal('orderModal')">
+                        <i class="fa-solid fa-cart-shopping"></i> Order Now
+                    </button>
                 </div>
             </div>
         </section>
 
-        <!-- VIP Page -->
+        <!-- VIP Fan Pass Section -->
         <section id="vip" class="page">
             <div class="section-header">
-                <h2 class="section-title"><i class="fa-solid fa-crown"></i> VIP Fan Pass</h2>
+                <h2 class="section-title">
+                    <i class="fa-solid fa-crown"></i> VIP Fan Pass
+                </h2>
             </div>
             <div class="card-grid">
                 <div class="card">
@@ -721,15 +821,19 @@
                         <div class="price-tag">$25 / mo</div>
                     </div>
                     <p class="card-desc">Get access to private Q&A streams, priority video requests, direct chatroom access, and exclusive updates.</p>
-                    <button class="btn-action" onclick="toggleModal('authModal')"><i class="fa-solid fa-gem"></i> Join VIP Club</button>
+                    <button class="btn-action" onclick="toggleModal('authModal')">
+                        <i class="fa-solid fa-gem"></i> Join VIP Club
+                    </button>
                 </div>
             </div>
         </section>
 
-        <!-- Charity Page -->
+        <!-- Charity Section -->
         <section id="charity" class="page">
             <div class="section-header">
-                <h2 class="section-title"><i class="fa-solid fa-hand-holding-heart"></i> Charity Support</h2>
+                <h2 class="section-title">
+                    <i class="fa-solid fa-hand-holding-heart"></i> Charity Support
+                </h2>
             </div>
             <div class="card-grid">
                 <div class="card">
@@ -737,17 +841,21 @@
                         <div class="card-title">Community Arts & Youth Programs</div>
                     </div>
                     <p class="card-desc">Direct support initiative contributing to local performing arts programs and physical fitness foundations.</p>
-                    <button class="btn-action" onclick="toggleModal('orderModal')"><i class="fa-solid fa-heart"></i> Support Campaign</button>
+                    <button class="btn-action" onclick="toggleModal('orderModal')">
+                        <i class="fa-solid fa-heart"></i> Support Campaign
+                    </button>
                 </div>
             </div>
         </section>
     </main>
 
-    <!-- Account Auth Modal (Sign Up / Log In) -->
+    <!-- Modal for Account Authentication -->
     <div class="modal" id="authModal">
         <div class="modal-header">
             <h3 id="authModalTitle">Create Fan Account</h3>
-            <button class="modal-close" onclick="toggleModal('authModal')"><i class="fa-solid fa-xmark"></i></button>
+            <button class="modal-close" onclick="toggleModal('authModal')">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
         </div>
         <form id="authForm" onsubmit="handleAuthSubmit(event)">
             <div class="form-group">
@@ -763,34 +871,38 @@
             </button>
             <p style="text-align: center; margin-top: 1.2rem; font-size: 0.9rem; color: var(--text-muted);">
                 <span id="authToggleText">Already have an account?</span> 
-                <a href="#" style="color: var(--accent-red); font-weight: 700; text-decoration: none;" id="authToggleLink" onclick="toggleAuthMode(event)">Log In</a>
+                <a href="#" style="color: var(--accent-red); font-weight: 700;" id="authToggleLink" onclick="toggleAuthMode(event)">Log In</a>
             </p>
         </form>
     </div>
 
-    <!-- Booking / Request Modal -->
+    <!-- Modal for Video/Order Requests -->
     <div class="modal" id="orderModal">
         <div class="modal-header">
             <h3>Complete Your Request</h3>
-            <button class="modal-close" onclick="toggleModal('orderModal')"><i class="fa-solid fa-xmark"></i></button>
+            <button class="modal-close" onclick="toggleModal('orderModal')">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
         </div>
         <form onsubmit="handleOrderSubmit(event)">
             <div class="form-group">
-                <label>Your Full Name</label>
-                <input type="text" required placeholder="John Doe">
+                <label for="orderName">Your Full Name</label>
+                <input type="text" id="orderName" required placeholder="John Doe">
             </div>
             <div class="form-group">
-                <label>Special Instructions / Script Details</label>
-                <textarea rows="3" required placeholder="Mention specific details or names for Tyler to include..."></textarea>
+                <label for="orderDetails">Special Instructions / Script Details</label>
+                <textarea id="orderDetails" rows="3" required placeholder="Mention specific details or names for Tyler to include..."></textarea>
             </div>
-            <button type="submit" class="btn-action"><i class="fa-solid fa-lock"></i> Proceed to Checkout</button>
+            <button type="submit" class="btn-action">
+                <i class="fa-solid fa-lock"></i> Proceed to Checkout
+            </button>
         </form>
     </div>
 
     <!-- Footer -->
     <footer>
         <p>&copy; 2026 Tyler Scherer. All rights reserved.</p>
-        <p style="font-size: 0.8rem; color: #666;">Official Fan Portal & Direct Messaging System</p>
+        <p style="font-size: 0.8rem; color: #666666;">Official Fan Portal & Direct Messaging System</p>
         <div class="footer-links">
             <a href="#" onclick="navigate('home')">Home</a>
             <a href="#" onclick="navigate('vip')">VIP Pass</a>
@@ -798,7 +910,7 @@
         </div>
     </footer>
 
-    <!-- Firebase Modular SDK Script -->
+    <!-- Firebase Script Configuration (Modular ES6 Imports) -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { 
@@ -810,7 +922,7 @@
             signOut 
         } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
-        // FIREBASE CONFIGURATION
+        // Firebase Configuration Credentials
         const firebaseConfig = {
             apiKey: "AIzaSyBPvwW7lxfeqQgeZiwUf7ansdyFAg_eB4s",
             authDomain: "tyler-ac578.firebaseapp.com",
@@ -820,13 +932,13 @@
             appId: "1:361515975510:web:e29bfd7b9440"
         };
 
-        // Initialize Firebase App & Auth Services
+        // Initialize Firebase
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
 
         let isSignUpMode = true;
 
-        // Custom Toast Notification Handler
+        // Toast Notification Display Helper
         window.showToast = function(title, message, type = 'success') {
             const container = document.getElementById('toastContainer');
             const toast = document.createElement('div');
@@ -844,27 +956,44 @@
             
             container.appendChild(toast);
             
-            setTimeout(() => toast.classList.add('show'), 10);
+            setTimeout(() => {
+                toast.classList.add('show');
+            }, 10);
 
             setTimeout(() => {
                 toast.classList.remove('show');
-                setTimeout(() => toast.remove(), 350);
+                setTimeout(() => {
+                    toast.remove();
+                }, 350);
             }, 4500);
         };
 
-        // Switch between Sign Up and Log In states
+        // Toggle Auth Mode (Sign Up vs Log In)
         window.toggleAuthMode = function(e) {
-            if(e) e.preventDefault();
+            if (e) {
+                e.preventDefault();
+            }
             isSignUpMode = !isSignUpMode;
-            document.getElementById('authModalTitle').innerText = isSignUpMode ? "Create Fan Account" : "Welcome Back";
-            document.getElementById('authSubmitBtn').innerHTML = isSignUpMode ? 
-                '<i class="fa-solid fa-user-plus"></i> Create Account' : 
-                '<i class="fa-solid fa-right-to-bracket"></i> Log In';
-            document.getElementById('authToggleText').innerText = isSignUpMode ? "Already have an account?" : "Don't have an account?";
-            document.getElementById('authToggleLink').innerText = isSignUpMode ? "Log In" : "Sign Up";
+            
+            const modalTitle = document.getElementById('authModalTitle');
+            const submitBtn = document.getElementById('authSubmitBtn');
+            const toggleText = document.getElementById('authToggleText');
+            const toggleLink = document.getElementById('authToggleLink');
+
+            if (isSignUpMode) {
+                modalTitle.innerText = "Create Fan Account";
+                submitBtn.innerHTML = '<i class="fa-solid fa-user-plus"></i> Create Account';
+                toggleText.innerText = "Already have an account?";
+                toggleLink.innerText = "Log In";
+            } else {
+                modalTitle.innerText = "Welcome Back";
+                submitBtn.innerHTML = '<i class="fa-solid fa-right-to-bracket"></i> Log In';
+                toggleText.innerText = "Don't have an account?";
+                toggleLink.innerText = "Sign Up";
+            }
         };
 
-        // Firebase Auth Form Submission Handler
+        // Auth Form Submit Listener
         window.handleAuthSubmit = async function(e) {
             e.preventDefault();
             const email = document.getElementById('authEmail').value;
@@ -894,13 +1023,13 @@
             }
         };
 
-        // Listen for Auth State Updates
+        // Auth State Observer
         onAuthStateChanged(auth, (user) => {
             const authBtn = document.getElementById('openAuthBtn');
             if (user && user.emailVerified) {
                 authBtn.innerHTML = `<i class="fa-solid fa-user-check"></i> Account`;
                 authBtn.onclick = () => {
-                    if(confirm("Do you want to log out of your account?")) {
+                    if (confirm("Do you want to log out of your account?")) {
                         signOut(auth);
                         showToast("Logged Out", "You have successfully signed out.", "success");
                     }
@@ -912,7 +1041,7 @@
         });
     </script>
 
-    <!-- Interface Interactions & Page Navigation Script -->
+    <!-- General Interface Interaction Scripts -->
     <script>
         function toggleDrawer() {
             const drawer = document.getElementById('drawer');
@@ -935,19 +1064,34 @@
         }
 
         function closeAll() {
-            document.getElementById('drawer').classList.remove('active');
-            document.getElementById('overlay').classList.remove('active');
-            document.querySelectorAll('.modal').forEach(m => m.classList.remove('active'));
+            const drawer = document.getElementById('drawer');
+            const overlay = document.getElementById('overlay');
+            
+            drawer.classList.remove('active');
+            overlay.classList.remove('active');
+            
+            const modals = document.querySelectorAll('.modal');
+            modals.forEach(modal => {
+                modal.classList.remove('active');
+            });
         }
 
         function navigate(pageId) {
-            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => {
+                page.classList.remove('active');
+            });
+            
             const targetPage = document.getElementById(pageId);
             if (targetPage) {
                 targetPage.classList.add('active');
             }
+            
             closeAll();
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
         }
 
         function handleOrderSubmit(e) {
@@ -958,5 +1102,6 @@
     </script>
 </body>
 </html>
+p
 
 
