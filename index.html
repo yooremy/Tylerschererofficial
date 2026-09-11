@@ -3,1199 +3,587 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tyler Scherer | Official Actor & VIP Portal</title>
+    <title>Tyler Scherer | Official Fan Portal</title>
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
-
     <style>
         :root {
-            --bg-dark: #08090c;
-            --bg-card: #11131a;
-            --bg-hover: #191c26;
-            --primary: #e50914;
-            --primary-glow: rgba(229, 9, 20, 0.4);
-            --text-main: #ffffff;
-            --text-muted: #8f94a6;
-            --border: rgba(255, 255, 255, 0.08);
-            --verified-blue: #1da1f2;
-            --gold: #ffd700;
-            --font-family: 'Outfit', sans-serif;
-            --font-heading: 'Space Grotesk', sans-serif;
+            --bg-color: #0b0b0d;
+            --card-bg: #16161a;
+            --accent-red: #d90429;
+            --accent-red-hover: #ef233c;
+            --text-main: #f8f9fa;
+            --text-muted: #a0a0a0;
+            --border-color: #2b2b36;
         }
 
         * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
-            font-family: var(--font-family);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
         }
 
         body {
-            background-color: var(--bg-dark);
+            background-color: var(--bg-color);
             color: var(--text-main);
-            min-height: 100vh;
             display: flex;
             flex-direction: column;
-            overflow-x: hidden;
+            min-height: 100vh;
         }
 
-        /* --- TRUST BANNER --- */
-        .trust-banner {
-            background: #0d0e14;
-            color: var(--text-muted);
-            font-size: 0.78rem;
-            text-align: center;
-            padding: 0.4rem 1rem;
-            border-bottom: 1px solid var(--border);
-            letter-spacing: 0.5px;
-        }
-
-        .trust-banner strong { color: #4cd964; }
-
-        /* --- HEADER & NAVIGATION --- */
+        /* Header Navigation */
         header {
             position: sticky;
             top: 0;
-            width: 100%;
-            background: rgba(8, 9, 12, 0.95);
-            backdrop-filter: blur(14px);
-            border-bottom: 1px solid var(--border);
             z-index: 100;
-        }
-
-        .navbar {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 1rem 1.5rem;
+            background-color: rgba(11, 11, 13, 0.95);
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid var(--border-color);
             display: flex;
             justify-content: space-between;
             align-items: center;
-            gap: 1rem;
+            padding: 1rem 1.5rem;
         }
 
-        .brand-logo {
-            font-family: var(--font-heading);
-            font-size: 1.3rem;
-            font-weight: 700;
-            text-transform: uppercase;
+        .brand {
+            font-weight: 800;
+            font-size: 1.2rem;
+            letter-spacing: 1px;
             color: var(--text-main);
-            text-decoration: none;
             display: flex;
             align-items: center;
             gap: 0.5rem;
-            cursor: pointer;
         }
 
-        .brand-logo span { color: var(--primary); }
-
-        .verified-badge {
-            font-size: 0.85rem;
-            color: var(--verified-blue);
+        .brand i {
+            color: #38bdf8;
         }
 
         .nav-actions {
             display: flex;
             align-items: center;
-            gap: 0.8rem;
+            gap: 1rem;
         }
 
         .auth-btn {
             background: transparent;
-            border: 1px solid var(--primary);
+            border: 1px solid var(--border-color);
             color: var(--text-main);
-            padding: 0.45rem 0.9rem;
+            padding: 0.5rem 1rem;
             border-radius: 6px;
-            font-size: 0.85rem;
+            cursor: pointer;
             font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s;
             display: flex;
             align-items: center;
-            gap: 0.4rem;
+            gap: 0.5rem;
         }
 
-        .auth-btn:hover {
-            background: var(--primary);
-            box-shadow: 0 0 10px var(--primary-glow);
-        }
-
-        /* Hamburger Button */
-        .hamburger-btn {
-            background: transparent;
-            border: 1px solid var(--border);
+        .menu-btn {
+            background: none;
+            border: none;
             color: var(--text-main);
-            font-size: 1.3rem;
+            font-size: 1.5rem;
             cursor: pointer;
-            width: 42px;
-            height: 42px;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.2s;
         }
 
-        .hamburger-btn:hover {
-            border-color: var(--primary);
-            color: var(--primary);
-            box-shadow: 0 0 10px var(--primary-glow);
-        }
-
-        /* --- SLIDE-OUT DRAWER MENU --- */
-        .menu-overlay {
+        /* Navigation Drawer */
+        .drawer {
             position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100vh;
-            background: rgba(0, 0, 0, 0.75);
-            backdrop-filter: blur(5px);
-            opacity: 0; visibility: hidden;
-            transition: all 0.3s ease;
+            top: 0;
+            right: -100%;
+            width: 280px;
+            height: 100%;
+            background-color: var(--card-bg);
+            border-left: 1px solid var(--border-color);
             z-index: 200;
-        }
-
-        .menu-overlay.active { opacity: 1; visibility: visible; }
-
-        .side-menu {
-            position: fixed;
-            top: 0; right: -340px;
-            width: 340px; height: 100vh;
-            background: var(--bg-card);
-            border-left: 1px solid var(--border);
+            transition: right 0.3s ease;
             padding: 2rem 1.5rem;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
-            transition: right 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-            z-index: 201;
-            overflow-y: auto;
+            gap: 1.5rem;
         }
 
-        .side-menu.active { right: 0; }
-
-        .menu-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding-bottom: 1.2rem;
-            border-bottom: 1px solid var(--border);
+        .drawer.active {
+            right: 0;
         }
 
-        .menu-title {
-            font-family: var(--font-heading);
-            font-size: 0.85rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+        .drawer-close {
+            align-self: flex-end;
+            background: none;
+            border: none;
             color: var(--text-muted);
+            font-size: 1.5rem;
+            cursor: pointer;
         }
 
-        .close-btn {
-            background: none; border: none;
-            color: var(--text-muted);
-            font-size: 1.5rem; cursor: pointer;
-            transition: color 0.2s;
-        }
-
-        .close-btn:hover { color: var(--text-main); }
-
-        .menu-links {
-            list-style: none;
-            margin-top: 1.2rem;
+        .drawer-nav {
             display: flex;
             flex-direction: column;
-            gap: 0.4rem;
+            gap: 1rem;
         }
 
-        .menu-links a {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            padding: 0.8rem 1rem;
+        .drawer-nav a {
             color: var(--text-main);
             text-decoration: none;
-            font-size: 0.95rem;
-            font-weight: 500;
-            border-radius: 8px;
-            transition: all 0.2s;
+            font-size: 1.1rem;
+            font-weight: 600;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid var(--border-color);
         }
 
-        .menu-links a i {
-            width: 22px;
-            color: var(--text-muted);
-            transition: color 0.2s;
+        /* Overlay */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 150;
+            display: none;
         }
 
-        .menu-links a:hover {
-            background: var(--bg-hover);
-            color: var(--primary);
+        .overlay.active {
+            display: block;
         }
 
-        .menu-links a:hover i { color: var(--primary); }
-
-        .menu-footer {
-            color: var(--text-muted);
-            font-size: 0.75rem;
-            padding-top: 1.5rem;
-            border-top: 1px solid var(--border);
-        }
-
-        /* --- MAIN LAYOUT & PAGES --- */
+        /* Main Content Container */
         main {
             flex: 1;
-            max-width: 1000px;
-            width: 100%;
+            padding: 1.5rem;
+            max-width: 800px;
             margin: 0 auto;
-            padding: 2.5rem 1.5rem;
+            width: 100%;
         }
 
-        .page { display: none; }
+        .page {
+            display: none;
+        }
 
         .page.active {
             display: block;
-            animation: fadeIn 0.3s ease-in-out;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(8px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .page-header {
-            margin-bottom: 2.2rem;
-            text-align: center;
-        }
-
-        .page-header h1 {
-            font-family: var(--font-heading);
-            font-size: 2.2rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .page-header p {
-            color: var(--text-muted);
-            font-size: 0.95rem;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        /* --- CARDS & BUTTONS --- */
-        .card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 1.6rem;
-            margin-bottom: 1.2rem;
-        }
-
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.6rem;
-            background: var(--primary);
-            color: #fff;
-            border: none;
-            padding: 0.8rem 1.5rem;
-            border-radius: 8px;
-            font-weight: 600;
-            font-size: 0.9rem;
-            cursor: pointer;
-            text-decoration: none;
-            transition: all 0.2s;
-            box-shadow: 0 4px 12px var(--primary-glow);
-        }
-
-        .btn:hover {
-            background: #f4121f;
-            transform: translateY(-1px);
-        }
-
-        .btn-outline {
-            background: transparent;
-            border: 1px solid var(--border);
-            color: var(--text-main);
-            box-shadow: none;
-        }
-
-        .btn-outline:hover {
-            background: var(--bg-hover);
-            border-color: var(--primary);
-        }
-
-        /* --- HOME HERO --- */
+        /* Hero Section */
         .hero {
             text-align: center;
-            padding: 3rem 1rem;
-        }
-
-        .hero-tag {
-            background: rgba(229, 9, 20, 0.15);
-            color: var(--primary);
-            font-size: 0.8rem;
-            font-weight: 700;
-            padding: 0.3rem 0.9rem;
-            border-radius: 20px;
-            text-transform: uppercase;
-            display: inline-block;
-            margin-bottom: 1rem;
+            padding: 2rem 0;
         }
 
         .hero h1 {
-            font-family: var(--font-heading);
-            font-size: 2.8rem;
-            margin-bottom: 0.8rem;
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
         }
 
         .hero p {
             color: var(--text-muted);
-            max-width: 580px;
-            margin: 0 auto 2rem auto;
-            font-size: 1.05rem;
-        }
-
-        /* --- GRID LAYOUTS --- */
-        .grid-2 {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.2rem;
-        }
-
-        .grid-3 {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 1.2rem;
-        }
-
-        /* --- SUBSECTIONS STYLING --- */
-        .video-container {
-            position: relative;
-            padding-bottom: 56.25%;
-            height: 0;
-            overflow: hidden;
-            border-radius: 12px;
-            border: 1px solid var(--border);
+            font-size: 1rem;
             margin-bottom: 1.5rem;
-            background: #000;
         }
 
-        .video-container iframe {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            border: 0;
+        /* Cards Grid */
+        .card-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+            margin-top: 1.5rem;
         }
 
-        .film-card {
+        .card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .card-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            gap: 1rem;
-            flex-wrap: wrap;
         }
 
-        .film-tag {
-            color: var(--primary);
-            font-size: 0.8rem;
+        .card-title {
+            font-size: 1.2rem;
             font-weight: 700;
-            text-transform: uppercase;
-        }
-
-        .cameo-card, .merch-item {
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
         }
 
         .price-tag {
-            font-family: var(--font-heading);
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: var(--text-main);
-            margin: 0.8rem 0;
+            color: var(--accent-red);
+            font-weight: 800;
+            font-size: 1.2rem;
         }
 
-        .merch-img-placeholder {
-            height: 160px;
-            background: var(--bg-hover);
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 3rem;
+        .card-desc {
             color: var(--text-muted);
-            margin-bottom: 1rem;
+            font-size: 0.95rem;
+            line-height: 1.4;
         }
 
-        .specs-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 1rem;
+        .btn-action {
+            background-color: var(--accent-red);
+            color: #fff;
+            border: none;
+            padding: 0.8rem;
+            border-radius: 6px;
+            font-weight: 700;
+            cursor: pointer;
+            width: 100%;
+            text-align: center;
+            transition: background 0.2s, transform 0.1s;
+        }
+
+        .btn-action:hover {
+            background-color: var(--accent-red-hover);
+        }
+
+        .btn-action:active {
+            transform: scale(0.98);
+        }
+
+        /* Modal Styles */
+        .modal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -45%) scale(0.95);
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            width: 90%;
+            max-width: 420px;
+            padding: 2rem;
+            z-index: 300;
+            display: none;
+            opacity: 0;
+            transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.25s ease;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+        }
+
+        .modal.active {
+            display: block;
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             margin-bottom: 1.5rem;
         }
 
-        .spec-box {
-            background: var(--bg-hover);
-            padding: 1rem;
-            border-radius: 8px;
-            text-align: center;
-        }
-
-        .spec-box label {
-            display: block;
-            font-size: 0.75rem;
+        .modal-close {
+            background: none;
+            border: none;
             color: var(--text-muted);
-            text-transform: uppercase;
+            font-size: 1.5rem;
+            cursor: pointer;
         }
 
-        .spec-box span {
-            font-weight: 700;
-            font-size: 1.1rem;
-        }
-
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 1rem;
-        }
-
-        .gallery-item {
-            height: 180px;
-            background: var(--bg-hover);
-            border-radius: 8px;
-            border: 1px solid var(--border);
+        .form-group {
             display: flex;
             flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            color: var(--text-muted);
-            text-align: center;
-            padding: 1rem;
-        }
-
-        /* --- CUSTOM DONATION STYLING --- */
-        .donation-box {
-            display: flex;
-            align-items: center;
-            justify-content: center;
             gap: 0.5rem;
-            margin: 1.5rem 0;
+            margin-bottom: 1rem;
         }
 
-        .currency-symbol {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--primary);
+        .form-group label {
+            font-size: 0.9rem;
+            color: var(--text-muted);
         }
 
-        .donation-input {
-            width: 160px;
+        .form-group input {
+            background-color: var(--bg-color);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
             padding: 0.8rem;
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: #fff;
-            background: var(--bg-dark);
-            border: 2px solid var(--border);
             border-radius: 8px;
-            text-align: center;
+            font-size: 1rem;
             outline: none;
             transition: border-color 0.2s;
         }
 
-        .donation-input:focus {
-            border-color: var(--primary);
+        .form-group input:focus {
+            border-color: var(--accent-red);
         }
 
-        .donation-quick-btns {
-            display: flex;
-            justify-content: center;
-            gap: 0.5rem;
-            margin-bottom: 1.5rem;
-            flex-wrap: wrap;
-        }
-
-        .quick-btn {
-            background: var(--bg-hover);
-            border: 1px solid var(--border);
-            color: var(--text-main);
-            padding: 0.4rem 0.9rem;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 0.85rem;
-            font-weight: 600;
-            transition: all 0.2s;
-        }
-
-        .quick-btn:hover {
-            border-color: var(--primary);
-            color: var(--primary);
-        }
-
-        /* --- MODAL STYLES --- */
-        .modal {
-            display: none;
+        /* Custom Animated Toast Notification */
+        .toast-container {
             position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.85);
-            backdrop-filter: blur(6px);
-            z-index: 300;
-            justify-content: center;
-            align-items: center;
-            padding: 1rem;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            width: 90%;
+            max-width: 400px;
+            pointer-events: none;
         }
 
-        .modal-body {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 2rem;
-            max-width: 460px;
-            width: 100%;
-            position: relative;
+        .toast {
+            background: rgba(22, 22, 26, 0.95);
+            border: 1px solid var(--border-color);
+            border-left: 4px solid var(--accent-red);
+            backdrop-filter: blur(12px);
+            color: var(--text-main);
+            padding: 1rem 1.2rem;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            display: flex;
+            align-items: flex-start;
+            gap: 0.8rem;
+            margin-bottom: 10px;
+            opacity: 0;
+            transform: translateY(-20px) scale(0.95);
+            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            pointer-events: auto;
         }
 
-        .modal-close {
-            position: absolute;
-            top: 1rem; right: 1rem;
-            background: none; border: none;
-            color: var(--text-muted);
-            font-size: 1.3rem; cursor: pointer;
+        .toast.show {
+            opacity: 1;
+            transform: translateY(0) scale(1);
         }
 
-        .input-group { margin-bottom: 1rem; }
-
-        .input-group label {
-            display: block;
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            margin-bottom: 0.3rem;
+        .toast.success {
+            border-left-color: #10b981;
         }
 
-        .input-group input, .input-group textarea {
-            width: 100%;
-            padding: 0.75rem;
-            background: var(--bg-dark);
-            border: 1px solid var(--border);
-            color: #fff;
-            border-radius: 6px;
-            outline: none;
+        .toast.error {
+            border-left-color: var(--accent-red);
         }
 
-        .input-group input:focus { border-color: var(--primary); }
+        .toast-icon {
+            font-size: 1.2rem;
+            margin-top: 2px;
+        }
 
-        .auth-toggle {
-            text-align: center;
-            margin-top: 1rem;
+        .toast.success .toast-icon {
+            color: #10b981;
+        }
+
+        .toast.error .toast-icon {
+            color: var(--accent-red);
+        }
+
+        .toast-body {
+            flex: 1;
+        }
+
+        .toast-title {
+            font-weight: 700;
+            font-size: 0.95rem;
+            margin-bottom: 2px;
+        }
+
+        .toast-message {
             font-size: 0.85rem;
             color: var(--text-muted);
+            line-height: 1.3;
         }
 
-        .auth-toggle a {
-            color: var(--primary);
-            text-decoration: none;
-            font-weight: 600;
-        }
-
-        /* --- FOOTER --- */
+        /* Footer */
         footer {
-            border-top: 1px solid var(--border);
+            border-top: 1px solid var(--border-color);
             padding: 2rem 1.5rem;
             text-align: center;
             color: var(--text-muted);
             font-size: 0.85rem;
-            margin-top: 3rem;
+            margin-top: auto;
         }
     </style>
 </head>
 <body>
 
-    <!-- AUTHENTICATED TRUST BANNER -->
-    <div class="trust-banner">
-        <i class="fa-solid fa-shield-halved"></i> OFFICIAL ARTIST PORTAL | <strong>AUTHENTICATED SAG-AFTRA MEMBER</strong> | @gowatchmyreel
-    </div>
+    <!-- Toast Notification Container -->
+    <div class="toast-container" id="toastContainer"></div>
 
-    <!-- NAVBAR HEADER -->
+    <!-- Header Navigation -->
     <header>
-        <div class="navbar">
-            <div class="brand-logo" onclick="switchPage('home')">
-                Tyler <span>Scherer</span>
-                <i class="fa-solid fa-circle-check verified-badge"></i>
-            </div>
-            
-            <div class="nav-actions">
-                <button class="auth-btn" id="navAuthBtn">
-                    <i class="fa-solid fa-user"></i> <span id="authBtnText">Sign Up / Login</span>
-                </button>
-                <button class="hamburger-btn" id="openMenuBtn" aria-label="Open Navigation">
-                    <i class="fa-solid fa-bars"></i>
-                </button>
-            </div>
+        <div class="brand">
+            TYLER SCHERER <i class="fa-solid fa-circle-check"></i>
+        </div>
+        <div class="nav-actions">
+            <button class="auth-btn" id="openAuthBtn" onclick="toggleModal('authModal')">
+                <i class="fa-solid fa-user"></i> Sign Up / Login
+            </button>
+            <button class="menu-btn" onclick="toggleDrawer()">
+                <i class="fa-solid fa-bars"></i>
+            </button>
         </div>
     </header>
 
-    <!-- SLIDE-OUT DRAWER MENU -->
-    <div class="menu-overlay" id="menuOverlay"></div>
-    <div class="side-menu" id="sideMenu">
-        <div>
-            <div class="menu-header">
-                <span class="menu-title">Official Navigation</span>
-                <button class="close-btn" id="closeMenuBtn"><i class="fa-solid fa-xmark"></i></button>
-            </div>
-            <ul class="menu-links">
-                <li><a href="#" onclick="navigate('home')"><i class="fa-solid fa-house"></i> Home Overview</a></li>
-                <li><a href="#" onclick="navigate('reel')"><i class="fa-solid fa-film"></i> Showreel & Demos</a></li>
-                <li><a href="#" onclick="navigate('projects')"><i class="fa-solid fa-clapperboard"></i> Filmography & Projects</a></li>
-                <li><a href="#" onclick="navigate('shows')"><i class="fa-solid fa-ticket"></i> Appearances & Passes</a></li>
-                <li><a href="#" onclick="navigate('leaderboard')"><i class="fa-solid fa-trophy"></i> Top 10 Fanboard</a></li>
-                <li><a href="#" onclick="navigate('cameo')"><i class="fa-solid fa-video"></i> Personalized Shoutouts</a></li>
-                <li><a href="#" onclick="navigate('merch')"><i class="fa-solid fa-shirt"></i> Official Merch Store</a></li>
-                <li><a href="#" onclick="navigate('badges')"><i class="fa-solid fa-award"></i> Order Fan Badges</a></li>
-                <li><a href="#" onclick="navigate('vip')"><i class="fa-solid fa-comments"></i> VIP Telegram & WhatsApp</a></li>
-                <li><a href="#" onclick="navigate('press')"><i class="fa-solid fa-address-card"></i> Press Kit & Contact</a></li>
-                <li><a href="#" onclick="navigate('charity')"><i class="fa-solid fa-hand-holding-heart"></i> Charity Foundation</a></li>
-                <li><a href="#" onclick="navigate('gallery')"><i class="fa-solid fa-images"></i> Fan Mail & Gallery</a></li>
-            </ul>
-        </div>
-        <div class="menu-footer">
-            Managed Direct • TS-VERIFIED-2026
-        </div>
+    <!-- Drawer Overlay -->
+    <div class="overlay" id="overlay" onclick="closeAll()"></div>
+
+    <!-- Navigation Drawer -->
+    <div class="drawer" id="drawer">
+        <button class="drawer-close" onclick="toggleDrawer()"><i class="fa-solid fa-xmark"></i></button>
+        <nav class="drawer-nav">
+            <a href="#" onclick="navigate('home')">Home</a>
+            <a href="#" onclick="navigate('showreels')">Showreels & Clips</a>
+            <a href="#" onclick="navigate('filmography')">Filmography</a>
+            <a href="#" onclick="navigate('merch')">Official Merch</a>
+            <a href="#" onclick="navigate('vip')">VIP Fan Groups</a>
+            <a href="#" onclick="navigate('charity')">Charity Support</a>
+        </nav>
     </div>
 
-    <!-- MAIN PAGE CONTAINER -->
+    <!-- Main Content Area -->
     <main>
-
-        <!-- PAGE 1: HOME -->
-        <section id="page-home" class="page active">
+        <!-- Home Page -->
+        <section id="home" class="page active">
             <div class="hero">
-                <div class="hero-tag">Vertical Drama Lead & Actor</div>
-                <h1>Tyler Scherer</h1>
-                <p>Welcome to the official verified hub. Create a fan account, explore showreels, request personalized videos, or order VIP passes.</p>
-                <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
-                    <button class="btn" onclick="openAuthModal('signup')"><i class="fa-solid fa-user-plus"></i> Join Official Fan Club</button>
-                    <button class="btn btn-outline" onclick="switchPage('reel')"><i class="fa-solid fa-circle-play"></i> Watch Showreel</button>
-                </div>
+                <h1>Official Fan Portal</h1>
+                <p>Book personalized shoutouts, join exclusive fan communities, and support charitable initiatives.</p>
             </div>
-        </section>
-
-        <!-- PAGE 2: SHOWREEL & DEMOS -->
-        <section id="page-reel" class="page">
-            <div class="page-header">
-                <h1>Showreel & Performance Demos</h1>
-                <p>Watch Tyler Scherer's latest theatrical showreel, comedic clips, and drama performance reels.</p>
-            </div>
-            <div class="video-container">
-                <iframe src="https://www.youtube.com/embed/LJakh5uh_tQ" title="Tyler Scherer Showreel" allowfullscreen></iframe>
-            </div>
-            <div class="card" style="text-align: center;">
-                <h3>Need Tyler's Complete High-Res Media File?</h3>
-                <p style="color: var(--text-muted); font-size: 0.9rem; margin: 0.5rem 0 1rem 0;">Casting agents and studio directors can download the official 2026 Theatrical Press Reel package.</p>
-                <button class="btn" onclick="openCheckout('Showreel Media Package Pass', 115)"><i class="fa-solid fa-download"></i> Request HD Reel Pass ($115.00)</button>
-            </div>
-        </section>
-
-        <!-- PAGE 3: FILMOGRAPHY & PROJECTS -->
-        <section id="page-projects" class="page">
-            <div class="page-header">
-                <h1>Filmography & Drama Lead Roles</h1>
-                <p>Explore recent micro-drama series, TV appearances, and theatrical productions starring Tyler Scherer.</p>
-            </div>
-            
-            <div class="card film-card">
-                <div>
-                    <div class="film-tag">ReelShort Series • Lead</div>
-                    <h3>Ex-Husband Step Aside: Lady Boss Returns</h3>
-                    <p style="color: var(--text-muted); font-size: 0.85rem;">Role: Andrew Miller • 29.2M+ Views</p>
-                </div>
-                <button class="btn btn-outline" onclick="showProjectDetails('Ex-Husband Step Aside: Lady Boss Returns', 'Andrew Miller (Lead)', 'ReelShort App', 'Romantic Drama', '2024–2025', 'Follows the intense story of Andrew Miller navigating high-stakes business betrayal and hidden identities in a multi-episode vertical hit.')">View Details</button>
-            </div>
-
-            <div class="card film-card">
-                <div>
-                    <div class="film-tag">ReelShort Original • Lead</div>
-                    <h3>Coaching His Heart</h3>
-                    <p style="color: var(--text-muted); font-size: 0.85rem;">Role: Tom (Ice Hockey Captain) • 25.2M+ Views</p>
-                </div>
-                <button class="btn btn-outline" onclick="showProjectDetails('Coaching His Heart', 'Tom (Ice Captain)', 'ReelShort App', 'Sports Romance / Drama', '2024', 'Tyler stars as Tom, an elite hockey team captain facing career crossroads while falling for his determined ice rink trainer.')">View Details</button>
-            </div>
-
-            <div class="card film-card">
-                <div>
-                    <div class="film-tag">Disney+ Television</div>
-                    <h3>The Mighty Ducks: Game Changers</h3>
-                    <p style="color: var(--text-muted); font-size: 0.85rem;">Role: Co-Star Guest Appearance</p>
-                </div>
-                <button class="btn btn-outline" onclick="showProjectDetails('The Mighty Ducks: Game Changers', 'Co-Star Guest', 'Disney+', 'Family / Sports Comedy', '2022', 'Featured guest appearance on the Disney+ original series following youth hockey development leagues in Minnesota.')">View Details</button>
-            </div>
-        </section>
-
-        <!-- PAGE 4: APPEARANCES & TICKETS -->
-        <section id="page-shows" class="page">
-            <div class="page-header">
-                <h1>Upcoming Appearances & Tickets</h1>
-                <p>Order direct entrance tickets for live theater performances and fan conventions.</p>
-            </div>
-            <div class="card film-card">
-                <div>
-                    <div class="film-tag">Live Musical Stage</div>
-                    <h3>The Producers (Stage Production)</h3>
-                    <p style="color: var(--text-muted); font-size: 0.85rem;">Ogunquit Playhouse, ME • Reserved Front Rows</p>
-                </div>
-                <button class="btn" onclick="openCheckout('The Producers VIP Pass', 115)">Order Ticket ($115.00)</button>
-            </div>
-            <div class="card film-card">
-                <div>
-                    <div class="film-tag">Fan Convention</div>
-                    <h3>Vertical Micro-Drama Expo 2026</h3>
-                    <p style="color: var(--text-muted); font-size: 0.85rem;">Metro Convention Center, NY • Keynote Panel</p>
-                </div>
-                <button class="btn" onclick="openCheckout('Drama Expo VIP Ticket', 150)">Order Ticket ($150.00)</button>
-            </div>
-        </section>
-
-        <!-- PAGE 5: TOP 10 FAN LEADERBOARD -->
-        <section id="page-leaderboard" class="page">
-            <div class="page-header">
-                <h1>Top 10 Verified Fan Board</h1>
-                <p>Acknowledging top verified supporters across the Tyler Scherer ecosystem.</p>
-            </div>
-            <div class="card" style="padding: 0.5rem 1rem;">
-                <ul style="list-style: none;">
-                    <li style="display: flex; justify-content: space-between; padding: 1rem 0; border-bottom: 1px solid var(--border);">
-                        <span><strong style="color: var(--gold);">#1</strong> Sarah Jenkins <i class="fa-solid fa-circle-check verified-badge"></i></span>
-                        <span style="font-weight: 700; color: var(--primary);">18,450 XP</span>
-                    </li>
-                    <li style="display: flex; justify-content: space-between; padding: 1rem 0; border-bottom: 1px solid var(--border);">
-                        <span><strong style="color: #c0c0c0;">#2</strong> Marcus Vance <i class="fa-solid fa-circle-check verified-badge"></i></span>
-                        <span style="font-weight: 700; color: var(--primary);">15,200 XP</span>
-                    </li>
-                    <li style="display: flex; justify-content: space-between; padding: 1rem 0; border-bottom: 1px solid var(--border);">
-                        <span><strong style="color: #cd7f32;">#3</strong> Elena Rostova <i class="fa-solid fa-circle-check verified-badge"></i></span>
-                        <span style="font-weight: 700; color: var(--primary);">12,800 XP</span>
-                    </li>
-                    <li style="display: flex; justify-content: space-between; padding: 1rem 0;">
-                        <span><strong>#4</strong> David K. <i class="fa-solid fa-circle-check verified-badge"></i></span>
-                        <span style="font-weight: 700; color: var(--primary);">10,400 XP</span>
-                    </li>
-                </ul>
-            </div>
-            <div style="text-align: center; margin-top: 1rem;">
-                <button class="btn" onclick="switchPage('badges')">Climb Leaderboard With Badges</button>
-            </div>
-        </section>
-
-        <!-- PAGE 6: PERSONALIZED SHOUTOUTS -->
-        <section id="page-cameo" class="page">
-            <div class="page-header">
-                <h1>Personalized Video Requests</h1>
-                <p>Order customized HD video messages directly from Tyler Scherer for birthdays, motivational shoutouts, or special occasions.</p>
-            </div>
-            <div class="grid-2">
-                <div class="card cameo-card">
-                    <div>
-                        <i class="fa-solid fa-cake-candles" style="font-size: 2.5rem; color: var(--primary); margin-bottom: 0.8rem;"></i>
-                        <h3>Birthday & Event Shoutout</h3>
-                        <p style="color: var(--text-muted); font-size: 0.85rem; margin-top: 0.5rem;">Custom 60-second video message addressing your recipient by name.</p>
-                        <div class="price-tag">$115.00</div>
-                    </div>
-                    <button class="btn" onclick="openCheckout('Birthday Shoutout Video', 115)">Request Shoutout</button>
-                </div>
-                <div class="card cameo-card">
-                    <div>
-                        <i class="fa-solid fa-clapperboard" style="font-size: 2.5rem; color: var(--gold); margin-bottom: 0.8rem;"></i>
-                        <h3>Acting Advice & Q&A Video</h3>
-                        <p style="color: var(--text-muted); font-size: 0.85rem; margin-top: 0.5rem;">Detailed 2-minute personalized video answering your drama and audition questions.</p>
-                        <div class="price-tag">$175.00</div>
-                    </div>
-                    <button class="btn" onclick="openCheckout('Acting Advice Video', 175)">Request Video</button>
-                </div>
-            </div>
-        </section>
-
-        <!-- PAGE 7: MERCH STORE -->
-        <section id="page-merch" class="page">
-            <div class="page-header">
-                <h1>Official Merchandise</h1>
-                <p>Exclusive limited-run apparel and signed memorabilia shipped directly to fans.</p>
-            </div>
-            <div class="grid-3">
-                <div class="card merch-item">
-                    <div>
-                        <div class="merch-img-placeholder"><i class="fa-solid fa-shirt"></i></div>
-                        <h3>"Go Watch My Reel" Hoodie</h3>
-                        <p style="color: var(--text-muted); font-size: 0.85rem;">Heavyweight embroidered black hoodie.</p>
-                        <div class="price-tag">$115.00</div>
-                    </div>
-                    <button class="btn" onclick="openCheckout('GoWatchMyReel Hoodie', 115)">Order Hoodie</button>
-                </div>
-                <div class="card merch-item">
-                    <div>
-                        <div class="merch-img-placeholder"><i class="fa-solid fa-image"></i></div>
-                        <h3>Signed Collector Poster</h3>
-                        <p style="color: var(--text-muted); font-size: 0.85rem;">Hand-signed drama poster + Certificate of Authenticity.</p>
-                        <div class="price-tag">$125.00</div>
-                    </div>
-                    <button class="btn" onclick="openCheckout('Signed Collector Poster', 125)">Order Poster</button>
-                </div>
-            </div>
-        </section>
-
-        <!-- PAGE 8: FAN BADGES -->
-        <section id="page-badges" class="page">
-            <div class="page-header">
-                <h1>Order Official Fan Badges</h1>
-                <p>Order physical and digital tier badges to gain verified status on the Top 10 leaderboard.</p>
-            </div>
-            <div class="grid-3">
-                <div class="card merch-item">
-                    <div>
-                        <i class="fa-solid fa-award" style="font-size: 2.5rem; color: #cd7f32; margin-bottom: 0.8rem;"></i>
-                        <h3>Bronze Verified Tier</h3>
-                        <p style="color: var(--text-muted); font-size: 0.85rem;">Digital Profile Icon & Leaderboard Listing.</p>
-                        <div class="price-tag">$115.00</div>
-                    </div>
-                    <button class="btn btn-outline" onclick="openCheckout('Bronze Fan Badge Order', 115)">Order Badge</button>
-                </div>
-                <div class="card merch-item" style="border-color: var(--primary);">
-                    <div>
-                        <i class="fa-solid fa-shield-halved" style="font-size: 2.5rem; color: #c0c0c0; margin-bottom: 0.8rem;"></i>
-                        <h3>Silver VIP Badge</h3>
-                        <p style="color: var(--text-muted); font-size: 0.85rem;">Physical Metal Pin & Blue Tick Rank.</p>
-                        <div class="price-tag">$185.00</div>
-                    </div>
-                    <button class="btn" onclick="openCheckout('Silver VIP Fan Badge', 185)">Order Badge</button>
-                </div>
-                <div class="card merch-item">
-                    <div>
-                        <i class="fa-solid fa-crown" style="font-size: 2.5rem; color: var(--gold); margin-bottom: 0.8rem;"></i>
-                        <h3>Gold Elite Founder</h3>
-                        <p style="color: var(--text-muted); font-size: 0.85rem;">Numbered Gold Medal & 2x XP Multiplier.</p>
-                        <div class="price-tag">$250.00</div>
-                    </div>
-                    <button class="btn btn-outline" onclick="openCheckout('Gold Founder Badge', 250)">Order Badge</button>
-                </div>
-            </div>
-        </section>
-
-        <!-- PAGE 9: VIP GROUPS -->
-        <section id="page-vip" class="page">
-            <div class="page-header">
-                <h1>VIP Messaging Groups</h1>
-                <p>Direct communication channels to Tyler's official communities.</p>
-            </div>
-            <div class="grid-2">
+            <div class="card-grid">
                 <div class="card">
-                    <i class="fa-brands fa-telegram" style="font-size: 2.5rem; color: #0088cc; margin-bottom: 1rem;"></i>
-                    <h3>Telegram VIP Channel</h3>
-                    <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 1.2rem;">Behind-the-scenes set footage and voice audio updates.</p>
-                    <a href="https://t.me" target="_blank" class="btn" style="width: 100%;">Join Telegram</a>
+                    <div class="card-header">
+                        <span class="card-title">Video Shoutout</span>
+                        <span class="price-tag">$150.00</span>
+                    </div>
+                    <div class="card-desc">Request a custom 1-minute personalized video message for birthdays, milestones, or encouragement.</div>
+                    <button class="btn-action" onclick="toggleModal('orderModal')">Request Video</button>
                 </div>
                 <div class="card">
-                    <i class="fa-brands fa-whatsapp" style="font-size: 2.5rem; color: #25d366; margin-bottom: 1rem;"></i>
-                    <h3>WhatsApp Community</h3>
-                    <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 1.2rem;">Official announcements and live show Q&A rooms.</p>
-                    <a href="https://whatsapp.com" target="_blank" class="btn" style="width: 100%; background: #25d366;">Join WhatsApp</a>
+                    <div class="card-header">
+                        <span class="card-title">Birthday & Event Shoutout</span>
+                        <span class="price-tag">$175.00</span>
+                    </div>
+                    <div class="card-desc">Specialized event greetings with custom script inclusion.</div>
+                    <button class="btn-action" onclick="toggleModal('orderModal')">Book Event Greetings</button>
                 </div>
             </div>
         </section>
 
-        <!-- PAGE 10: PRESS KIT & CONTACT -->
-        <section id="page-press" class="page">
-            <div class="page-header">
-                <h1>Press Kit & Talent Contact</h1>
-                <p>Official specifications for casting directors, agents, and brand management.</p>
-            </div>
-            <div class="card">
-                <h3>Actor Specifications & Details</h3>
-                <div class="specs-grid" style="margin-top: 1rem;">
-                    <div class="spec-box"><label>Height</label><span>6' 1"</span></div>
-                    <div class="spec-box"><label>Union</label><span>SAG-AFTRA</span></div>
-                    <div class="spec-box"><label>Education</label><span>BFA Musical Theater</span></div>
-                    <div class="spec-box"><label>Location</label><span>Los Angeles / PA</span></div>
+        <!-- Showreels Page -->
+        <section id="showreels" class="page">
+            <h2>Showreels & Acting Clips</h2>
+            <p style="color: var(--text-muted); margin-top: 0.5rem;">Explore high-definition action and dramatic showreels.</p>
+            <div class="card-grid">
+                <div class="card">
+                    <div class="card-title">Action & Stunt Reel</div>
+                    <div class="card-desc">Compilation of physical stunts, martial arts sequences, and tactical performance reels.</div>
                 </div>
-                <button class="btn" style="width: 100%;" onclick="openCheckout('Press Kit PDF Download Pass', 115)"><i class="fa-solid fa-file-pdf"></i> Download Official EPK Pass ($115.00)</button>
             </div>
         </section>
 
-        <!-- PAGE 11: CHARITY -->
-        <section id="page-charity" class="page">
-            <div class="page-header">
-                <h1>Charity & Foundation Initiatives</h1>
-                <p>Supporting youth arts education and community theater funding.</p>
-            </div>
-            <div class="card" style="text-align: center; max-width: 600px; margin: 0 auto;">
-                <i class="fa-solid fa-hand-holding-heart" style="font-size: 3.5rem; color: var(--primary); margin-bottom: 1rem;"></i>
-                <h3>Youth Arts Stage Foundation</h3>
-                <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 0.5rem;">Funding stage equipment, production workshops, and scholarships for young aspiring performers.</p>
-                
-                <div class="donation-box">
-                    <span class="currency-symbol">$</span>
-                    <input type="number" id="customDonationInput" class="donation-input" value="50" min="50" step="5" oninput="validateDonationInput()">
+        <!-- Filmography Page -->
+        <section id="filmography" class="page">
+            <h2>Filmography & Career Updates</h2>
+            <div class="card-grid">
+                <div class="card">
+                    <div class="card-title">Latest Film & TV Projects</div>
+                    <div class="card-desc">Check release dates, streaming availability, and behind-the-scenes production updates.</div>
                 </div>
-                
-                <div class="donation-quick-btns">
-                    <button class="quick-btn" onclick="setCustomAmount(50)">$50</button>
-                    <button class="quick-btn" onclick="setCustomAmount(100)">$100</button>
-                    <button class="quick-btn" onclick="setCustomAmount(250)">$250</button>
-                    <button class="quick-btn" onclick="setCustomAmount(500)">$500</button>
-                </div>
-
-                <p id="donationError" style="color: #ff4d4d; font-size: 0.8rem; display: none; margin-bottom: 1rem;">Minimum donation amount is $50.00</p>
-
-                <button class="btn" style="width: 100%;" id="charitySubmitBtn" onclick="processCustomDonation()">Process Secure Donation ($50.00)</button>
             </div>
         </section>
 
-        <!-- PAGE 12: FAN MAIL & GALLERY -->
-        <section id="page-gallery" class="page">
-            <div class="page-header">
-                <h1>Fan Mail & Photo Gallery</h1>
-                <p>Community highlights and fan submissions from across the globe.</p>
-            </div>
-            <div class="gallery-grid">
-                <div class="gallery-item"><i class="fa-solid fa-star" style="font-size: 2rem; margin-bottom: 0.5rem;"></i><span>LA Meetup Fans</span></div>
-                <div class="gallery-item"><i class="fa-solid fa-heart" style="font-size: 2rem; margin-bottom: 0.5rem;"></i><span>Show Backstage Pass</span></div>
-                <div class="gallery-item"><i class="fa-solid fa-award" style="font-size: 2rem; margin-bottom: 0.5rem;"></i><span>Gold Badge Unboxing</span></div>
+        <!-- Merch Page -->
+        <section id="merch" class="page">
+            <h2>Official Apparel & Accessories</h2>
+            <div class="card-grid">
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-title">Official Fan Cap</span>
+                        <span class="price-tag">$35.00</span>
+                    </div>
+                    <div class="card-desc">Embroidered custom logo cap. Limited supply available for fan club members.</div>
+                </div>
             </div>
         </section>
 
+        <!-- VIP Page -->
+        <section id="vip" class="page">
+            <h2>VIP Fan Groups</h2>
+            <div class="card-grid">
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-title">Inner Circle Membership</span>
+                        <span class="price-tag">$25/mo</span>
+                    </div>
+                    <div class="card-desc">Get access to private Q&As, early merch releases, and private fan chatrooms.</div>
+                    <button class="btn-action" onclick="toggleModal('authModal')">Join VIP Club</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Charity Page -->
+        <section id="charity" class="page">
+            <h2>Charity & Foundation Support</h2>
+            <div class="card-grid">
+                <div class="card">
+                    <div class="card-title">Community Support Initiatives</div>
+                    <div class="card-desc">Direct support for local youth arts programs and physical fitness foundations.</div>
+                    <button class="btn-action" onclick="toggleModal('orderModal')">Make a Donation</button>
+                </div>
+            </div>
+        </section>
     </main>
 
-    <!-- SIGN UP / LOGIN MODAL -->
+    <!-- Auth Modal (Sign Up / Login) -->
     <div class="modal" id="authModal">
-        <div class="modal-body">
-            <button class="modal-close" onclick="closeAuthModal()"><i class="fa-solid fa-xmark"></i></button>
-            
-            <div id="signupForm">
-                <h3 style="margin-bottom: 0.3rem;">Create Fan Account</h3>
-                <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 1.2rem;">Join Tyler's official fan portal for updates & access.</p>
-                <form onsubmit="handleSignUp(event)">
-                    <div class="input-group">
-                        <label>Email Address</label>
-                        <input type="email" id="signupEmail" required placeholder="fan@example.com">
-                    </div>
-                    <div class="input-group">
-                        <label>Password</label>
-                        <input type="password" id="signupPassword" required placeholder="••••••••">
-                    </div>
-                    <button type="submit" class="btn" style="width: 100%;">Create Account</button>
-                </form>
-                <div class="auth-toggle">
-                    Already have an account? <a href="#" onclick="switchAuthMode('login')">Log In</a>
-                </div>
-            </div>
-
-            <div id="loginForm" style="display: none;">
-                <h3 style="margin-bottom: 0.3rem;">Welcome Back</h3>
-                <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 1.2rem;">Log into your official fan portal account.</p>
-                <form onsubmit="handleLogin(event)">
-                    <div class="input-group">
-                        <label>Email Address</label>
-                        <input type="email" id="loginEmail" required placeholder="fan@example.com">
-                    </div>
-                    <div class="input-group">
-                        <label>Password</label>
-                        <input type="password" id="loginPassword" required placeholder="••••••••">
-                    </div>
-                    <button type="submit" class="btn" style="width: 100%;">Log In</button>
-                </form>
-                <div class="auth-toggle">
-                    Don't have an account? <a href="#" onclick="switchAuthMode('signup')">Sign Up</a>
-                </div>
-            </div>
-
+        <div class="modal-header">
+            <h3 id="authModalTitle">Create Fan Account</h3>
+            <button class="modal-close" onclick="toggleModal('authModal')"><i class="fa-solid fa-xmark"></i></button>
         </div>
+        <form id="authForm" onsubmit="handleAuthSubmit(event)">
+            <div class="form-group">
+                <label>Email Address</label>
+                <input type="email" id="authEmail" required placeholder="fan@example.com">
+            </div>
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" id="authPassword" required placeholder="••••••••••••">
+            </div>
+            <button type="submit" class="btn-action" id="authSubmitBtn">Create Account</button>
+            <p style="text-align: center; margin-top: 1rem; font-size: 0.9rem; color: var(--text-muted);">
+                <span id="authToggleText">Already have an account?</span> 
+                <a href="#" style="color: var(--accent-red);" id="authToggleLink" onclick="toggleAuthMode(event)">Log In</a>
+            </p>
+        </form>
     </div>
 
-    <!-- FREE PROJECT DETAILS MODAL -->
-    <div class="modal" id="projectModal">
-        <div class="modal-body">
-            <button class="modal-close" onclick="closeProjectDetails()"><i class="fa-solid fa-xmark"></i></button>
-            <h2 id="projTitle" style="margin-bottom: 0.4rem; font-family: var(--font-heading);">Project Title</h2>
-            <div style="margin-bottom: 1rem; font-size: 0.85rem; color: var(--primary); font-weight: 700;" id="projRole">Role</div>
-            
-            <div class="specs-grid" style="grid-template-columns: 1fr 1fr; margin-bottom: 1rem;">
-                <div class="spec-box"><label>Platform</label><span id="projPlatform">-</span></div>
-                <div class="spec-box"><label>Genre</label><span id="projGenre">-</span></div>
+    <!-- Order / Booking Modal -->
+    <div class="modal" id="orderModal">
+        <div class="modal-header">
+            <h3>Complete Request</h3>
+            <button class="modal-close" onclick="toggleModal('orderModal')"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <form onsubmit="handleOrderSubmit(event)">
+            <div class="form-group">
+                <label>Full Name</label>
+                <input type="text" required placeholder="Your Name">
             </div>
-            
-            <p id="projDesc" style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.5; margin-bottom: 1.5rem;"></p>
-            
-            <button class="btn" style="width: 100%;" onclick="closeProjectDetails()">Close Details</button>
-        </div>
+            <div class="form-group">
+                <label>Special Instructions / Message Details</label>
+                <input type="text" required placeholder="What should Tyler say?">
+            </div>
+            <button type="submit" class="btn-action">Proceed to Payment</button>
+        </form>
     </div>
 
-    <!-- CHECKOUT MODAL -->
-    <div class="modal" id="checkoutModal">
-        <div class="modal-body">
-            <button class="modal-close" onclick="closeCheckout()"><i class="fa-solid fa-xmark"></i></button>
-            <h3 id="modalTitle" style="margin-bottom: 0.3rem;">Order Checkout</h3>
-            <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 1.2rem;">Verified Encrypted Transaction Portal</p>
-            <form onsubmit="handleOrder(event)">
-                <div class="input-group">
-                    <label>Full Name</label>
-                    <input type="text" required placeholder="Enter full name">
-                </div>
-                <div class="input-group">
-                    <label>Email Address</label>
-                    <input type="email" required placeholder="Enter email address">
-                </div>
-                <div class="input-group">
-                    <label>Special Instructions / Fan Notes</label>
-                    <textarea rows="3" placeholder="Enter special requests or shipping notes..."></textarea>
-                </div>
-                <button type="submit" class="btn" style="width: 100%;" id="submitOrderBtn">Complete Order</button>
-            </form>
-        </div>
-    </div>
-
-    <!-- FOOTER -->
+    <!-- Footer -->
     <footer>
-        &copy; 2026 Tyler Scherer. Official Verified Actor Portal. All Rights Reserved.
+        &copy; 2026 Tyler Scherer. All rights reserved. Powered by Official Fan Management Portal.
     </footer>
 
-    <!-- UI JAVASCRIPT -->
-    <script>
-        // DOM Elements
-        const sideMenu = document.getElementById('sideMenu');
-        const menuOverlay = document.getElementById('menuOverlay');
-        const openMenuBtn = document.getElementById('openMenuBtn');
-        const closeMenuBtn = document.getElementById('closeMenuBtn');
-        const checkoutModal = document.getElementById('checkoutModal');
-        const projectModal = document.getElementById('projectModal');
-        const authModal = document.getElementById('authModal');
-
-        // Drawer Controls
-        function openMenu() {
-            sideMenu.classList.add('active');
-            menuOverlay.classList.add('active');
-        }
-
-        function closeMenu() {
-            sideMenu.classList.remove('active');
-            menuOverlay.classList.remove('active');
-        }
-
-        openMenuBtn.addEventListener('click', openMenu);
-        closeMenuBtn.addEventListener('click', closeMenu);
-        menuOverlay.addEventListener('click', closeMenu);
-
-        // Page Switcher
-        function switchPage(pageId) {
-            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-            const target = document.getElementById('page-' + pageId);
-            if (target) {
-                target.classList.add('active');
-            }
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        function navigate(pageId) {
-            switchPage(pageId);
-            closeMenu();
-        }
-
-        // Auth Modal UI Switcher
-        function openAuthModal(mode) {
-            switchAuthMode(mode);
-            authModal.style.display = 'flex';
-        }
-
-        function closeAuthModal() {
-            authModal.style.display = 'none';
-        }
-
-        function switchAuthMode(mode) {
-            if (mode === 'signup') {
-                document.getElementById('signupForm').style.display = 'block';
-                document.getElementById('loginForm').style.display = 'none';
-            } else {
-                document.getElementById('signupForm').style.display = 'none';
-                document.getElementById('loginForm').style.display = 'block';
-            }
-        }
-
-        // Free Project Info Modal
-        function showProjectDetails(title, role, platform, genre, year, desc) {
-            document.getElementById('projTitle').innerText = title;
-            document.getElementById('projRole').innerText = "ROLE: " + role;
-            document.getElementById('projPlatform').innerText = platform;
-            document.getElementById('projGenre').innerText = genre;
-            document.getElementById('projDesc').innerText = desc;
-            projectModal.style.display = 'flex';
-        }
-
-        function closeProjectDetails() {
-            projectModal.style.display = 'none';
-        }
-
-        // Checkout Modal
-        function openCheckout(title, amount) {
-            document.getElementById('modalTitle').innerText = title + " - $" + amount + ".00";
-            document.getElementById('submitOrderBtn').innerText = "Process Order ($" + amount + ".00)";
-            checkoutModal.style.display = 'flex';
-        }
-
-        function closeCheckout() {
-            checkoutModal.style.display = 'none';
-        }
-
-        function handleOrder(e) {
-            e.preventDefault();
-            alert('Transaction completed successfully! Order details sent to email.');
-            closeCheckout();
-        }
-
-        // Custom Donation Handlers
-        function validateDonationInput() {
-            const input = document.getElementById('customDonationInput');
-            const submitBtn = document.getElementById('charitySubmitBtn');
-            const errorMsg = document.getElementById('donationError');
-            let val = parseFloat(input.value);
-
-            if (isNaN(val) || val < 50) {
-                errorMsg.style.display = 'block';
-                submitBtn.disabled = true;
-                submitBtn.style.opacity = '0.5';
-                submitBtn.innerText = "Minimum Donation $50.00";
-            } else {
-                errorMsg.style.display = 'none';
-                submitBtn.disabled = false;
-                submitBtn.style.opacity = '1';
-                submitBtn.innerText = "Process Secure Donation ($" + val.toFixed(2) + ")";
-            }
-        }
-
-        function setCustomAmount(amount) {
-            const input = document.getElementById('customDonationInput');
-            input.value = amount;
-            validateDonationInput();
-        }
-
-        function processCustomDonation() {
-            const input = document.getElementById('customDonationInput');
-            let val = parseFloat(input.value);
-            if (!isNaN(val) && val >= 50) {
-                openCheckout('Charity Donation', val);
-            }
-        }
-    </script>
-
-    <!-- FIREBASE AUTHENTICATION ENGINE WITH EMAIL VERIFICATION -->
+    <!-- Firebase Modular SDK -->
     <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { 
             getAuth, 
             createUserWithEmailAndPassword, 
             signInWithEmailAndPassword, 
-            sendEmailVerification,
-            signOut, 
-            onAuthStateChanged 
-        } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
+            sendEmailVerification, 
+            onAuthStateChanged,
+            signOut 
+        } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
-        // YOUR FIREBASE CONFIGURATION
+        // FIREBASE CONFIGURATION
         const firebaseConfig = {
             apiKey: "AIzaSyBPvwW7lxfeqQgeZiwUf7ansdyFAg_eB4s",
             authDomain: "tyler-ac578.firebaseapp.com",
@@ -1209,77 +597,133 @@
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
 
-        // Persistent State Listener
-        onAuthStateChanged(auth, (user) => {
-            const navAuthBtn = document.getElementById('navAuthBtn');
-            const authBtnText = document.getElementById('authBtnText');
+        let isSignUpMode = true;
 
-            if (user && user.emailVerified) {
-                // User IS logged in AND email is verified
-                const username = user.email.split('@')[0];
-                authBtnText.innerText = `Hi, ${username} (Logout)`;
-                navAuthBtn.onclick = handleLogout;
+        // Custom Toast Function
+        window.showToast = function(title, message, type = 'success') {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            
+            const icon = type === 'success' ? 'fa-circle-check' : 'fa-circle-exclamation';
+            
+            toast.innerHTML = `
+                <i class="fa-solid ${icon} toast-icon"></i>
+                <div class="toast-body">
+                    <div class="toast-title">${title}</div>
+                    <div class="toast-message">${message}</div>
+                </div>
+            `;
+            
+            container.appendChild(toast);
+            
+            setTimeout(() => toast.classList.add('show'), 10);
+
+            setTimeout(() => {
+                toast.classList.remove('show');
+                setTimeout(() => toast.remove(), 300);
+            }, 4500);
+        };
+
+        // UI State Handlers
+        window.toggleAuthMode = function(e) {
+            if(e) e.preventDefault();
+            isSignUpMode = !isSignUpMode;
+            document.getElementById('authModalTitle').innerText = isSignUpMode ? "Create Fan Account" : "Welcome Back";
+            document.getElementById('authSubmitBtn').innerText = isSignUpMode ? "Create Account" : "Log In";
+            document.getElementById('authToggleText').innerText = isSignUpMode ? "Already have an account?" : "Don't have an account?";
+            document.getElementById('authToggleLink').innerText = isSignUpMode ? "Log In" : "Sign Up";
+        };
+
+        // Handle Authentication Form Submit
+        window.handleAuthSubmit = async function(e) {
+            e.preventDefault();
+            const email = document.getElementById('authEmail').value;
+            const password = document.getElementById('authPassword').value;
+
+            if (isSignUpMode) {
+                try {
+                    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+                    await sendEmailVerification(userCredential.user);
+                    showToast("Account Created", "Verification email sent. Please check your inbox and spam folder.", "success");
+                    toggleModal('authModal');
+                } catch (error) {
+                    showToast("Sign Up Failed", error.message.replace("Firebase: ", ""), "error");
+                }
             } else {
-                // User is NOT logged in or NOT verified
-                authBtnText.innerText = "Sign Up / Login";
-                navAuthBtn.onclick = () => openAuthModal('signup');
+                try {
+                    const userCredential = await signInWithEmailAndPassword(auth, email, password);
+                    if (!userCredential.user.emailVerified) {
+                        showToast("Verification Required", "Please verify your email before logging in.", "error");
+                        return;
+                    }
+                    showToast("Welcome Back!", "Logged in successfully.", "success");
+                    toggleModal('authModal');
+                } catch (error) {
+                    showToast("Login Failed", error.message.replace("Firebase: ", ""), "error");
+                }
+            }
+        };
+
+        // Track Auth State Changes
+        onAuthStateChanged(auth, (user) => {
+            const authBtn = document.getElementById('openAuthBtn');
+            if (user && user.emailVerified) {
+                authBtn.innerHTML = `<i class="fa-solid fa-user-check"></i> Account`;
+                authBtn.onclick = () => {
+                    if(confirm("Log out of your account?")) {
+                        signOut(auth);
+                        showToast("Signed Out", "You have logged out.", "success");
+                    }
+                };
+            } else {
+                authBtn.innerHTML = `<i class="fa-solid fa-user"></i> Sign Up / Login`;
+                authBtn.onclick = () => toggleModal('authModal');
             }
         });
+    </script>
 
-        // Sign Up Function with Email Verification Link
-        window.handleSignUp = async function(e) {
+    <!-- General Navigation & UI Scripts -->
+    <script>
+        function toggleDrawer() {
+            const drawer = document.getElementById('drawer');
+            const overlay = document.getElementById('overlay');
+            drawer.classList.toggle('active');
+            overlay.classList.toggle('active');
+        }
+
+        function toggleModal(modalId) {
+            const modal = document.getElementById(modalId);
+            const overlay = document.getElementById('overlay');
+            const isActive = modal.classList.contains('active');
+            
+            closeAll();
+
+            if (!isActive) {
+                modal.classList.add('active');
+                overlay.classList.add('active');
+            }
+        }
+
+        function closeAll() {
+            document.getElementById('drawer').classList.remove('active');
+            document.getElementById('overlay').classList.remove('active');
+            document.querySelectorAll('.modal').forEach(m => m.classList.remove('active'));
+        }
+
+        function navigate(pageId) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.getElementById(pageId).classList.add('active');
+            closeAll();
+            window.scrollTo(0, 0);
+        }
+
+        function handleOrderSubmit(e) {
             e.preventDefault();
-            const email = document.getElementById('signupEmail').value;
-            const password = document.getElementById('signupPassword').value;
-
-            try {
-                const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-                
-                // Send email verification link immediately
-                await sendEmailVerification(userCredential.user);
-                
-                alert("Account created! A confirmation link has been sent to " + email + ". Please check your inbox and click the link to confirm before logging in.");
-                
-                // Sign out until verified
-                await signOut(auth);
-                closeAuthModal();
-            } catch (error) {
-                alert("Sign Up Error: " + error.message);
-            }
-        };
-
-        // Login Function enforcing Email Verification Check
-        window.handleLogin = async function(e) {
-            e.preventDefault();
-            const email = document.getElementById('loginEmail').value;
-            const password = document.getElementById('loginPassword').value;
-
-            try {
-                const userCredential = await signInWithEmailAndPassword(auth, email, password);
-                
-                // Check if user confirmed their email address
-                if (!userCredential.user.emailVerified) {
-                    alert("Your email address is not verified yet! Please check your inbox/spam folder and click the verification link before logging in.");
-                    await signOut(auth);
-                    return;
-                }
-
-                alert("Welcome back, " + userCredential.user.email);
-                closeAuthModal();
-            } catch (error) {
-                alert("Login Failed: " + error.message);
-            }
-        };
-
-        // Logout Function
-        window.handleLogout = async function() {
-            try {
-                await signOut(auth);
-                alert("Logged out successfully.");
-            } catch (error) {
-                alert("Logout Error: " + error.message);
-            }
-        };
+            showToast("Order Submitted", "Redirecting to checkout payment interface...", "success");
+            closeAll();
+        }
     </script>
 </body>
 </html>
+
