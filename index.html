@@ -103,26 +103,6 @@
             gap: 0.8rem;
         }
 
-        .auth-btn {
-            background: transparent;
-            border: 1px solid var(--primary);
-            color: var(--text-main);
-            padding: 0.45rem 0.9rem;
-            border-radius: 6px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s;
-            display: flex;
-            align-items: center;
-            gap: 0.4rem;
-        }
-
-        .auth-btn:hover {
-            background: var(--primary);
-            box-shadow: 0 0 10px var(--primary-glow);
-        }
-
         /* Hamburger Button */
         .hamburger-btn {
             background: transparent;
@@ -586,19 +566,6 @@
 
         .input-group input:focus { border-color: var(--primary); }
 
-        .auth-toggle {
-            text-align: center;
-            margin-top: 1rem;
-            font-size: 0.85rem;
-            color: var(--text-muted);
-        }
-
-        .auth-toggle a {
-            color: var(--primary);
-            text-decoration: none;
-            font-weight: 600;
-        }
-
         /* --- FOOTER --- */
         footer {
             border-top: 1px solid var(--border);
@@ -626,9 +593,6 @@
             </div>
             
             <div class="nav-actions">
-                <button class="auth-btn" id="navAuthBtn">
-                    <i class="fa-solid fa-user"></i> <span id="authBtnText">Sign Up / Login</span>
-                </button>
                 <button class="hamburger-btn" id="openMenuBtn" aria-label="Open Navigation">
                     <i class="fa-solid fa-bars"></i>
                 </button>
@@ -672,10 +636,10 @@
             <div class="hero">
                 <div class="hero-tag">Vertical Drama Lead & Actor</div>
                 <h1>Tyler Scherer</h1>
-                <p>Welcome to the official verified hub. Create a fan account, explore showreels, request personalized videos, or order VIP passes.</p>
+                <p>Welcome to the official verified hub. Explore showreels, request personalized videos, or order VIP passes.</p>
                 <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
-                    <button class="btn" onclick="openAuthModal('signup')"><i class="fa-solid fa-user-plus"></i> Join Official Fan Club</button>
-                    <button class="btn btn-outline" onclick="switchPage('reel')"><i class="fa-solid fa-circle-play"></i> Watch Showreel</button>
+                    <button class="btn" onclick="switchPage('reel')"><i class="fa-solid fa-circle-play"></i> Watch Showreel</button>
+                    <button class="btn btn-outline" onclick="switchPage('projects')"><i class="fa-solid fa-clapperboard"></i> View Projects</button>
                 </div>
             </div>
         </section>
@@ -963,52 +927,6 @@
 
     </main>
 
-    <!-- SIGN UP / LOGIN MODAL -->
-    <div class="modal" id="authModal">
-        <div class="modal-body">
-            <button class="modal-close" onclick="closeAuthModal()"><i class="fa-solid fa-xmark"></i></button>
-            
-            <div id="signupForm">
-                <h3 style="margin-bottom: 0.3rem;">Create Fan Account</h3>
-                <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 1.2rem;">Join Tyler's official fan portal for updates & access.</p>
-                <form onsubmit="handleSignUp(event)">
-                    <div class="input-group">
-                        <label>Email Address</label>
-                        <input type="email" id="signupEmail" required placeholder="fan@example.com">
-                    </div>
-                    <div class="input-group">
-                        <label>Password</label>
-                        <input type="password" id="signupPassword" required placeholder="••••••••">
-                    </div>
-                    <button type="submit" class="btn" style="width: 100%;">Create Account</button>
-                </form>
-                <div class="auth-toggle">
-                    Already have an account? <a href="#" onclick="switchAuthMode('login')">Log In</a>
-                </div>
-            </div>
-
-            <div id="loginForm" style="display: none;">
-                <h3 style="margin-bottom: 0.3rem;">Welcome Back</h3>
-                <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 1.2rem;">Log into your official fan portal account.</p>
-                <form onsubmit="handleLogin(event)">
-                    <div class="input-group">
-                        <label>Email Address</label>
-                        <input type="email" id="loginEmail" required placeholder="fan@example.com">
-                    </div>
-                    <div class="input-group">
-                        <label>Password</label>
-                        <input type="password" id="loginPassword" required placeholder="••••••••">
-                    </div>
-                    <button type="submit" class="btn" style="width: 100%;">Log In</button>
-                </form>
-                <div class="auth-toggle">
-                    Don't have an account? <a href="#" onclick="switchAuthMode('signup')">Sign Up</a>
-                </div>
-            </div>
-
-        </div>
-    </div>
-
     <!-- FREE PROJECT DETAILS MODAL -->
     <div class="modal" id="projectModal">
         <div class="modal-body">
@@ -1065,7 +983,6 @@
         const closeMenuBtn = document.getElementById('closeMenuBtn');
         const checkoutModal = document.getElementById('checkoutModal');
         const projectModal = document.getElementById('projectModal');
-        const authModal = document.getElementById('authModal');
 
         // Drawer Controls
         function openMenu() {
@@ -1095,26 +1012,6 @@
         function navigate(pageId) {
             switchPage(pageId);
             closeMenu();
-        }
-
-        // Auth Modal UI Switcher
-        function openAuthModal(mode) {
-            switchAuthMode(mode);
-            authModal.style.display = 'flex';
-        }
-
-        function closeAuthModal() {
-            authModal.style.display = 'none';
-        }
-
-        function switchAuthMode(mode) {
-            if (mode === 'signup') {
-                document.getElementById('signupForm').style.display = 'block';
-                document.getElementById('loginForm').style.display = 'none';
-            } else {
-                document.getElementById('signupForm').style.display = 'none';
-                document.getElementById('loginForm').style.display = 'block';
-            }
         }
 
         // Free Project Info Modal
@@ -1182,107 +1079,9 @@
             }
         }
     </script>
-
-    <!-- FIREBASE AUTHENTICATION ENGINE WITH EMAIL VERIFICATION -->
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
-        import { 
-            getAuth, 
-            createUserWithEmailAndPassword, 
-            signInWithEmailAndPassword, 
-            sendEmailVerification,
-            signOut, 
-            onAuthStateChanged 
-        } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
-
-        // YOUR FIREBASE CONFIGURATION
-        const firebaseConfig = {
-            apiKey: "AIzaSyBPvwW7lxfeqQgeZiwUf7ansdyFAg_eB4s",
-            authDomain: "tyler-ac578.firebaseapp.com",
-            projectId: "tyler-ac578",
-            storageBucket: "tyler-ac578.firebasestorage.app",
-            messagingSenderId: "361515975510",
-            appId: "1:361515975510:web:e29bfd7b9440"
-        };
-
-        // Initialize Firebase
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-
-        // Persistent State Listener
-        onAuthStateChanged(auth, (user) => {
-            const navAuthBtn = document.getElementById('navAuthBtn');
-            const authBtnText = document.getElementById('authBtnText');
-
-            if (user && user.emailVerified) {
-                // User IS logged in AND email is verified
-                const username = user.email.split('@')[0];
-                authBtnText.innerText = `Hi, ${username} (Logout)`;
-                navAuthBtn.onclick = handleLogout;
-            } else {
-                // User is NOT logged in or NOT verified
-                authBtnText.innerText = "Sign Up / Login";
-                navAuthBtn.onclick = () => openAuthModal('signup');
-            }
-        });
-
-        // Sign Up Function with Email Verification Link
-        window.handleSignUp = async function(e) {
-            e.preventDefault();
-            const email = document.getElementById('signupEmail').value;
-            const password = document.getElementById('signupPassword').value;
-
-            try {
-                const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-                
-                // Send email verification link immediately
-                await sendEmailVerification(userCredential.user);
-                
-                alert("Account created! A confirmation link has been sent to " + email + ". Please check your inbox and click the link to confirm before logging in.");
-                
-                // Sign out until verified
-                await signOut(auth);
-                closeAuthModal();
-            } catch (error) {
-                alert("Sign Up Error: " + error.message);
-            }
-        };
-
-        // Login Function enforcing Email Verification Check
-        window.handleLogin = async function(e) {
-            e.preventDefault();
-            const email = document.getElementById('loginEmail').value;
-            const password = document.getElementById('loginPassword').value;
-
-            try {
-                const userCredential = await signInWithEmailAndPassword(auth, email, password);
-                
-                // Check if user confirmed their email address
-                if (!userCredential.user.emailVerified) {
-                    alert("Your email address is not verified yet! Please check your inbox/spam folder and click the verification link before logging in.");
-                    await signOut(auth);
-                    return;
-                }
-
-                alert("Welcome back, " + userCredential.user.email);
-                closeAuthModal();
-            } catch (error) {
-                alert("Login Failed: " + error.message);
-            }
-        };
-
-        // Logout Function
-        window.handleLogout = async function() {
-            try {
-                await signOut(auth);
-                alert("Logged out successfully.");
-            } catch (error) {
-                alert("Logout Error: " + error.message);
-            }
-        };
-    </script>
 </body>
 </html>
+
 
 
 
