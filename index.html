@@ -1183,20 +1183,21 @@
         }
     </script>
 
-    <!-- FIREBASE AUTHENTICATION ENGINE -->
+    <!-- FIREBASE AUTHENTICATION ENGINE WITH EMAIL VERIFICATION -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
         import { 
             getAuth, 
             createUserWithEmailAndPassword, 
             signInWithEmailAndPassword, 
+            sendEmailVerification,
             signOut, 
             onAuthStateChanged 
         } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
 
         // YOUR FIREBASE CONFIGURATION
         const firebaseConfig = {
-            apiKey: "AIzaSyBPvwW7lxfeqQgeZiwUf7ansd",
+            apiKey: "AIzaSyBPvwW7lxfeqQgeZiwUf7ansdyFAg_eB4s",
             authDomain: "tyler-ac578.firebaseapp.com",
             projectId: "tyler-ac578",
             storageBucket: "tyler-ac578.firebasestorage.app",
@@ -1213,19 +1214,19 @@
             const navAuthBtn = document.getElementById('navAuthBtn');
             const authBtnText = document.getElementById('authBtnText');
 
-            if (user) {
-                // Fan IS logged in! (Persistent session active)
+            if (user && user.emailVerified) {
+                // User IS logged in AND email is verified
                 const username = user.email.split('@')[0];
                 authBtnText.innerText = `Hi, ${username} (Logout)`;
                 navAuthBtn.onclick = handleLogout;
             } else {
-                // Fan is NOT logged in
+                // User is NOT logged in or NOT verified
                 authBtnText.innerText = "Sign Up / Login";
                 navAuthBtn.onclick = () => openAuthModal('signup');
             }
         });
 
-        // Sign Up Function
+        // Sign Up Function with Email Verification Link
         window.handleSignUp = async function(e) {
             e.preventDefault();
             const email = document.getElementById('signupEmail').value;
@@ -1233,14 +1234,21 @@
 
             try {
                 const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-                alert("Account created! Welcome " + userCredential.user.email);
+                
+                // Send email verification link immediately
+                await sendEmailVerification(userCredential.user);
+                
+                alert("Account created! A confirmation link has been sent to " + email + ". Please check your inbox and click the link to confirm before logging in.");
+                
+                // Sign out until verified
+                await signOut(auth);
                 closeAuthModal();
             } catch (error) {
                 alert("Sign Up Error: " + error.message);
             }
         };
 
-        // Login Function
+        // Login Function enforcing Email Verification Check
         window.handleLogin = async function(e) {
             e.preventDefault();
             const email = document.getElementById('loginEmail').value;
@@ -1248,6 +1256,14 @@
 
             try {
                 const userCredential = await signInWithEmailAndPassword(auth, email, password);
+                
+                // Check if user confirmed their email address
+                if (!userCredential.user.emailVerified) {
+                    alert("Your email address is not verified yet! Please check your inbox/spam folder and click the verification link before logging in.");
+                    await signOut(auth);
+                    return;
+                }
+
                 alert("Welcome back, " + userCredential.user.email);
                 closeAuthModal();
             } catch (error) {
@@ -1267,4 +1283,3 @@
     </script>
 </body>
 </html>
-
