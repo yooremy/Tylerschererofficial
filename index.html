@@ -74,6 +74,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            gap: 1rem;
         }
 
         .brand-logo {
@@ -94,6 +95,32 @@
         .verified-badge {
             font-size: 0.85rem;
             color: var(--verified-blue);
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .auth-btn {
+            background: transparent;
+            border: 1px solid var(--primary);
+            color: var(--text-main);
+            padding: 0.45rem 0.9rem;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .auth-btn:hover {
+            background: var(--primary);
+            box-shadow: 0 0 10px var(--primary-glow);
         }
 
         /* Hamburger Button */
@@ -507,7 +534,7 @@
             color: var(--primary);
         }
 
-        /* --- MODAL --- */
+        /* --- MODAL STYLES --- */
         .modal {
             display: none;
             position: fixed;
@@ -554,6 +581,22 @@
             border: 1px solid var(--border);
             color: #fff;
             border-radius: 6px;
+            outline: none;
+        }
+
+        .input-group input:focus { border-color: var(--primary); }
+
+        .auth-toggle {
+            text-align: center;
+            margin-top: 1rem;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .auth-toggle a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
         }
 
         /* --- FOOTER --- */
@@ -581,10 +624,15 @@
                 Tyler <span>Scherer</span>
                 <i class="fa-solid fa-circle-check verified-badge"></i>
             </div>
-            <!-- Hamburger Drawer Switcher -->
-            <button class="hamburger-btn" id="openMenuBtn" aria-label="Open Navigation">
-                <i class="fa-solid fa-bars"></i>
-            </button>
+            
+            <div class="nav-actions">
+                <button class="auth-btn" id="navAuthBtn">
+                    <i class="fa-solid fa-user"></i> <span id="authBtnText">Sign Up / Login</span>
+                </button>
+                <button class="hamburger-btn" id="openMenuBtn" aria-label="Open Navigation">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
         </div>
     </header>
 
@@ -624,9 +672,9 @@
             <div class="hero">
                 <div class="hero-tag">Vertical Drama Lead & Actor</div>
                 <h1>Tyler Scherer</h1>
-                <p>Welcome to the official verified hub. Access showreels, order VIP entrance passes, request personalized videos, or view the top supporters list.</p>
+                <p>Welcome to the official verified hub. Create a fan account, explore showreels, request personalized videos, or order VIP passes.</p>
                 <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
-                    <button class="btn" onclick="openMenu()"><i class="fa-solid fa-bars"></i> Explore All Sections</button>
+                    <button class="btn" onclick="openAuthModal('signup')"><i class="fa-solid fa-user-plus"></i> Join Official Fan Club</button>
                     <button class="btn btn-outline" onclick="switchPage('reel')"><i class="fa-solid fa-circle-play"></i> Watch Showreel</button>
                 </div>
             </div>
@@ -648,7 +696,7 @@
             </div>
         </section>
 
-        <!-- PAGE 3: FILMOGRAPHY & PROJECTS (FREE TO VIEW) -->
+        <!-- PAGE 3: FILMOGRAPHY & PROJECTS -->
         <section id="page-projects" class="page">
             <div class="page-header">
                 <h1>Filmography & Drama Lead Roles</h1>
@@ -915,6 +963,52 @@
 
     </main>
 
+    <!-- SIGN UP / LOGIN MODAL -->
+    <div class="modal" id="authModal">
+        <div class="modal-body">
+            <button class="modal-close" onclick="closeAuthModal()"><i class="fa-solid fa-xmark"></i></button>
+            
+            <div id="signupForm">
+                <h3 style="margin-bottom: 0.3rem;">Create Fan Account</h3>
+                <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 1.2rem;">Join Tyler's official fan portal for updates & access.</p>
+                <form onsubmit="handleSignUp(event)">
+                    <div class="input-group">
+                        <label>Email Address</label>
+                        <input type="email" id="signupEmail" required placeholder="fan@example.com">
+                    </div>
+                    <div class="input-group">
+                        <label>Password</label>
+                        <input type="password" id="signupPassword" required placeholder="••••••••">
+                    </div>
+                    <button type="submit" class="btn" style="width: 100%;">Create Account</button>
+                </form>
+                <div class="auth-toggle">
+                    Already have an account? <a href="#" onclick="switchAuthMode('login')">Log In</a>
+                </div>
+            </div>
+
+            <div id="loginForm" style="display: none;">
+                <h3 style="margin-bottom: 0.3rem;">Welcome Back</h3>
+                <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 1.2rem;">Log into your official fan portal account.</p>
+                <form onsubmit="handleLogin(event)">
+                    <div class="input-group">
+                        <label>Email Address</label>
+                        <input type="email" id="loginEmail" required placeholder="fan@example.com">
+                    </div>
+                    <div class="input-group">
+                        <label>Password</label>
+                        <input type="password" id="loginPassword" required placeholder="••••••••">
+                    </div>
+                    <button type="submit" class="btn" style="width: 100%;">Log In</button>
+                </form>
+                <div class="auth-toggle">
+                    Don't have an account? <a href="#" onclick="switchAuthMode('signup')">Sign Up</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
     <!-- FREE PROJECT DETAILS MODAL -->
     <div class="modal" id="projectModal">
         <div class="modal-body">
@@ -962,7 +1056,7 @@
         &copy; 2026 Tyler Scherer. Official Verified Actor Portal. All Rights Reserved.
     </footer>
 
-    <!-- JAVASCRIPT ENGINE -->
+    <!-- UI JAVASCRIPT -->
     <script>
         // DOM Elements
         const sideMenu = document.getElementById('sideMenu');
@@ -971,6 +1065,7 @@
         const closeMenuBtn = document.getElementById('closeMenuBtn');
         const checkoutModal = document.getElementById('checkoutModal');
         const projectModal = document.getElementById('projectModal');
+        const authModal = document.getElementById('authModal');
 
         // Drawer Controls
         function openMenu() {
@@ -1000,6 +1095,26 @@
         function navigate(pageId) {
             switchPage(pageId);
             closeMenu();
+        }
+
+        // Auth Modal UI Switcher
+        function openAuthModal(mode) {
+            switchAuthMode(mode);
+            authModal.style.display = 'flex';
+        }
+
+        function closeAuthModal() {
+            authModal.style.display = 'none';
+        }
+
+        function switchAuthMode(mode) {
+            if (mode === 'signup') {
+                document.getElementById('signupForm').style.display = 'block';
+                document.getElementById('loginForm').style.display = 'none';
+            } else {
+                document.getElementById('signupForm').style.display = 'none';
+                document.getElementById('loginForm').style.display = 'block';
+            }
         }
 
         // Free Project Info Modal
@@ -1067,5 +1182,89 @@
             }
         }
     </script>
+
+    <!-- FIREBASE AUTHENTICATION ENGINE -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
+        import { 
+            getAuth, 
+            createUserWithEmailAndPassword, 
+            signInWithEmailAndPassword, 
+            signOut, 
+            onAuthStateChanged 
+        } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
+
+        // YOUR FIREBASE CONFIGURATION
+        const firebaseConfig = {
+            apiKey: "AIzaSyBPvwW7lxfeqQgeZiwUf7ansd",
+            authDomain: "tyler-ac578.firebaseapp.com",
+            projectId: "tyler-ac578",
+            storageBucket: "tyler-ac578.firebasestorage.app",
+            messagingSenderId: "361515975510",
+            appId: "1:361515975510:web:e29bfd7b9440"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        // Persistent State Listener
+        onAuthStateChanged(auth, (user) => {
+            const navAuthBtn = document.getElementById('navAuthBtn');
+            const authBtnText = document.getElementById('authBtnText');
+
+            if (user) {
+                // Fan IS logged in! (Persistent session active)
+                const username = user.email.split('@')[0];
+                authBtnText.innerText = `Hi, ${username} (Logout)`;
+                navAuthBtn.onclick = handleLogout;
+            } else {
+                // Fan is NOT logged in
+                authBtnText.innerText = "Sign Up / Login";
+                navAuthBtn.onclick = () => openAuthModal('signup');
+            }
+        });
+
+        // Sign Up Function
+        window.handleSignUp = async function(e) {
+            e.preventDefault();
+            const email = document.getElementById('signupEmail').value;
+            const password = document.getElementById('signupPassword').value;
+
+            try {
+                const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+                alert("Account created! Welcome " + userCredential.user.email);
+                closeAuthModal();
+            } catch (error) {
+                alert("Sign Up Error: " + error.message);
+            }
+        };
+
+        // Login Function
+        window.handleLogin = async function(e) {
+            e.preventDefault();
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+
+            try {
+                const userCredential = await signInWithEmailAndPassword(auth, email, password);
+                alert("Welcome back, " + userCredential.user.email);
+                closeAuthModal();
+            } catch (error) {
+                alert("Login Failed: " + error.message);
+            }
+        };
+
+        // Logout Function
+        window.handleLogout = async function() {
+            try {
+                await signOut(auth);
+                alert("Logged out successfully.");
+            } catch (error) {
+                alert("Logout Error: " + error.message);
+            }
+        };
+    </script>
 </body>
 </html>
+
